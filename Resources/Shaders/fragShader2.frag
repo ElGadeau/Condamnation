@@ -31,7 +31,7 @@ void main()
 
     for(int i = 0; i < 3; i++)
     {
-        vec3 lightPosition = vec3(ModelMat * vec4(pointLights[i].LightPos, 1.0f));
+        vec3 lightPosition = pointLights[i].LightPos;
         vec3 lightColor = pointLights[i].LightColor;
         // diffuse lighting
         vec3 norm = o_normal;
