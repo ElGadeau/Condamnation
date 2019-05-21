@@ -45,6 +45,17 @@ Core::GameObjectManager::~GameObjectManager()
 {
 }
 
+void Core::GameObjectManager::Update(float deltaTime)
+{
+    Find("OrangeLight")->GetComponent<Components::LightComp>()->m_light->m_pos = Find("OrangeLight")->GetComponent<Components::TransformComp>()->m_transform->GetPosition();
+    Find("BlueLight")->GetComponent<Components::TransformComp>()->m_transform->Translate(glm::vec3(cos(1) / 10, 0, sin(1) / 10) * deltaTime);
+    Find("BlueLight")->GetComponent<Components::LightComp>()->m_light->m_pos = Find("BlueLight")->GetComponent<Components::TransformComp>()->m_transform->GetPosition();
+
+
+    Find("Torus")->GetComponent<Components::TransformComp>()->m_transform->Rotate(glm::vec3(1, 0, 0) * deltaTime);
+    Find("Gear")->GetComponent<Components::TransformComp>()->m_transform->Rotate(glm::vec3(0, 1, 0) *deltaTime);
+}
+
 std::shared_ptr<Core::GameObject> Core::GameObjectManager::Find(const std::string & p_name)
 {
     for (int i = 0; i < m_gameObjects.size(); ++i)

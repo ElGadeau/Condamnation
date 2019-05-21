@@ -73,13 +73,7 @@ int main()
         device->RefreshEvents();
         renderer->Clear();
 
-        gameobjects.Find("OrangeLight")->GetComponent<Components::LightComp>()->m_light->m_pos = gameobjects.Find("OrangeLight")->GetComponent<Components::TransformComp>()->m_transform->GetPosition();
-        gameobjects.Find("BlueLight")->GetComponent<Components::TransformComp>()->m_transform->Translate(glm::vec3(cos(angle) / 10, 0, sin(angle) / 10) * device->GetDeltaTime());
-        gameobjects.Find("BlueLight")->GetComponent<Components::LightComp>()->m_light->m_pos = gameobjects.Find("BlueLight")->GetComponent<Components::TransformComp>()->m_transform->GetPosition();
-        
-        
-        gameobjects.Find("Torus")->GetComponent<Components::TransformComp>()->m_transform->Rotate(glm::vec3( 1, 0, 0 ) * device->GetDeltaTime());
-        gameobjects.Find("Gear")->GetComponent<Components::TransformComp>()->m_transform->Rotate(glm::vec3( 0, 1, 0 ) * device->GetDeltaTime());
+        gameobjects.Update(device->GetDeltaTime());
         m_camera.ProcessKeyInput(m_inputManager, device->GetDeltaTime());
         m_camera.ProcessMouseInput(m_inputManager.GetMouseInputList());
                 
