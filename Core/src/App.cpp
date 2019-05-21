@@ -5,7 +5,6 @@
 
 #include <Core/GameObject.h>
 #include <Core/MeshManager.h>
-#include <PhysX/BulletEngine.h>
 
 #include <Components/include/Component.h>
 #include <Components/include/TransformComp.h>
@@ -21,15 +20,6 @@
 
 #include <Rendering/Resources/Mesh.h>
 #include "Core/RenderEngine.h"
-
-glm::mat4 btScalar2mat4(btScalar* matrix) 
-{
-    return glm::mat4(
-        matrix[0], matrix[1], matrix[2], matrix[3],
-        matrix[4], matrix[5], matrix[6], matrix[7],
-        matrix[8], matrix[9], matrix[10], matrix[11],
-        matrix[12], matrix[13], matrix[14], matrix[15]);
-}
 
 std::vector<Core::GameObject> GenerateLights(std::vector<std::shared_ptr<Core::GameObject>>& m_gameObjectVector)
 {
@@ -61,7 +51,6 @@ int main()
 
     Rendering::Managers::InputManager m_inputManager(device->GetWindow());
     Core::RenderEngine m_renderEngine;
-    Core::PhysX::BulletEngine physicsEngine;
     Core::MeshManager m_modelManager;
     Rendering::Managers::CameraManager m_camera(glm::vec3(20.0f, 0, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f), -90.0f, -25.0f);
 
@@ -92,7 +81,6 @@ int main()
     OrangeLight->GetComponent<Components::TransformComp>()->m_transform->Translate(glm::vec3(0, 60, 0));
     OrangeLight->AddComponent<Components::LightComp>()->m_light->m_pos = OrangeLight->GetComponent<Components::TransformComp>()->m_transform->GetPosition();
     OrangeLight->GetComponent<Components::LightComp>()->m_light->m_color = glm::vec3(1, 0.647, 0);
-    OrangeLight->AddComponent<Components::RigidBodyComp>()->m_rigidbody->CreateSphereRigidBody(1, glm::value_ptr(OrangeLight->GetComponent<Components::TransformComp>()->m_transform->m_transMat), 1);
 
     BlueLight->GetComponent<Components::TransformComp>()->m_transform->Translate(glm::vec3(0, 10, 0));
     BlueLight->AddComponent<Components::LightComp>()->m_light->m_pos = BlueLight->GetComponent<Components::TransformComp>()->m_transform->GetPosition();
@@ -105,16 +93,12 @@ int main()
     DirLight->GetComponent<Components::LightComp>()->m_light->intensity = 0.2f;
 
     flatTerrain->GetComponent<Components::TransformComp>()->m_transform->Rotate(glm::vec3(0, 0, 0));
-    flatTerrain->AddComponent<Components::RigidBodyComp>()->m_rigidbody->CreateBoxRigidBody(btVector3(10, 1, 10), glm::value_ptr(flatTerrain->GetComponent<Components::TransformComp>()->m_transform->m_transMat), 0);
 
     Gear->GetComponent<Components::TransformComp>()->m_transform->Translate({ 5, 5, 0 });
-    Torus->GetComponent<Components::TransformComp>()->m_transform->Translate({ -5, 2, 1 });
+    Torus->GetComponent<Components::TransformComp>()->m_transform->Translate({ -5, 5, 1 });
 
 
     lights = GenerateLights(gameObjectVector);
-
-    physicsEngine.LoadRigidBodies(gameObjectVector, rigidBodies);
-    physicsEngine.SetupRigidBodies(rigidBodies);
 
     float angle = 0;
     while (!device->ShouldClose())
@@ -135,14 +119,12 @@ int main()
         BlueLight->GetComponent<Components::LightComp>()->m_light->m_pos = BlueLight->GetComponent<Components::TransformComp>()->m_transform->GetPosition();
         
         
-        Torus->GetComponent<Components::TransformComp>()->m_transform->Rotate(glm::vec3( angle, 0, 0 ) * device->GetDeltaTime());
-        Gear->GetComponent<Components::TransformComp>()->m_transform->Rotate(glm::vec3( 0, angle * 2, 0 ) * device->GetDeltaTime());
+        Torus->GetComponent<Components::TransformComp>()->m_transform->Rotate(glm::vec3( 1, 0, 0 ) * device->GetDeltaTime());
+        Gear->GetComponent<Components::TransformComp>()->m_transform->Rotate(glm::vec3( 0, 1, 0 ) * device->GetDeltaTime());
         m_camera.ProcessKeyInput(m_inputManager.GetKeyInputList(), device->GetDeltaTime());
         m_camera.ProcessMouseInput(m_inputManager.GetMouseInputList());
 
         m_renderEngine.DrawElements(gameObjectVector, lights, *m_camera.GetCamera(), *renderer);
-        physicsEngine.PhysXUpdate(device->GetDeltaTime());
-        physicsEngine.PreUpdate(rigidBodies);
 
         device->Render();
 
