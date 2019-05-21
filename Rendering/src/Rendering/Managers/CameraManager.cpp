@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include <Rendering/Managers/CameraManager.h>
+#include <Rendering/Managers/InputManager.h>
 
 Rendering::Managers::CameraManager::CameraManager(glm::vec3 p_position,
     glm::vec3 p_up, float p_yaw, float p_pitch)
@@ -21,35 +22,32 @@ void Rendering::Managers::CameraManager::Init(glm::vec3 p_position, glm::vec3 p_
     m_camera = std::make_shared<Rendering::LowRenderer::Camera>(p_position, p_up, p_yaw, p_pitch);
 }
 
-void Rendering::Managers::CameraManager::ProcessKeyInput(std::list<int> p_inputList, const float p_deltaTime)
+void Rendering::Managers::CameraManager::ProcessKeyInput(InputManager& p_inputManager, const float p_deltaTime)
 {
     glm::vec3 nextMove;
-    for (auto& input : p_inputList)
+    if (p_inputManager.GetKey(InputManager::KeyCode::W)) //move forward
     {
-        if (input == 87) //move forward
-        {
-            MoveCamera(m_camera->m_front * p_deltaTime);
-        }
-        if (input == 65) //move left
-        {
-            MoveCamera(-m_camera->m_right * p_deltaTime);
-        }
-        if (input == 83) //move backward
-        {
-            MoveCamera(-m_camera->m_front * p_deltaTime);
-        }
-        if (input == 68) //move right
-        {
-            MoveCamera(m_camera->m_right * p_deltaTime);
-        }
-        if (input == 340) //move up
-        {
-            MoveCamera(m_camera->m_up * p_deltaTime);
-        }
-        if (input == 341) //move down
-        {
-            MoveCamera(-m_camera->m_up * p_deltaTime);
-        }
+        MoveCamera(m_camera->m_front * p_deltaTime);
+    }
+    if (p_inputManager.GetKey(InputManager::KeyCode::A)) //move left
+    {
+        MoveCamera(-m_camera->m_right * p_deltaTime);
+    }
+    if (p_inputManager.GetKey(InputManager::KeyCode::S)) //move backward
+    {
+        MoveCamera(-m_camera->m_front * p_deltaTime);
+    }
+    if (p_inputManager.GetKey(InputManager::KeyCode::D)) //move right
+    {
+        MoveCamera(m_camera->m_right * p_deltaTime);
+    }
+    if (p_inputManager.GetKey(InputManager::KeyCode::LeftShift)) //move up
+    {
+        MoveCamera(m_camera->m_worldUp * p_deltaTime);
+    }
+    if (p_inputManager.GetKey(InputManager::KeyCode::LeftControl)) //move down
+    {
+        MoveCamera(-m_camera->m_worldUp * p_deltaTime);
     }
 }
 

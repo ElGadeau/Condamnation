@@ -4,6 +4,7 @@
 #include <Rendering/Export.h>
 #include <Rendering/LowRenderer/Camera.h>
 #include <list>
+#include "InputManager.h"
 
 namespace Rendering::Managers
 {
@@ -15,7 +16,7 @@ namespace Rendering::Managers
 
         void Init(glm::vec3 p_position, glm::vec3 p_up, float p_yaw, float p_pitch);
 
-        void ProcessKeyInput(std::list<int> p_inputList, const float p_deltaTime);
+        void ProcessKeyInput(InputManager& p_inputManager, const float p_deltaTime);
         void ProcessMouseInput(glm::vec2 p_inputList);
         void MoveCamera(glm::vec3 p_direction);
 

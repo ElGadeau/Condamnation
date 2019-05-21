@@ -104,11 +104,12 @@ int main()
     while (!device->ShouldClose())
     {
         angle += 0.005f;
-        for (auto& inputKey : m_inputManager.GetKeyInputList())
-        {
-            if (inputKey == 82)
-                m_modelManager.ReloadShader(gameObjectVector);
-        }
+        
+        if (m_inputManager.GetKeyDown(Rendering::Managers::InputManager::KeyCode::R)) //move forward
+            m_modelManager.ReloadShader(gameObjectVector);
+
+        if (m_inputManager.GetKeyDown(Rendering::Managers::InputManager::KeyCode::Escape)) //move forward
+            device->Close();
 
         device->CalculateDeltaTime();
         device->RefreshEvents();
@@ -121,11 +122,11 @@ int main()
         
         Torus->GetComponent<Components::TransformComp>()->m_transform->Rotate(glm::vec3( 1, 0, 0 ) * device->GetDeltaTime());
         Gear->GetComponent<Components::TransformComp>()->m_transform->Rotate(glm::vec3( 0, 1, 0 ) * device->GetDeltaTime());
-        m_camera.ProcessKeyInput(m_inputManager.GetKeyInputList(), device->GetDeltaTime());
+        m_camera.ProcessKeyInput(m_inputManager, device->GetDeltaTime());
         m_camera.ProcessMouseInput(m_inputManager.GetMouseInputList());
-
+                
         m_renderEngine.DrawElements(gameObjectVector, lights, *m_camera.GetCamera(), *renderer);
-
+        
         device->Render();
 
     }

@@ -23,6 +23,7 @@ namespace Rendering::Context::OpenGL
 
         void CalculateDeltaTime() noexcept;
         float GetDeltaTime() const noexcept;
+        void Close();
 
     private:
         std::shared_ptr<GLFWWindow> m_window;

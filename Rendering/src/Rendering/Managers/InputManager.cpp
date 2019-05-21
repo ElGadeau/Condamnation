@@ -31,9 +31,35 @@ Rendering::Managers::InputManager::~InputManager() noexcept
     assert(m_window->m_mouseMoved.RemoveListener(m_idMouseMovedListener));
 }
 
-std::list<int> Rendering::Managers::InputManager::GetKeyInputList()
+bool Rendering::Managers::InputManager::GetKeyDown(const KeyCode& p_keyCode)
 {
-    return m_keyInputList;
+    if (!(m_inputBuffer.find(p_keyCode) == m_inputBuffer.end()))
+        if (m_inputBuffer.find(p_keyCode)->second == "KeyDown")
+        {
+            m_inputBuffer.at(p_keyCode) = "Complete";
+            return true;
+        }
+    return false;
+
+}
+
+bool Rendering::Managers::InputManager::GetKeyUp(const KeyCode& p_keyCode)
+{
+    if (!(m_inputBuffer.find(p_keyCode) == m_inputBuffer.end()))
+        if (m_inputBuffer.find(p_keyCode)->second == "KeyUp")
+        {
+            m_inputBuffer.at(p_keyCode) = "Complete";
+            return true;
+        }
+    return false;
+}
+
+bool Rendering::Managers::InputManager::GetKey(const KeyCode& p_keyCode)
+{
+    if (!(m_inputBuffer.find(p_keyCode) == m_inputBuffer.end()))
+        if (m_inputBuffer.find(p_keyCode)->second == "KeyDown")
+            return true;
+    return false;
 }
 
 glm::vec2 Rendering::Managers::InputManager::GetMouseInputList()
@@ -43,15 +69,16 @@ glm::vec2 Rendering::Managers::InputManager::GetMouseInputList()
 
 void Rendering::Managers::InputManager::OnKeyPressed(int p_key)
 {
-    if (p_key == 256)
-        glfwSetWindowShouldClose(std::any_cast<GLFWwindow*>(m_window->Data()), true);
+    /*if (p_key == 256)
+        glfwSetWindowShouldClose(std::any_cast<GLFWwindow*>(m_window->Data()), true);*/
 
-    m_keyInputList.emplace_back(p_key);
+
+    m_inputBuffer.insert_or_assign(p_key, "KeyDown");
 }
 
 void Rendering::Managers::InputManager::OnKeyReleased(int p_key)
 {
-    m_keyInputList.remove(p_key);
+    m_inputBuffer.insert_or_assign(p_key, "KeyUp");
 }
 
 void Rendering::Managers::InputManager::OnMouseButtonPressed(int p_button)

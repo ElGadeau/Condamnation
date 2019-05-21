@@ -65,3 +65,8 @@ float GLFWDevice::GetDeltaTime() const noexcept
 {
     return deltaTime;
 }
+
+void GLFWDevice::Close()
+{
+    glfwSetWindowShouldClose(std::any_cast<GLFWwindow*>(m_window->Data()), true);
+}
