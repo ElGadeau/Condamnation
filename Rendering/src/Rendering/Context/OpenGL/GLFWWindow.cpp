@@ -12,7 +12,7 @@ GLFWWindow::GLFWWindow()
     assert(m_instance == nullptr);
     m_instance = this;
 
-    glfwSetInputMode(m_glfwWindow, GLFW_CURSOR, GLFW_CURSOR_HIDDEN);
+    glfwSetInputMode(m_glfwWindow, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 
     BindKeyCallback();
     BindMouseCallback();

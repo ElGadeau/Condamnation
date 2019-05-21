@@ -69,13 +69,15 @@ int main()
         if (m_inputManager.GetKeyDown(Rendering::Managers::InputManager::KeyCode::Escape))
             device->Close();
 
+        m_inputManager.UpdateCursorPos();
+
         device->CalculateDeltaTime();
         device->RefreshEvents();
         renderer->Clear();
 
         gameobjects.Update(device->GetDeltaTime());
         m_camera.ProcessKeyInput(m_inputManager, device->GetDeltaTime());
-        m_camera.ProcessMouseInput(m_inputManager.GetMouseInputList());
+        m_camera.ProcessMouseInput(m_inputManager.GetMouseCursorPos());
                 
         m_renderEngine.DrawElements(gameobjects.m_gameObjects, lights, *m_camera.GetCamera(), *renderer);
         

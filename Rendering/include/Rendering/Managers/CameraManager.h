@@ -17,7 +17,7 @@ namespace Rendering::Managers
         void Init(glm::vec3 p_position, glm::vec3 p_up, float p_yaw, float p_pitch);
 
         void ProcessKeyInput(InputManager& p_inputManager, const float p_deltaTime);
-        void ProcessMouseInput(glm::vec2 p_inputList);
+        void ProcessMouseInput(const std::tuple<double, double>& p_mouseCursor);
         void MoveCamera(glm::vec3 p_direction);
 
         std::shared_ptr<LowRenderer::Camera> GetCamera();

@@ -51,10 +51,13 @@ void Rendering::Managers::CameraManager::ProcessKeyInput(InputManager& p_inputMa
     }
 }
 
-void Rendering::Managers::CameraManager::ProcessMouseInput(glm::vec2 p_inputList)
+void Rendering::Managers::CameraManager::ProcessMouseInput(const std::tuple<double, double>& p_mouseCursor)
 {
-    float Xoffset = p_inputList.x - m_lastX;
-    float Yoffset = m_lastY - p_inputList.y;
+    float Xoffset = std::get<0>(p_mouseCursor) - m_lastX;
+    float Yoffset = m_lastY - std::get<1>(p_mouseCursor);
+
+    m_lastX = std::get<0>(p_mouseCursor);
+    m_lastY = std::get<1>(p_mouseCursor);
 
     Xoffset *= m_camera->m_mouseSensitivity;
     Yoffset *= m_camera->m_mouseSensitivity;
@@ -73,7 +76,7 @@ void Rendering::Managers::CameraManager::ProcessMouseInput(glm::vec2 p_inputList
 
 void Rendering::Managers::CameraManager::MoveCamera(glm::vec3 p_direction)
 {
-    m_camera->m_position += p_direction;
+    m_camera->m_position += p_direction * m_camera->m_movementSpeed;
 }
 
 std::shared_ptr<Rendering::LowRenderer::Camera> Rendering::Managers::CameraManager::GetCamera()

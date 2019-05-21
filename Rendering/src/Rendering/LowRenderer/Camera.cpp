@@ -38,9 +38,9 @@ void Rendering::LowRenderer::Camera::UpdateCameraVectors()
 {
     //calculate front
     glm::vec3 front;
-    front.x = cos(glm::radians(m_yaw)) * cos(glm::radians(m_pitch));
+    front.x = cos(glm::radians(m_pitch)) * cos(glm::radians(m_yaw));
     front.y = sin(glm::radians(m_pitch));
-    front.z = sin(glm::radians(m_yaw)) * cos(glm::radians(m_pitch));
+    front.z = cos(glm::radians(m_pitch)) * sin(glm::radians(m_yaw));
     m_front = glm::normalize(front);
 
     //calculate right and up
