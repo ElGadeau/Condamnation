@@ -23,8 +23,9 @@ Core::GameObject::GameObject(const std::string & p_meshPath, const std::string &
     GetComponent<Components::ModelComp>()->m_model->SetShader(Rendering::Resources::Loaders::ShaderLoader::LoadShader(p_vertPath, p_fragPath));
 }
 
-Core::GameObject::GameObject(std::shared_ptr<Rendering::Resources::Mesh> p_mesh, Rendering::Shaders::Shader* p_Shader)
+Core::GameObject::GameObject(std::shared_ptr<Rendering::Resources::Mesh> p_mesh, Rendering::Shaders::Shader* p_Shader, const char* p_name)
 {
+    m_name = p_name;
     AddComponent<Components::TransformComp>();
     AddComponent<Components::ModelComp>()->m_model->SetMesh(p_mesh);
     GetComponent<Components::ModelComp>()->m_model->SetShader(p_Shader);
@@ -63,4 +64,9 @@ void Core::GameObject::ReloadShader()
     std::string pathB = GetComponent<Components::ModelComp>()->m_model->GetShader()->m_fragPath;
 
     GetComponent<Components::ModelComp>()->m_model->SetShader(Rendering::Resources::Loaders::ShaderLoader::LoadShader(pathA, pathB));
+}
+
+std::string & Core::GameObject::GetName()
+{
+    return m_name;
 }

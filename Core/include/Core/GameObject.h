@@ -15,7 +15,7 @@ namespace Core
     public:
         GameObject();
         GameObject(const std::string& p_meshPath, const std::string& p_vertPath, const std::string& p_fragPath);
-        GameObject(std::shared_ptr<Rendering::Resources::Mesh> p_mesh, Rendering::Shaders::Shader* p_Shader);
+        GameObject(std::shared_ptr<Rendering::Resources::Mesh> p_mesh, Rendering::Shaders::Shader* p_Shader, const char* p_name);
         ~GameObject();
 
         Rendering::Resources::Model* m_model;
@@ -25,6 +25,7 @@ namespace Core
         void Update(Rendering::LowRenderer::Camera& cam, std::vector<GameObject>& p_lights);
         void ReloadShader();
 
+        std::string& GetName();
         template<class ComponentType>
         ComponentType* AddComponent()
         {
@@ -54,6 +55,7 @@ namespace Core
         }
 
     private:
+        std::string m_name;
         std::vector<std::shared_ptr<Components::Component>> m_components;
     };
 }

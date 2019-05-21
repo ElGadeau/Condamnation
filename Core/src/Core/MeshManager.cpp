@@ -36,6 +36,21 @@ void Core::MeshManager::ReloadShader(std::vector<std::shared_ptr<Core::GameObjec
         gameObject->ReloadShader();
 }
 
+void Core::MeshManager::LoadMeshes()
+{
+    AddMesh(R"(..\Resources\Meshes\plane2.obj)");
+    AddMesh(R"(..\Resources\Meshes\sphere.fbx)");
+    AddMesh(R"(..\Resources\Meshes\plane.fbx)");
+    AddMesh(R"(..\Resources\Meshes\torus.fbx)");
+    AddMesh(R"(..\Resources\Meshes\gear.fbx)");
+}
+
+void Core::MeshManager::LoadShaders()
+{
+    AddShader("../Resources/Shaders/vertShader.vert", "../Resources/Shaders/fragShader2.frag");
+    AddShader("../Resources/Shaders/vertShader.vert", "../Resources/Shaders/lightShader.frag");
+}
+
 std::shared_ptr<Rendering::Resources::Mesh> Core::MeshManager::GetMesh(int p_position)
 {
     return meshes[p_position];

@@ -36,6 +36,9 @@
     <ClCompile Include="src\Components\src\TransformComp.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\Core\GameObjectManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\Core\GameObject.h">
@@ -60,6 +63,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\Components\include\RigidBodyComp.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Core\GameObjectManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -162,6 +162,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\Core\GameObjectManager.cpp" />
     <ClCompile Include="src\Components\src\Component.cpp" />
     <ClCompile Include="src\Components\src\ModelComp.cpp" />
     <ClCompile Include="src\App.cpp" />
@@ -176,6 +177,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="include\Core\GameObjectManager.h" />
     <ClInclude Include="include\Components\include\Component.h" />
     <ClInclude Include="include\Components\include\LightComp.h" />
     <ClInclude Include="include\Core\GameObject.h" />

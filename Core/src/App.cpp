@@ -4,12 +4,12 @@
 #include <math.h>
 
 #include <Core/GameObject.h>
+#include <Core/GameObjectManager.h>
 #include <Core/MeshManager.h>
 
 #include <Components/include/Component.h>
 #include <Components/include/TransformComp.h>
 #include <Components/include/LightComp.h>
-#include <Components/include/RigidBodyComp.h>
 
 #include <Rendering/Context/OpenGL/GLFWDevice.h>
 #include <Rendering/Context/OpenGL/GLEWDriver.h>
@@ -43,89 +43,47 @@ int main()
     renderer->Initialize<Rendering::Context::OpenGL::GLEWDriver>();
     renderer->SetupCulling();
 
-    auto inputManager = std::make_unique<Rendering::Managers::InputManager>(device->GetWindow());
-
-    std::vector<std::shared_ptr<Core::GameObject>> gameObjectVector;
-    std::vector<std::shared_ptr<Core::GameObject>> rigidBodies;
-    std::vector<Core::GameObject> lights;
-
     Rendering::Managers::InputManager m_inputManager(device->GetWindow());
-    Core::RenderEngine m_renderEngine;
-    Core::MeshManager m_modelManager;
     Rendering::Managers::CameraManager m_camera(glm::vec3(20.0f, 0, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f), -90.0f, -25.0f);
 
-    m_modelManager.AddMesh(R"(..\Resources\Meshes\plane2.obj)");
-    m_modelManager.AddMesh(R"(..\Resources\Meshes\sphere.fbx)");
-    m_modelManager.AddMesh(R"(..\Resources\Meshes\plane.fbx)");
-    m_modelManager.AddMesh(R"(..\Resources\Meshes\torus.fbx)");
-    m_modelManager.AddMesh(R"(..\Resources\Meshes\gear.fbx)");
+    std::vector<Core::GameObject> lights;
 
-    m_modelManager.AddShader("../Resources/Shaders/vertShader.vert", "../Resources/Shaders/fragShader2.frag");
-    m_modelManager.AddShader("../Resources/Shaders/vertShader.vert", "../Resources/Shaders/lightShader.frag");
+    Core::RenderEngine m_renderEngine;
+    Core::MeshManager modelManager;
 
-    std::shared_ptr<Core::GameObject> flatTerrain(new Core::GameObject(m_modelManager.GetMesh(0), m_modelManager.GetShader(0)));
-    std::shared_ptr<Core::GameObject> DirLight(new Core::GameObject(m_modelManager.GetMesh(1), m_modelManager.GetShader(1)));
-    std::shared_ptr<Core::GameObject> OrangeLight(new Core::GameObject(m_modelManager.GetMesh(1), m_modelManager.GetShader(1)));
-    std::shared_ptr<Core::GameObject> BlueLight(new Core::GameObject(m_modelManager.GetMesh(1), m_modelManager.GetShader(1)));
-    std::shared_ptr<Core::GameObject> Torus(new Core::GameObject(m_modelManager.GetMesh(3), m_modelManager.GetShader(0)));
-    std::shared_ptr<Core::GameObject> Gear(new Core::GameObject(m_modelManager.GetMesh(4), m_modelManager.GetShader(0)));
-
-    gameObjectVector.emplace_back(flatTerrain);
-    gameObjectVector.emplace_back(DirLight);
-    gameObjectVector.emplace_back(OrangeLight);
-    gameObjectVector.emplace_back(BlueLight);
-    gameObjectVector.emplace_back(Torus);
-    gameObjectVector.emplace_back(Gear);
+    modelManager.LoadMeshes();
+    modelManager.LoadShaders();
+    Core::GameObjectManager gameobjects(modelManager);
 
 
-    OrangeLight->GetComponent<Components::TransformComp>()->m_transform->Translate(glm::vec3(0, 60, 0));
-    OrangeLight->AddComponent<Components::LightComp>()->m_light->m_pos = OrangeLight->GetComponent<Components::TransformComp>()->m_transform->GetPosition();
-    OrangeLight->GetComponent<Components::LightComp>()->m_light->m_color = glm::vec3(1, 0.647, 0);
-
-    BlueLight->GetComponent<Components::TransformComp>()->m_transform->Translate(glm::vec3(0, 10, 0));
-    BlueLight->AddComponent<Components::LightComp>()->m_light->m_pos = BlueLight->GetComponent<Components::TransformComp>()->m_transform->GetPosition();
-    BlueLight->GetComponent<Components::LightComp>()->m_light->m_color = glm::vec3(0, 0.745, 1);
-
-    DirLight->GetComponent<Components::TransformComp>()->m_transform->Translate(glm::vec3(0, 20, 20));
-    DirLight->AddComponent<Components::LightComp>()->m_light->m_pos = DirLight->GetComponent<Components::TransformComp>()->m_transform->GetPosition();
-    DirLight->GetComponent<Components::LightComp>()->m_light->m_color = glm::vec3(0.9, 0.9, 0.6);
-    DirLight->GetComponent<Components::LightComp>()->m_light->isDirectionnal = true;
-    DirLight->GetComponent<Components::LightComp>()->m_light->intensity = 0.2f;
-
-    flatTerrain->GetComponent<Components::TransformComp>()->m_transform->Rotate(glm::vec3(0, 0, 0));
-
-    Gear->GetComponent<Components::TransformComp>()->m_transform->Translate({ 5, 5, 0 });
-    Torus->GetComponent<Components::TransformComp>()->m_transform->Translate({ -5, 5, 1 });
-
-
-    lights = GenerateLights(gameObjectVector);
+    lights = GenerateLights(gameobjects.m_gameObjects);
 
     float angle = 0;
     while (!device->ShouldClose())
     {
         angle += 0.005f;
         
-        if (m_inputManager.GetKeyDown(Rendering::Managers::InputManager::KeyCode::R)) //move forward
-            m_modelManager.ReloadShader(gameObjectVector);
+        if (m_inputManager.GetKeyDown(Rendering::Managers::InputManager::KeyCode::R))
+            modelManager.ReloadShader(gameobjects.m_gameObjects);
 
-        if (m_inputManager.GetKeyDown(Rendering::Managers::InputManager::KeyCode::Escape)) //move forward
+        if (m_inputManager.GetKeyDown(Rendering::Managers::InputManager::KeyCode::Escape))
             device->Close();
 
         device->CalculateDeltaTime();
         device->RefreshEvents();
         renderer->Clear();
 
-        OrangeLight->GetComponent<Components::LightComp>()->m_light->m_pos = OrangeLight->GetComponent<Components::TransformComp>()->m_transform->GetPosition();
-        BlueLight->GetComponent<Components::TransformComp>()->m_transform->Translate(glm::vec3(cos(angle) / 10, 0, sin(angle) / 10) * device->GetDeltaTime());
-        BlueLight->GetComponent<Components::LightComp>()->m_light->m_pos = BlueLight->GetComponent<Components::TransformComp>()->m_transform->GetPosition();
+        gameobjects.Find("OrangeLight")->GetComponent<Components::LightComp>()->m_light->m_pos = gameobjects.Find("OrangeLight")->GetComponent<Components::TransformComp>()->m_transform->GetPosition();
+        gameobjects.Find("BlueLight")->GetComponent<Components::TransformComp>()->m_transform->Translate(glm::vec3(cos(angle) / 10, 0, sin(angle) / 10) * device->GetDeltaTime());
+        gameobjects.Find("BlueLight")->GetComponent<Components::LightComp>()->m_light->m_pos = gameobjects.Find("BlueLight")->GetComponent<Components::TransformComp>()->m_transform->GetPosition();
         
         
-        Torus->GetComponent<Components::TransformComp>()->m_transform->Rotate(glm::vec3( 1, 0, 0 ) * device->GetDeltaTime());
-        Gear->GetComponent<Components::TransformComp>()->m_transform->Rotate(glm::vec3( 0, 1, 0 ) * device->GetDeltaTime());
+        gameobjects.Find("Torus")->GetComponent<Components::TransformComp>()->m_transform->Rotate(glm::vec3( 1, 0, 0 ) * device->GetDeltaTime());
+        gameobjects.Find("Gear")->GetComponent<Components::TransformComp>()->m_transform->Rotate(glm::vec3( 0, 1, 0 ) * device->GetDeltaTime());
         m_camera.ProcessKeyInput(m_inputManager, device->GetDeltaTime());
         m_camera.ProcessMouseInput(m_inputManager.GetMouseInputList());
                 
-        m_renderEngine.DrawElements(gameObjectVector, lights, *m_camera.GetCamera(), *renderer);
+        m_renderEngine.DrawElements(gameobjects.m_gameObjects, lights, *m_camera.GetCamera(), *renderer);
         
         device->Render();
 
