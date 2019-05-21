@@ -169,8 +169,6 @@
     <ClCompile Include="src\Core\MeshManager.cpp" />
     <ClCompile Include="src\Components\src\TransformComp.cpp" />
     <ClCompile Include="src\Core\RenderEngine.cpp" />
-    <ClCompile Include="src\PhysX\BulletEngine.cpp" />
-    <ClCompile Include="src\PhysX\RigidBody.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Rendering\Rendering.vcxproj">
@@ -185,8 +183,6 @@
     <ClInclude Include="include\Components\include\TransformComp.h" />
     <ClInclude Include="include\Core\RenderEngine.h" />
     <ClInclude Include="include\Components\include\ModelComp.h" />
-    <ClInclude Include="include\PhysX\BulletEngine.h" />
-    <ClInclude Include="include\PhysX\RigidBody.h" />
     <ClInclude Include="include\Components\include\RigidBodyComp.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
