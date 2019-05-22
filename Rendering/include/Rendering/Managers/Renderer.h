@@ -2,8 +2,8 @@
 #include <GL/glew.h>
 #include <Rendering/Export.h>
 #include <Rendering/Context/IDriver.h>
-#include <Core/GameObject.h>
 #include <Rendering/Managers/CameraManager.h>
+#include <Rendering/Resources/Mesh.h>
 
 namespace Rendering::Managers
 {
