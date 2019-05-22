@@ -10,6 +10,8 @@ std::shared_ptr<Rendering::Resources::Mesh> Rendering::Resources::Loaders::MeshL
 	std::vector<Rendering::Geometry::Vertex> vertices;
 	std::vector<uint32_t> indices;
 
+    int offset = 0;
+
 	Assimp::Importer m_importer;
 	const aiScene* m_scene = m_importer.ReadFile(pfile,
 		aiProcess_OptimizeMeshes 
@@ -49,11 +51,12 @@ std::shared_ptr<Rendering::Resources::Mesh> Rendering::Resources::Loaders::MeshL
 		{
 			if (t_mesh->mFaces[faceIdx].mNumIndices == 3)
 			{
-				indices.push_back(t_mesh->mFaces[faceIdx].mIndices[0]);
-				indices.push_back(t_mesh->mFaces[faceIdx].mIndices[1]);
-				indices.push_back(t_mesh->mFaces[faceIdx].mIndices[2]);
+				indices.push_back(t_mesh->mFaces[faceIdx].mIndices[0] + offset);
+				indices.push_back(t_mesh->mFaces[faceIdx].mIndices[1] + offset);
+				indices.push_back(t_mesh->mFaces[faceIdx].mIndices[2] + offset);
 			}
 		}
+        offset += t_mesh->mNumVertices;
 	}
 	//std::cout << indices.size() << std::endl;
     return std::shared_ptr<Mesh>(new Mesh{vertices, indices});
