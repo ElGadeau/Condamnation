@@ -54,7 +54,7 @@ Core::GameObjectManager::~GameObjectManager()
 
 void Core::GameObjectManager::Update(float deltaTime)
 {
-    angle += 0.005f;
+    angle += 0.005f * deltaTime;
     Find("OrangeLight")->GetComponent<Components::LightComp>()->m_light->m_pos = Find("OrangeLight")->GetComponent<Components::TransformComp>()->m_transform->GetPosition();
     Find("BlueLight")->GetComponent<Components::TransformComp>()->m_transform->Translate(glm::vec3(cos(angle * 20), 0, sin(angle * 20)) * deltaTime);
     Find("BlueLight")->GetComponent<Components::LightComp>()->m_light->m_pos = Find("BlueLight")->GetComponent<Components::TransformComp>()->m_transform->GetPosition();
