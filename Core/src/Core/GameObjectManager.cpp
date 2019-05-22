@@ -1,5 +1,7 @@
 #include <Core/GameObjectManager.h>
 
+static float angle = 0;
+
 Core::GameObjectManager::GameObjectManager()
 {
 }
@@ -20,24 +22,29 @@ Core::GameObjectManager::GameObjectManager(Core::MeshManager& p_modelManager)
     m_gameObjects.emplace_back(Torus);
     m_gameObjects.emplace_back(Gear);
 
-    OrangeLight->GetComponent<Components::TransformComp>()->m_transform->Translate(glm::vec3(0, 60, 0));
+    OrangeLight->GetComponent<Components::TransformComp>()->m_transform->Translate(glm::vec3(0, 10, 0));
     OrangeLight->AddComponent<Components::LightComp>()->m_light->m_pos = OrangeLight->GetComponent<Components::TransformComp>()->m_transform->GetPosition();
-    OrangeLight->GetComponent<Components::LightComp>()->m_light->m_color = glm::vec3(1, 0.647, 0);
+    OrangeLight->GetComponent<Components::LightComp>()->m_light->m_color = glm::vec3(0, 1, 1);
 
     BlueLight->GetComponent<Components::TransformComp>()->m_transform->Translate(glm::vec3(0, 10, 0));
     BlueLight->AddComponent<Components::LightComp>()->m_light->m_pos = BlueLight->GetComponent<Components::TransformComp>()->m_transform->GetPosition();
-    BlueLight->GetComponent<Components::LightComp>()->m_light->m_color = glm::vec3(0, 0.745, 1);
+    BlueLight->GetComponent<Components::LightComp>()->m_light->m_color = glm::vec3(1, 0, 1);
 
     DirLight->GetComponent<Components::TransformComp>()->m_transform->Translate(glm::vec3(0, 20, 20));
     DirLight->AddComponent<Components::LightComp>()->m_light->m_pos = DirLight->GetComponent<Components::TransformComp>()->m_transform->GetPosition();
-    DirLight->GetComponent<Components::LightComp>()->m_light->m_color = glm::vec3(0.9, 0.9, 0.6);
+    DirLight->GetComponent<Components::LightComp>()->m_light->m_color = glm::vec3(0.9, 0.9, 0.9);
     DirLight->GetComponent<Components::LightComp>()->m_light->isDirectionnal = true;
     DirLight->GetComponent<Components::LightComp>()->m_light->intensity = 0.2f;
 
     flatTerrain->GetComponent<Components::TransformComp>()->m_transform->Rotate(glm::vec3(0, 0, 0));
+    flatTerrain->GetComponent<Components::MaterialComp>()->m_material->SetColor(0.8f, 0.8f, 0.8f);
 
     Gear->GetComponent<Components::TransformComp>()->m_transform->Translate({ 5, 5, 0 });
     Torus->GetComponent<Components::TransformComp>()->m_transform->Translate({ -5, 5, 1 });
+    Torus->GetComponent<Components::MaterialComp>()->m_material->SetColor(0, 1, 1);
+    Torus->GetComponent<Components::MaterialComp>()->m_material->SetShininess(1);
+    Gear->GetComponent<Components::MaterialComp>()->m_material->SetColor(0.4f, 0.4f, 0.4f);
+    Gear->GetComponent<Components::MaterialComp>()->m_material->SetShininess(1);
 }
 
 
@@ -47,8 +54,9 @@ Core::GameObjectManager::~GameObjectManager()
 
 void Core::GameObjectManager::Update(float deltaTime)
 {
+    angle += 0.005f;
     Find("OrangeLight")->GetComponent<Components::LightComp>()->m_light->m_pos = Find("OrangeLight")->GetComponent<Components::TransformComp>()->m_transform->GetPosition();
-    Find("BlueLight")->GetComponent<Components::TransformComp>()->m_transform->Translate(glm::vec3(cos(1) / 10, 0, sin(1) / 10) * deltaTime);
+    Find("BlueLight")->GetComponent<Components::TransformComp>()->m_transform->Translate(glm::vec3(cos(angle * 20), 0, sin(angle * 20)) * deltaTime);
     Find("BlueLight")->GetComponent<Components::LightComp>()->m_light->m_pos = Find("BlueLight")->GetComponent<Components::TransformComp>()->m_transform->GetPosition();
 
 

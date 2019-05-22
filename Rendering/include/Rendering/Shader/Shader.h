@@ -4,6 +4,7 @@
 #include <Rendering/LowRenderer/Camera.h>
 #include <Rendering/LowRenderer/Transform.h>
 #include <Rendering/LowRenderer/Light.h>
+#include <Rendering/LowRenderer/Material.h>
 #include <Rendering/Export.h>
 
 namespace Rendering::Shaders
@@ -17,7 +18,7 @@ namespace Rendering::Shaders
         void Unbind();
 
         GLuint shaderProgram;
-		GLint m_data[4];
+		GLint m_data[6];
         
         std::string m_vertPath;
         std::string m_fragPath;
@@ -25,7 +26,7 @@ namespace Rendering::Shaders
 		static GLuint CreateShader(const GLuint& p_type, const std::string& p_source);
         static std::string GetSource(const std::string p_filePath);
 		void Load(const std::string & p_Shader, const GLuint& p_type, const std::string & p_pathf, const GLuint& p_typef);
-		void Update(LowRenderer::Camera& cam, Rendering::LowRenderer::Transform& trans, std::vector<Rendering::LowRenderer::Light>& p_lights);
+		void Update(LowRenderer::Camera& cam, Rendering::LowRenderer::Transform& trans, Rendering::LowRenderer::Material& p_mat, std::vector<Rendering::LowRenderer::Light>& p_lights);
 		void ApplyShader();
 	};
 }

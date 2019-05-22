@@ -1,11 +1,14 @@
 #include "stdafx.h"
 #include <Core/GameObject.h>
-#include <Rendering/Resources/Model.h>
+
 #include <Components/ModelComp.h>
 #include <Components/TransformComp.h>
 #include <Components/LightComp.h>
-#include <Rendering/Shader/Shader.h>
+#include <Components/MaterialComp.h>
+
+#include <Rendering/Resources/Model.h>
 #include <Rendering/Resources/Loaders/ShaderLoader.h>
+
 #include <Rendering/LowRenderer/Transform.h>
 #include <Rendering/Shader/Shader.h>
 
@@ -14,6 +17,7 @@ Core::GameObject::GameObject()
 {
     AddComponent<Components::TransformComp>();
     AddComponent<Components::ModelComp>();
+    AddComponent<Components::MaterialComp>();
 }
 
 Core::GameObject::GameObject(const std::string & p_meshPath, const std::string & p_vertPath, const std::string & p_fragPath)
@@ -21,6 +25,7 @@ Core::GameObject::GameObject(const std::string & p_meshPath, const std::string &
     AddComponent<Components::TransformComp>();
     AddComponent<Components::ModelComp>()->m_model->SetMesh(Rendering::Resources::Model::LoadMesh(p_meshPath));
     GetComponent<Components::ModelComp>()->m_model->SetShader(Rendering::Resources::Loaders::ShaderLoader::LoadShader(p_vertPath, p_fragPath));
+    AddComponent<Components::MaterialComp>();
 }
 
 Core::GameObject::GameObject(std::shared_ptr<Rendering::Resources::Mesh> p_mesh, Rendering::Shaders::Shader* p_Shader, const char* p_name)
@@ -29,6 +34,7 @@ Core::GameObject::GameObject(std::shared_ptr<Rendering::Resources::Mesh> p_mesh,
     AddComponent<Components::TransformComp>();
     AddComponent<Components::ModelComp>()->m_model->SetMesh(p_mesh);
     GetComponent<Components::ModelComp>()->m_model->SetShader(p_Shader);
+    AddComponent<Components::MaterialComp>();
 }
 
 Core::GameObject::~GameObject()
@@ -55,7 +61,11 @@ void Core::GameObject::Update(Rendering::LowRenderer::Camera & p_cam, std::vecto
     }
     degree += 0.01f;
     GetComponent<Components::ModelComp>()->m_model->m_shader->ApplyShader();
-    GetComponent<Components::ModelComp>()->m_model->m_shader->Update(p_cam, *GetComponent<Components::TransformComp>()->m_transform, m_lights);
+    GetComponent<Components::ModelComp>()->m_model->m_shader->Update(
+        p_cam, 
+        *GetComponent<Components::TransformComp>()->m_transform, 
+        *GetComponent<Components::MaterialComp>()->m_material, 
+        m_lights);
 }
 
 void Core::GameObject::ReloadShader()

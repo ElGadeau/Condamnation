@@ -3,6 +3,7 @@
 #include <Core/MeshManager.h>
 #include <Components/Component.h>
 #include <Components/TransformComp.h>
+#include <Components/MaterialComp.h>
 #include <Components/LightComp.h>
 
 namespace Core

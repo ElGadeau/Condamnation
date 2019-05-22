@@ -37,7 +37,7 @@ namespace Core
         template<class ComponentType>
         ComponentType* GetComponent()
         {
-            std::shared_ptr<ComponentType> result;
+           std::shared_ptr<ComponentType> result;
 
             for (auto& component : m_components) 
             {

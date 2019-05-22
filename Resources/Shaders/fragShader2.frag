@@ -16,12 +16,13 @@ struct LightSource
 
 uniform LightSource pointLights[8];
 uniform vec3 viewPos;
+uniform vec3 objColor;
+uniform float objShininess;
 
-int radius = 4;
+int radius = 8;
 
 void main()
 {
-    vec3 objColor = vec3(1, 1, 1);
     vec3 resultFinal = vec3(0, 0, 0);
 
     vec3 viewDir = normalize(viewPos - o_pos);
@@ -54,7 +55,7 @@ void main()
         vec3 diffuse = diff * pointLights[i].LightColor;
 
         // specular lighting
-        float specularStrength = 0.4;
+        float specularStrength = objShininess;
         vec3 reflectDir = reflect(-lightDir, norm);  
         float spec = pow(max(dot(viewDir, reflectDir), 0.0), 4);
         vec3 specular = specularStrength * spec * lightColor;  

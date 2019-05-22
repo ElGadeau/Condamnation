@@ -48,5 +48,6 @@
     <ClInclude Include="include\Rendering\Test.h" />
     <ClInclude Include="include\Rendering\Managers\CameraManager.h" />
     <ClInclude Include="include\Rendering\LowRenderer\Light.h" />
+    <ClInclude Include="include\Rendering\LowRenderer\Material.h" />
   </ItemGroup>
 </Project>

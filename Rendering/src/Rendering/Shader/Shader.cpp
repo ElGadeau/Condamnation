@@ -4,9 +4,6 @@
 #include <glm/gtc/type_ptr.hpp>
 
 #include <Rendering/Shader/Shader.h>
-#include <Rendering/LowRenderer/Camera.h>
-#include <Rendering/LowRenderer/Transform.h>
-#include <Rendering/LowRenderer/Light.h>
 
 #include <GL/glew.h>
 #include <fstream>
@@ -43,7 +40,7 @@ GLuint Rendering::Shaders::Shader::CreateShader(const GLuint & p_type, const std
 	glGetShaderiv(m_shaderID, GL_COMPILE_STATUS, &success);
 	if (!success)
 	{
-		//std::cout << "Error, shader compilation failed\n" << infoLog << std::endl;
+		std::cout << "Error, shader compilation failed\n" << infoLog << std::endl;
 	}
 
 	return m_shaderID;
@@ -89,15 +86,19 @@ void Rendering::Shaders::Shader::Load(const std::string & p_Shader, const GLuint
 	m_data[1] = glGetUniformLocation(shaderProgram, "CameraMatrix");
 	m_data[2] = glGetUniformLocation(shaderProgram, "ModelMatrix");
 	m_data[3] = glGetUniformLocation(shaderProgram, "viewPos");
+	m_data[4] = glGetUniformLocation(shaderProgram, "objColor");
+	m_data[5] = glGetUniformLocation(shaderProgram, "objShininess");
 
 }
 
-void Rendering::Shaders::Shader::Update(LowRenderer::Camera& cam, Rendering::LowRenderer::Transform& trans, std::vector<Rendering::LowRenderer::Light>& p_lights)
+void Rendering::Shaders::Shader::Update(LowRenderer::Camera& cam, Rendering::LowRenderer::Transform& trans, Rendering::LowRenderer::Material& p_mat, std::vector<Rendering::LowRenderer::Light>& p_lights)
 {
 	glUniformMatrix4fv(m_data[0], 1, GL_FALSE, glm::value_ptr(cam.GetPerspectiveMatrix()));
 	glUniformMatrix4fv(m_data[1], 1, GL_FALSE, glm::value_ptr(cam.GetViewMatrix()));
 	glUniformMatrix4fv(m_data[2], 1, GL_FALSE, glm::value_ptr(trans.m_transMat));
 	glUniform3f(m_data[3], cam.m_position.x, cam.m_position.y, cam.m_position.z);
+    glUniform3f(m_data[4], p_mat.r, p_mat.g, p_mat.b);
+    glUniform1f(m_data[5], p_mat.shininess);
 
     for (int i = 0; i < p_lights.size(); ++i)
     {
