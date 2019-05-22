@@ -78,19 +78,19 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <IncludePath>$(ProjectDir)include;$(SolutionDir)Core\include;$(IncludePath)</IncludePath>
+    <IncludePath>$(ProjectDir)include;$(IncludePath)</IncludePath>
     <SourcePath>$(ProjectDir)src;$(SourcePath)</SourcePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <IncludePath>$(ProjectDir)include;$(SolutionDir)Core\include;$(IncludePath)</IncludePath>
+    <IncludePath>$(ProjectDir)include;$(IncludePath)</IncludePath>
     <SourcePath>$(ProjectDir)src;$(SourcePath)</SourcePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <IncludePath>$(ProjectDir)include;$(SolutionDir)Core\include;$(IncludePath)</IncludePath>
+    <IncludePath>$(ProjectDir)include;$(IncludePath)</IncludePath>
     <SourcePath>$(ProjectDir)src;$(SourcePath)</SourcePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <IncludePath>$(ProjectDir)include;$(SolutionDir)Core\include;$(IncludePath)</IncludePath>
+    <IncludePath>$(ProjectDir)include;$(IncludePath)</IncludePath>
     <SourcePath>$(ProjectDir)src;$(SourcePath)</SourcePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
