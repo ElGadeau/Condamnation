@@ -1,9 +1,9 @@
 #pragma once
 #include <Core/GameObject.h>
 #include <Core/MeshManager.h>
-#include <Components/include/Component.h>
-#include <Components/include/TransformComp.h>
-#include <Components/include/LightComp.h>
+#include <Components/Component.h>
+#include <Components/TransformComp.h>
+#include <Components/LightComp.h>
 
 namespace Core
 {

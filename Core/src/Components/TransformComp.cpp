@@ -1,4 +1,4 @@
-#include <Components/include/TransformComp.h>
+#include <Components/TransformComp.h>
 #include <iostream>
 
 Components::TransformComp::TransformComp()

@@ -1,9 +1,9 @@
 #include "stdafx.h"
 #include <Core/GameObject.h>
 #include <Rendering/Resources/Model.h>
-#include <Components/include/ModelComp.h>
-#include <Components/include/TransformComp.h>
-#include <Components/include/LightComp.h>
+#include <Components/ModelComp.h>
+#include <Components/TransformComp.h>
+#include <Components/LightComp.h>
 #include <Rendering/Shader/Shader.h>
 #include <Rendering/Resources/Loaders/ShaderLoader.h>
 #include <Rendering/LowRenderer/Transform.h>

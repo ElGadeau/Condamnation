@@ -163,12 +163,12 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="src\Core\GameObjectManager.cpp" />
-    <ClCompile Include="src\Components\src\Component.cpp" />
-    <ClCompile Include="src\Components\src\ModelComp.cpp" />
+    <ClCompile Include="src\Components\Component.cpp" />
+    <ClCompile Include="src\Components\ModelComp.cpp" />
     <ClCompile Include="src\App.cpp" />
     <ClCompile Include="src\Core\GameObject.cpp" />
     <ClCompile Include="src\Core\MeshManager.cpp" />
-    <ClCompile Include="src\Components\src\TransformComp.cpp" />
+    <ClCompile Include="src\Components\TransformComp.cpp" />
     <ClCompile Include="src\Core\RenderEngine.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -178,14 +178,14 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\Core\GameObjectManager.h" />
-    <ClInclude Include="include\Components\include\Component.h" />
-    <ClInclude Include="include\Components\include\LightComp.h" />
+    <ClInclude Include="include\Components\Component.h" />
+    <ClInclude Include="include\Components\LightComp.h" />
     <ClInclude Include="include\Core\GameObject.h" />
     <ClInclude Include="include\Core\MeshManager.h" />
-    <ClInclude Include="include\Components\include\TransformComp.h" />
+    <ClInclude Include="include\Components\TransformComp.h" />
     <ClInclude Include="include\Core\RenderEngine.h" />
-    <ClInclude Include="include\Components\include\ModelComp.h" />
-    <ClInclude Include="include\Components\include\RigidBodyComp.h" />
+    <ClInclude Include="include\Components\ModelComp.h" />
+    <ClInclude Include="include\Components\RigidBodyComp.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

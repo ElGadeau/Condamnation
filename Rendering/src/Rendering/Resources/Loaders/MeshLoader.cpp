@@ -26,8 +26,8 @@ std::shared_ptr<Rendering::Resources::Mesh> Rendering::Resources::Loaders::MeshL
 	{
 		aiMesh* t_mesh = m_scene->mMeshes[i];
 		int t_meshFaces = t_mesh->mNumFaces;
-		std::cout << m_scene->mNumMeshes << std::endl;
-		std::cout << t_mesh->mNumVertices << std::endl;
+		//std::cout << m_scene->mNumMeshes << std::endl;
+		//std::cout << t_mesh->mNumVertices << std::endl;
 
 
         //Load Vertices
@@ -55,6 +55,6 @@ std::shared_ptr<Rendering::Resources::Mesh> Rendering::Resources::Loaders::MeshL
 			}
 		}
 	}
-	std::cout << indices.size() << std::endl;
+	//std::cout << indices.size() << std::endl;
     return std::shared_ptr<Mesh>(new Mesh{vertices, indices});
 }

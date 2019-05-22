@@ -1,5 +1,5 @@
 #pragma once
-#include <Components/include/Component.h>
+#include <Components/Component.h>
 
 namespace Components
 {
