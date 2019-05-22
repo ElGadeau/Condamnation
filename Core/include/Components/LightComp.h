@@ -1,6 +1,6 @@
 #pragma once
 
-#include <Components/include/Component.h>
+#include <Components/Component.h>
 #include <Rendering/LowRenderer/Light.h>
 
 namespace Components

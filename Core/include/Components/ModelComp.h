@@ -1,7 +1,7 @@
 #pragma once
 
 #include <Rendering/Resources/Model.h>
-#include <Components/include/Component.h>
+#include <Components/Component.h>
 
 namespace Components
 {

@@ -6,7 +6,7 @@
 #include <Rendering/Resources/Model.h>
 #include <Rendering/LowRenderer/Transform.h>
 #include <Rendering/LowRenderer/Camera.h>
-#include <Components/include/Component.h>
+#include <Components/Component.h>
 
 namespace Core
 {

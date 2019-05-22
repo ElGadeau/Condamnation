@@ -4,7 +4,7 @@
 #include <Rendering/Export.h>
 #include <Rendering/LowRenderer/Camera.h>
 #include <list>
-#include "InputManager.h"
+#include <Rendering/Managers/InputManager.h>
 
 namespace Rendering::Managers
 {

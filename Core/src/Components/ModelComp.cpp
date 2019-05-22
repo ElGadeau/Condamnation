@@ -1,4 +1,4 @@
-#include <Components/include/ModelComp.h>
+#include <Components/ModelComp.h>
 #include <iostream>
 
 Components::ModelComp::ModelComp()

@@ -7,9 +7,9 @@
 #include <Core/GameObjectManager.h>
 #include <Core/MeshManager.h>
 
-#include <Components/include/Component.h>
-#include <Components/include/TransformComp.h>
-#include <Components/include/LightComp.h>
+#include <Components/Component.h>
+#include <Components/TransformComp.h>
+#include <Components/LightComp.h>
 
 #include <Rendering/Context/OpenGL/GLFWDevice.h>
 #include <Rendering/Context/OpenGL/GLEWDriver.h>
@@ -21,7 +21,7 @@
 #include <Physics.h>
 
 #include <Rendering/Resources/Mesh.h>
-#include "Core/RenderEngine.h"
+#include <Core/RenderEngine.h>
 
 std::vector<Core::GameObject> GenerateLights(std::vector<std::shared_ptr<Core::GameObject>>& m_gameObjectVector)
 {
@@ -57,14 +57,15 @@ int main()
     modelManager.LoadShaders();
     Core::GameObjectManager gameobjects(modelManager);
 
-
     lights = GenerateLights(gameobjects.m_gameObjects);
 
     float angle = 0;
     while (!device->ShouldClose())
     {
-        angle += 0.005f;
+        device->CalculateDeltaTime();
+        device->RefreshEvents();
         
+        angle += 0.005f;
         if (m_inputManager.GetKeyDown(Rendering::Managers::InputManager::KeyCode::R))
             modelManager.ReloadShader(gameobjects.m_gameObjects);
 
@@ -72,14 +73,12 @@ int main()
             device->Close();
 
         m_inputManager.UpdateCursorPos();
+        m_camera.ProcessKeyInput(m_inputManager, device->GetDeltaTime());
+        m_camera.ProcessMouseInput(m_inputManager.GetMouseCursorPos());
 
-        device->CalculateDeltaTime();
-        device->RefreshEvents();
         renderer->Clear();
 
         gameobjects.Update(device->GetDeltaTime());
-        m_camera.ProcessKeyInput(m_inputManager, device->GetDeltaTime());
-        m_camera.ProcessMouseInput(m_inputManager.GetMouseCursorPos());
                 
         m_renderEngine.DrawElements(gameobjects.m_gameObjects, lights, *m_camera.GetCamera(), *renderer);
         

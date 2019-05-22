@@ -43,7 +43,7 @@ GLuint Rendering::Shaders::Shader::CreateShader(const GLuint & p_type, const std
 	glGetShaderiv(m_shaderID, GL_COMPILE_STATUS, &success);
 	if (!success)
 	{
-		std::cout << "Error, shader compilation failed\n" << infoLog << std::endl;
+		//std::cout << "Error, shader compilation failed\n" << infoLog << std::endl;
 	}
 
 	return m_shaderID;
@@ -64,8 +64,8 @@ std::string Rendering::Shaders::Shader::GetSource(const std::string p_filePath)
 	}
 	catch (std::ifstream::failure& exception)
 	{
-		std::cout << "Issue occured with specified file\n";
-		std::cout << exception.what() << '\n';
+		//std::cout << "Issue occured with specified file\n";
+		//std::cout << exception.what() << '\n';
 
 	}
 
