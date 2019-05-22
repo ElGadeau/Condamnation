@@ -18,7 +18,7 @@
 #include <Rendering/Managers/InputManager.h>
 #include <Rendering/Managers/CameraManager.h>
 
-#include <Physics.h>
+#include <Physics/Physics.h>
 
 #include <Rendering/Resources/Mesh.h>
 #include <Core/RenderEngine.h>

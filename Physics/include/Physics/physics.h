@@ -1,10 +1,13 @@
 #pragma once
-#include <Export.h>
+#include <Physics/Export.h>
 
-class API_PHYSICS physics
+namespace Physics 
 {
-public:
-    physics();
-    ~physics();
-};
+    class API_PHYSICS physics
+    {
+    public:
+        physics();
+        ~physics();
+    };
+}
 
