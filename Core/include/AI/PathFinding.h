@@ -1,19 +1,18 @@
 #pragma once
-#include <list>
-#include <glm/vec3.hpp>
+#include <AI/Dots.h>
 
-namespace Physics::AI
+namespace Core::AI
 {
-    class PathFinding
+    class PathFindind
     {
     public:
-        PathFinding();
-        ~PathFinding() = default;
+        PathFindind(int p_sizeX, int p_sizeY);
+        ~PathFindind();
 
-        void FindNextPosition(glm::vec3& p_actualPosition, glm::vec3& p_target);
+        Dots** m_grid;
 
     private:
-        std::list<glm::vec3> m_possiblePositions;
-        glm::vec3 m_nextPosition;
+        int m_sizeX;
+        int m_sizeY;
     };
 }
