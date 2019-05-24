@@ -14,7 +14,7 @@ namespace Core
     {
     public:
         GameObject();
-        GameObject(const std::string& p_meshPath, const std::string& p_vertPath, const std::string& p_fragPath);
+        GameObject(const char* p_meshPath, const char* p_vertPath, const char* p_fragPath);
         GameObject(std::shared_ptr<Rendering::Resources::Mesh> p_mesh, Rendering::Shaders::Shader* p_Shader, const char* p_name);
         ~GameObject();
 
@@ -24,6 +24,8 @@ namespace Core
         void SetModelShader(Rendering::Shaders::Shader& p_shader);
         void Update(Rendering::LowRenderer::Camera& cam, std::vector<GameObject>& p_lights);
         void ReloadShader();
+
+        static bool CheckCollision(std::vector<std::shared_ptr<Core::GameObject>> p_gameObjects);
 
         std::string& GetName();
         template<class ComponentType>

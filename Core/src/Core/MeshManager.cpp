@@ -12,12 +12,12 @@ Core::MeshManager::~MeshManager()
 {
 }
 
-void Core::MeshManager::AddMesh(const std::string& p_filePath)
+void Core::MeshManager::AddMesh(const char* p_filePath)
 {
     meshes.push_back(Rendering::Resources::Model::LoadMesh(p_filePath));
 }
 
-void Core::MeshManager::AddShader(const std::string& p_vertPath, const std::string& p_fragPath)
+void Core::MeshManager::AddShader(const char* p_vertPath, const char* p_fragPath)
 {
     shaders.push_back(Rendering::Resources::Loaders::ShaderLoader::LoadShader(p_vertPath, p_fragPath));
 }
@@ -26,8 +26,8 @@ void Core::MeshManager::ReloadShader(std::vector<std::shared_ptr<Core::GameObjec
 {
     for (int i = 0; i < shaders.size(); ++i)
     {
-        std::string pathA = shaders[i]->m_vertPath;
-        std::string pathB = shaders[i]->m_fragPath;
+        const char* pathA = shaders[i]->m_vertPath;
+        const char* pathB = shaders[i]->m_fragPath;
 
         shaders[i] = Rendering::Resources::Loaders::ShaderLoader::LoadShader(pathA, pathB);
     }
@@ -43,6 +43,8 @@ void Core::MeshManager::LoadMeshes()
     AddMesh(R"(..\Resources\Meshes\plane.fbx)");
     AddMesh(R"(..\Resources\Meshes\torus.fbx)");
     AddMesh(R"(..\Resources\Meshes\gear.fbx)");
+    AddMesh(R"(..\Resources\Meshes\boby.fbx)");
+    AddMesh(R"(..\Resources\Meshes\monster.obj)");
 }
 
 void Core::MeshManager::LoadShaders()

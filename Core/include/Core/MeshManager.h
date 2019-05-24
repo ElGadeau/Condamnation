@@ -15,8 +15,8 @@ namespace Core
         std::vector<std::shared_ptr<Rendering::Resources::Mesh>> meshes;
         std::vector<Rendering::Shaders::Shader*> shaders;
 
-        void AddMesh(const std::string& p_filePath);
-        void AddShader(const std::string& p_vertPath, const std::string& p_fragPath);
+        void AddMesh(const char* p_filePath);
+        void AddShader(const char* p_vertPath, const char* p_fragPath);
         void ReloadShader(std::vector<std::shared_ptr<Core::GameObject>>& p_gameObjects);
         void LoadMeshes();
         void LoadShaders();
