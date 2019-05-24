@@ -10,7 +10,7 @@ Rendering::Resources::Loaders::ShaderLoader::~ShaderLoader()
 {
 }
 
-Rendering::Shaders::Shader * Rendering::Resources::Loaders::ShaderLoader::LoadShader(const std::string & p_shaderPath, const std::string & p_shaderPathB)
+Rendering::Shaders::Shader * Rendering::Resources::Loaders::ShaderLoader::LoadShader(const char* p_shaderPath, const char* p_shaderPathB)
 {
 	Rendering::Shaders::Shader* m_shader = new Rendering::Shaders::Shader{};
     m_shader->m_vertPath = p_shaderPath;

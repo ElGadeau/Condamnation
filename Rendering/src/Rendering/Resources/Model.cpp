@@ -9,12 +9,12 @@ Rendering::Resources::Model::Model()
 	m_mesh = nullptr;
 	m_shader = nullptr;
 }
-Rendering::Resources::Model::Model(const std::string& p_filePath)
+Rendering::Resources::Model::Model(const char* p_filePath)
 {
     m_mesh = Rendering::Resources::Loaders::MeshLoader::Load(p_filePath);
 }
 
-std::shared_ptr<Rendering::Resources::Mesh> Rendering::Resources::Model::LoadMesh(const std::string & p_filePath)
+std::shared_ptr<Rendering::Resources::Mesh> Rendering::Resources::Model::LoadMesh(const char* p_filePath)
 {
     return Rendering::Resources::Loaders::MeshLoader::Load(p_filePath);
 }

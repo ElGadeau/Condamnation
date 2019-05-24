@@ -11,10 +11,10 @@ namespace Rendering::Resources
     {
     public:
 		Model();
-        Model(const std::string & p_filePath);
+        Model(const char* p_filePath);
         ~Model() { };
 
-		static std::shared_ptr<Rendering::Resources::Mesh> LoadMesh(const std::string& p_filePath);
+		static std::shared_ptr<Rendering::Resources::Mesh> LoadMesh(const char* p_filePath);
 		
 		Shaders::Shader* GetShader();
 		void SetShader(Rendering::Shaders::Shader* p_shader);
@@ -24,8 +24,5 @@ namespace Rendering::Resources
         
         std::shared_ptr<Rendering::Resources::Mesh> m_mesh;
         Shaders::Shader* m_shader;
-
-    private:
-
     };
 }

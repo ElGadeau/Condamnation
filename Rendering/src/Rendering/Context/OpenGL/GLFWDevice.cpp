@@ -27,6 +27,11 @@ void GLFWDevice::Init() noexcept
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
+    glEnable(GL_DEPTH_TEST);
+    glEnable(GL_CULL_FACE);
+    glEnable(GL_BLEND);
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_CONSTANT_ALPHA);
+
     glfwMakeContextCurrent(std::any_cast<GLFWwindow*>(m_window->Data()));
 
     lastTime = glfwGetTime();

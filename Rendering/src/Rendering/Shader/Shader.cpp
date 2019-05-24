@@ -69,7 +69,7 @@ std::string Rendering::Shaders::Shader::GetSource(const std::string p_filePath)
     return code;
 }
 
-void Rendering::Shaders::Shader::Load(const std::string & p_Shader, const GLuint& p_type, const std::string & p_pathf, const GLuint& p_typef)
+void Rendering::Shaders::Shader::Load(const char* p_Shader, const GLuint& p_type, const char* p_pathf, const GLuint& p_typef)
 {
 	GLuint m_shaderTypeID = CreateShader(p_type, GetSource(p_Shader));
 	GLuint m_shaderTypeIDA = CreateShader(p_typef, GetSource(p_pathf));
@@ -88,6 +88,7 @@ void Rendering::Shaders::Shader::Load(const std::string & p_Shader, const GLuint
 	m_data[3] = glGetUniformLocation(shaderProgram, "viewPos");
 	m_data[4] = glGetUniformLocation(shaderProgram, "objColor");
 	m_data[5] = glGetUniformLocation(shaderProgram, "objShininess");
+	m_data[6] = glGetUniformLocation(shaderProgram, "objOpacity");
 
 }
 
@@ -99,6 +100,7 @@ void Rendering::Shaders::Shader::Update(LowRenderer::Camera& cam, Rendering::Low
 	glUniform3f(m_data[3], cam.m_position.x, cam.m_position.y, cam.m_position.z);
     glUniform3f(m_data[4], p_mat.r, p_mat.g, p_mat.b);
     glUniform1f(m_data[5], p_mat.shininess);
+    glUniform1f(m_data[6], p_mat.opacity);
 
     for (int i = 0; i < p_lights.size(); ++i)
     {
