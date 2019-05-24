@@ -4,15 +4,13 @@
 
 namespace Physics::AI
 {
-    class NavMesh
+    class PathFinding
     {
     public:
-        NavMesh();
-        ~NavMesh();
+        PathFinding();
+        ~PathFinding() = default;
 
         void FindNextPosition(glm::vec3& p_actualPosition, glm::vec3& p_target);
-
-
 
     private:
         std::list<glm::vec3> m_possiblePositions;
