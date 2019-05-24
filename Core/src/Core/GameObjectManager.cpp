@@ -1,4 +1,5 @@
 #include <Core/GameObjectManager.h>
+#include <tinyxml2.h>
 
 static float angle = 0;
 
@@ -62,6 +63,34 @@ void Core::GameObjectManager::Update(float deltaTime)
 
     Find("Torus")->GetComponent<Components::TransformComp>()->m_transform->Rotate(glm::vec3(1, 0, 0) * deltaTime);
     Find("Gear")->GetComponent<Components::TransformComp>()->m_transform->Rotate(glm::vec3(0, 1, 0) *deltaTime);
+}
+
+bool Core::GameObjectManager::LoadScene()
+{
+    using namespace tinyxml2;
+
+#ifndef XMLCheckResult
+#define XMLCheckResult(a_eResult) if (a_eResult != XML_SUCCESS) { printf("Error: %i\n", a_eResult); return a_eResult; }
+#endif
+
+    XMLDocument xmlDoc;
+    XMLError eResult = xmlDoc.LoadFile("scene.xml");
+    XMLCheckResult(eResult);
+
+    XMLNode* root = xmlDoc.FirstChild();
+    if (root == nullptr) return XML_ERROR_FILE_READ_ERROR;
+
+    XMLElement* GOList = root->FirstChildElement("GameObjectList");
+    if (GOList == nullptr) return XML_ERROR_PARSING_ELEMENT;
+
+    XMLElement* GOelement = GOList->FirstChildElement("GameObject");
+    while (GOelement != nullptr)
+    {
+        //unordored map -> pointeur sur fonction
+        GOelement = GOelement->NextSiblingElement("GameObject");
+    }
+
+    return EXIT_SUCCESS;
 }
 
 std::shared_ptr<Core::GameObject> Core::GameObjectManager::Find(const std::string & p_name)

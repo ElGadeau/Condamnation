@@ -16,6 +16,7 @@ namespace Core
         ~GameObjectManager();
         std::vector<std::shared_ptr<Core::GameObject>> m_gameObjects;
         void Update(float deltaTime);
+        bool LoadScene();
         std::shared_ptr<Core::GameObject> Find(const std::string& p_name);
     };
 }
