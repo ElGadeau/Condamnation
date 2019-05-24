@@ -1,11 +1,11 @@
 #include "stdafx.h"
 #include <Physics/physics.h>
 
-Physics::physics::physics()
+physics::physics()
 {
 }
 
 
-Physics::physics::~physics()
+physics::~physics()
 {
 }

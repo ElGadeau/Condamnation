@@ -19,11 +19,13 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="include\Physics\BoxCollider.h" />
     <ClInclude Include="include\Physics\Export.h" />
     <ClInclude Include="include\Physics\physics.h" />
     <ClInclude Include="include\stdafx.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\Physics\BoxCollider.cpp" />
     <ClCompile Include="src\Physics\physics.cpp" />
     <ClCompile Include="src\stdafx.cpp" />
   </ItemGroup>
