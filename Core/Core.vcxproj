@@ -174,7 +174,6 @@
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="src\AI\NavMesh.cpp" />
     <ClCompile Include="src\Core\GameObjectManager.cpp" />
     <ClCompile Include="src\Components\Component.cpp" />
     <ClCompile Include="src\Components\ModelComp.cpp" />

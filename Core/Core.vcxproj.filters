@@ -39,9 +39,6 @@
     <ClCompile Include="src\Components\TransformComp.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\AI\NavMesh.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\Core\GameObject.h">
