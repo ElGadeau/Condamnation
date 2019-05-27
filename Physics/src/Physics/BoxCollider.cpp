@@ -15,6 +15,7 @@ Physics::Collider::Collider()
 
 Physics::Collider::~Collider()
 {
+
 }
 
 void Physics::Collider::UpdateBoundingBox()

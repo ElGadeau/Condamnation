@@ -1,4 +1,7 @@
 #include "stdafx.h"
+#include <string>
+#include <char>
+
 #include <Rendering/Resources/Loaders/MeshLoader.h>
 #include <../assimp/include/assimp/Importer.hpp>
 #include <../assimp/include/assimp/scene.h>
@@ -22,14 +25,16 @@ std::shared_ptr<Rendering::Resources::Mesh> Rendering::Resources::Loaders::MeshL
 		| aiProcess_FixInfacingNormals
 		);
 
-
+    if (m_scene == nullptr)
+    {
+        puts("Mesh Path error");
+        return nullptr;
+    }
     //Load Meshes
 	for (int i = 0; i < m_scene->mNumMeshes; ++i)
 	{
 		aiMesh* t_mesh = m_scene->mMeshes[i];
 		int t_meshFaces = t_mesh->mNumFaces;
-		//std::cout << m_scene->mNumMeshes << std::endl;
-		//std::cout << t_mesh->mNumVertices << std::endl;
 
 
         //Load Vertices
@@ -58,6 +63,5 @@ std::shared_ptr<Rendering::Resources::Mesh> Rendering::Resources::Loaders::MeshL
 		}
         offset += t_mesh->mNumVertices;
 	}
-	//std::cout << indices.size() << std::endl;
     return std::shared_ptr<Mesh>(new Mesh{vertices, indices});
 }
