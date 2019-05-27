@@ -92,7 +92,7 @@ void Rendering::Shaders::Shader::Load(const char* p_Shader, const GLuint& p_type
 
 }
 
-void Rendering::Shaders::Shader::Update(LowRenderer::Camera& cam, Rendering::LowRenderer::Transform& trans, Rendering::LowRenderer::Material& p_mat, std::vector<Rendering::LowRenderer::Light>& p_lights)
+void Rendering::Shaders::Shader::Update(LowRenderer::Camera& cam, Rendering::LowRenderer::Transform& trans, Rendering::LowRenderer::Material& p_mat, Rendering::LowRenderer::Light* p_lights, const size_t p_lightSize)
 {
 	glUniformMatrix4fv(m_data[0], 1, GL_FALSE, glm::value_ptr(cam.GetPerspectiveMatrix()));
 	glUniformMatrix4fv(m_data[1], 1, GL_FALSE, glm::value_ptr(cam.GetViewMatrix()));
@@ -102,7 +102,7 @@ void Rendering::Shaders::Shader::Update(LowRenderer::Camera& cam, Rendering::Low
     glUniform1f(m_data[5], p_mat.shininess);
     glUniform1f(m_data[6], p_mat.opacity);
 
-    for (unsigned int i = 0; i < p_lights.size(); ++i)
+    for (unsigned int i = 0; i < p_lightSize; ++i)
     {
         std::string isDirectionnalS = "pointLights[" + std::to_string(i) + "].isDirectionnal";
         std::string intensityS = "pointLights[" + std::to_string(i) + "].intensity";
