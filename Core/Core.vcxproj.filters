@@ -71,13 +71,5 @@
     <ClInclude Include="include\Components\MaterialComp.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\AI\NavMesh.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\Components\BoxColliderComp.h">
-      <Filter>Header Files</Filter>
-    <ClInclude Include="include\Math\Line.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
   </ItemGroup>
 </Project>

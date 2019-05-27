@@ -192,8 +192,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="include\AI\NavMesh.h" />
-    <ClInclude Include="include\Components\BoxColliderComp.h" />
     <ClInclude Include="include\Core\GameObjectManager.h" />
     <ClInclude Include="include\Components\Component.h" />
     <ClInclude Include="include\Components\LightComp.h" />
