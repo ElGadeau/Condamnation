@@ -61,8 +61,8 @@ std::string Rendering::Shaders::Shader::GetSource(const std::string p_filePath)
 	}
 	catch (std::ifstream::failure& exception)
 	{
-		//std::cout << "Issue occured with specified file\n";
-		//std::cout << exception.what() << '\n';
+		std::cout << "Issue occured with specified file\n";
+		std::cout << exception.what() << '\n';
 
 	}
 
@@ -102,7 +102,7 @@ void Rendering::Shaders::Shader::Update(LowRenderer::Camera& cam, Rendering::Low
     glUniform1f(m_data[5], p_mat.shininess);
     glUniform1f(m_data[6], p_mat.opacity);
 
-    for (int i = 0; i < p_lights.size(); ++i)
+    for (unsigned int i = 0; i < p_lights.size(); ++i)
     {
         std::string isDirectionnalS = "pointLights[" + std::to_string(i) + "].isDirectionnal";
         std::string intensityS = "pointLights[" + std::to_string(i) + "].intensity";

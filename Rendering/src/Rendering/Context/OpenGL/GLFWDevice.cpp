@@ -66,7 +66,7 @@ void GLFWDevice::CalculateDeltaTime() noexcept
     lastTime = currentTime;
 }
 
-float GLFWDevice::GetDeltaTime() const noexcept
+double GLFWDevice::GetDeltaTime() const noexcept
 {
     return deltaTime;
 }

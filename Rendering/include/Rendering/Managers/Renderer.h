@@ -26,11 +26,11 @@ namespace Rendering::Managers
         void PolygoneModeFill() const noexcept;
 
 		void SetupCulling();
-        void Draw(Resources::Mesh& m_mesh) const noexcept;
+        void Draw(const Resources::Mesh& m_mesh) const noexcept;
 
     private:
-        std::unique_ptr<Context::IDriver> m_driver;
-        GLuint program;
+        std::unique_ptr<Context::IDriver> m_driver = nullptr;
+        GLuint program = 0;
 
     };
 }

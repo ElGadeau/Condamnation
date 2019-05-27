@@ -24,7 +24,7 @@ void Core::MeshManager::AddShader(const char* p_vertPath, const char* p_fragPath
 
 void Core::MeshManager::ReloadShader(std::vector<std::shared_ptr<Core::GameObject>>& p_gameObjects)
 {
-    for (int i = 0; i < shaders.size(); ++i)
+    for (unsigned int i = 0; i < shaders.size(); ++i)
     {
         const char* pathA = shaders[i]->m_vertPath;
         const char* pathB = shaders[i]->m_fragPath;
@@ -44,7 +44,7 @@ void Core::MeshManager::LoadMeshes()
     AddMesh(R"(..\Resources\Meshes\torus.fbx)");
     AddMesh(R"(..\Resources\Meshes\gear.fbx)");
     AddMesh(R"(..\Resources\Meshes\boby.fbx)");
-    AddMesh(R"(..\Resources\Meshes\monster.obj)");
+    //AddMesh(R"(..\Resources\Meshes\monster.obj)");
 }
 
 void Core::MeshManager::LoadShaders()
@@ -53,12 +53,12 @@ void Core::MeshManager::LoadShaders()
     AddShader("../Resources/Shaders/vertShader.vert", "../Resources/Shaders/lightShader.frag");
 }
 
-std::shared_ptr<Rendering::Resources::Mesh> Core::MeshManager::GetMesh(int p_position)
+std::shared_ptr<Rendering::Resources::Mesh> Core::MeshManager::GetMesh(const int& p_position)
 {
     return meshes[p_position];
 }
 
-Rendering::Shaders::Shader* Core::MeshManager::GetShader(int p_position)
+Rendering::Shaders::Shader* Core::MeshManager::GetShader(const int& p_position)
 {
     return shaders[p_position];
 }

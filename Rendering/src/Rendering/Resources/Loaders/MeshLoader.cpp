@@ -30,7 +30,7 @@ std::shared_ptr<Rendering::Resources::Mesh> Rendering::Resources::Loaders::MeshL
         return nullptr;
     }
     //Load Meshes
-	for (int i = 0; i < m_scene->mNumMeshes; ++i)
+	for (unsigned int i = 0; i < m_scene->mNumMeshes; ++i)
 	{
 		aiMesh* t_mesh = m_scene->mMeshes[i];
 		int t_meshFaces = t_mesh->mNumFaces;
@@ -51,7 +51,7 @@ std::shared_ptr<Rendering::Resources::Mesh> Rendering::Resources::Loaders::MeshL
 
             //Load Indices
 		}
-		for (int faceIdx = 0; faceIdx < t_mesh->mNumFaces; faceIdx++)
+		for (unsigned int faceIdx = 0; faceIdx < t_mesh->mNumFaces; faceIdx++)
 		{
 			if (t_mesh->mFaces[faceIdx].mNumIndices == 3)
 			{

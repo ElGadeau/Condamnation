@@ -1,7 +1,6 @@
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 #include <memory>
-#include <math.h>
 
 #include <Core/GameObject.h>
 #include <Core/GameObjectManager.h>
@@ -26,7 +25,7 @@
 std::vector<Core::GameObject> GenerateLights(std::vector<std::shared_ptr<Core::GameObject>>& m_gameObjectVector)
 {
     std::vector<Core::GameObject> m_lights;
-    for (auto p_light : m_gameObjectVector)
+    for (auto& p_light : m_gameObjectVector)
     {
         if (p_light->GetComponent<Components::LightComp>() != nullptr)
         {
@@ -41,24 +40,22 @@ int main()
 {
     auto device = std::make_unique<Rendering::Context::OpenGL::GLFWDevice>();
     auto renderer = std::make_unique<Rendering::Managers::Renderer>();
-
     renderer->Initialize<Rendering::Context::OpenGL::GLEWDriver>();
     renderer->SetupCulling();
 
     Rendering::Managers::InputManager m_inputManager(device->GetWindow());
     Rendering::Managers::CameraManager m_camera(glm::vec3(20.0f, 0, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f), -90.0f, -25.0f);
-
-    std::vector<Core::GameObject> lights;
-
+    
     Core::RenderEngine m_renderEngine;
     Core::MeshManager modelManager;
-
     modelManager.LoadMeshes();
     modelManager.LoadShaders();
+    
     Core::GameObjectManager gameobjects(modelManager);
-
+        
+    std::vector<Core::GameObject> lights;
     lights = GenerateLights(gameobjects.m_gameObjects);
-
+    
     float angle = 0;
     while (!device->ShouldClose())
     {

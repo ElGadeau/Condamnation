@@ -22,15 +22,15 @@ namespace Rendering::LowRenderer
     {
     public:
         //camera attriutes
-        glm::vec3 m_position;
-        glm::vec3 m_front;
-        glm::vec3 m_up;
-        glm::vec3 m_right;
-        glm::vec3 m_worldUp;
+        glm::vec<3,double> m_position;
+        glm::vec<3,double> m_front;
+        glm::vec<3,double> m_up;
+        glm::vec<3,double> m_right;
+        glm::vec<3,double> m_worldUp;
 
         //euler angles
-        float m_yaw;
-        float m_pitch;
+        double m_yaw;
+        double m_pitch;
 
         //camera option
         float m_movementSpeed;

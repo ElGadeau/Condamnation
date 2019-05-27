@@ -12,8 +12,7 @@ GLEWDriver::GLEWDriver() noexcept
 void GLEWDriver::Clear() const noexcept
 {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	glClearColor(0.6, 0.6, 0.6, 1);
-
+	glClearColor(0.6f, 0.6f, 0.6f, 1.0f);
 }
 
 void GLEWDriver::PolygonMode(std::any p_face, std::any p_mode) const noexcept

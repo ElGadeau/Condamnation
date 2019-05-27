@@ -21,8 +21,8 @@ namespace Core
         void LoadMeshes();
         void LoadShaders();
 
-        std::shared_ptr<Rendering::Resources::Mesh> GetMesh(int p_position);
-        Rendering::Shaders::Shader* GetShader(int p_position);
+        std::shared_ptr<Rendering::Resources::Mesh> GetMesh(const int& p_position);
+        Rendering::Shaders::Shader* GetShader(const int& p_position);
     };
 
 }

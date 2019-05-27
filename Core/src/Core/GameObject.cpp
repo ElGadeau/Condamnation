@@ -47,8 +47,8 @@ Core::GameObject::GameObject(std::shared_ptr<Rendering::Resources::Mesh> p_mesh,
 
     AddComponent<Components::MaterialComp>();
 
-    AddComponent<Components::BoxColliderComp>()->m_collider->m_points = GetComponent<Components::ModelComp>()->m_model->m_mesh->m_positions;
-    GetComponent<Components::BoxColliderComp>()->m_collider->m_modelMat = &GetComponent<Components::TransformComp>()->m_transform->m_transMat;
+//    AddComponent<Components::BoxColliderComp>()->m_collider->m_points = GetComponent<Components::ModelComp>()->m_model->m_mesh->m_positions;
+//    GetComponent<Components::BoxColliderComp>()->m_collider->m_modelMat = &GetComponent<Components::TransformComp>()->m_transform->m_transMat;
 }
 
 Core::GameObject::~GameObject()
@@ -90,14 +90,14 @@ void Core::GameObject::ReloadShader()
     GetComponent<Components::ModelComp>()->m_model->SetShader(Rendering::Resources::Loaders::ShaderLoader::LoadShader(pathA, pathB));
 }
 
-bool Core::GameObject::CheckCollision(std::vector<std::shared_ptr<Core::GameObject>> p_gameObjects)
+bool Core::GameObject::CheckCollision(std::vector<std::shared_ptr<Core::GameObject>>& p_gameObjects)
 {
-    for (int k = 0; k < p_gameObjects.size(); ++k)
+    for (unsigned int k = 0; k < p_gameObjects.size(); ++k)
         p_gameObjects[k]->GetComponent<Components::BoxColliderComp>()->m_collider->UpdateBoundingBox();
 
-    for (int i = 0; i < p_gameObjects.size(); ++i)
+    for (unsigned int i = 0; i < p_gameObjects.size(); ++i)
     {
-        for (int j = 0; j < p_gameObjects.size(); ++j)
+        for (unsigned int j = 0; j < p_gameObjects.size(); ++j)
         {
             if (p_gameObjects[i]->m_name != p_gameObjects[j]->m_name)
             {

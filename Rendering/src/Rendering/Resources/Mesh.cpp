@@ -6,8 +6,8 @@ Rendering::Resources::Mesh::Mesh(const std::vector<Geometry::Vertex>& p_vertices
     : m_vertexCount(p_vertices.size()),
     m_indicesCount(static_cast<uint32_t>(p_indices.size()))
 {
-    for (int i = 0; i < p_vertices.size(); ++i)
-        m_positions.push_back(p_vertices[i].m_position);
+    for (const auto& vertex : p_vertices)
+        m_positions.push_back(vertex.m_position);
 
     m_vertexArray = std::make_unique<Buffers::VertexArray>();
     CreateBuffers(p_vertices, p_indices);

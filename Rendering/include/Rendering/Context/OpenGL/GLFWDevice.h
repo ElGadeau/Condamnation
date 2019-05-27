@@ -22,16 +22,16 @@ namespace Rendering::Context::OpenGL
         std::shared_ptr<GLFWWindow> GetWindow() const noexcept;
 
         void CalculateDeltaTime() noexcept;
-        float GetDeltaTime() const noexcept;
+        double GetDeltaTime() const noexcept;
         void Close();
 
     private:
-        std::shared_ptr<GLFWWindow> m_window;
+        std::shared_ptr<GLFWWindow> m_window = nullptr;
 
-        float lastTime;
-        float currentTime;
-        float deltaTime;
-        int MAX_FPS;
+        double lastTime = 0;
+        double currentTime = 0;
+        double deltaTime = 0;
+        int MAX_FPS = 0;
 
     };
 }

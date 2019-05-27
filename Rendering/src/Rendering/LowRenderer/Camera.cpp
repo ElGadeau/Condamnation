@@ -37,7 +37,7 @@ glm::mat4 Rendering::LowRenderer::Camera::GetPerspectiveMatrix()
 void Rendering::LowRenderer::Camera::UpdateCameraVectors()
 {
     //calculate front
-    glm::vec3 front;
+    glm::vec<3,double> front;
     front.x = cos(glm::radians(m_pitch)) * cos(glm::radians(m_yaw));
     front.y = sin(glm::radians(m_pitch));
     front.z = cos(glm::radians(m_pitch)) * sin(glm::radians(m_yaw));

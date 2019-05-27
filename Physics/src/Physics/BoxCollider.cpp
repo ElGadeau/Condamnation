@@ -20,7 +20,7 @@ Physics::Collider::~Collider()
 
 void Physics::Collider::UpdateBoundingBox()
 {
-    for (int i = 0; i < m_points.size(); ++i)
+    for (unsigned int i = 0; i < m_points.size(); ++i)
     {
         glm::vec4 result = *m_modelMat * glm::vec4(m_points[i], 0.0);
 

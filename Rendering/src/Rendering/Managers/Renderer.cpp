@@ -4,7 +4,6 @@
 void Rendering::Managers::Renderer::Clear() const noexcept
 {
     m_driver->Clear();
-
 }
 
 void Rendering::Managers::Renderer::PolygoneModeLine() const noexcept
@@ -24,7 +23,7 @@ void Rendering::Managers::Renderer::SetupCulling()
     glCullFace(GL_BACK);
 }
 
-void Rendering::Managers::Renderer::Draw(Resources::Mesh& m_mesh) const noexcept
+void Rendering::Managers::Renderer::Draw(const Resources::Mesh& m_mesh) const noexcept
 {
     m_mesh.Bind();
 
