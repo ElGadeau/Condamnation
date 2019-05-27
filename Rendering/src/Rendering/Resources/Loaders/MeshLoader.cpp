@@ -1,6 +1,5 @@
 #include "stdafx.h"
 #include <string>
-#include <char>
 
 #include <Rendering/Resources/Loaders/MeshLoader.h>
 #include <../assimp/include/assimp/Importer.hpp>
