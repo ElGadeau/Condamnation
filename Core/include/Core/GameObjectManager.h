@@ -11,7 +11,7 @@ namespace Core
         GameObjectManager(Core::MeshManager& p_modelManager);
         ~GameObjectManager();
         std::vector<std::shared_ptr<Core::GameObject>> m_gameObjects;
-        void Update(const double& p_deltaTime);
+        void Update(float p_deltaTime);
         int LoadScene();
         std::shared_ptr<Core::GameObject> Find(const std::string& p_name);
     };
