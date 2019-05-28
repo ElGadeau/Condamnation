@@ -2,8 +2,6 @@
 #include <Rendering/Export.h>
 #include <Rendering/Resources/Mesh.h>
 #include <Rendering/Shader/Shader.h>
-#include <Rendering/LowRenderer/Camera.h>
-#include <Rendering/LowRenderer/Transform.h>
 
 namespace Rendering::Resources
 {
@@ -14,15 +12,15 @@ namespace Rendering::Resources
         Model(const char* p_filePath);
         ~Model() { };
 
-		static std::shared_ptr<Rendering::Resources::Mesh> LoadMesh(const char* p_filePath);
+		static std::shared_ptr<Mesh> LoadMesh(const char* p_filePath);
 		
-		Shaders::Shader* GetShader();
-		void SetShader(Rendering::Shaders::Shader* p_shader);
+		const Shaders::Shader* GetShader() const noexcept { return m_shader; };
+		void SetShader(Shaders::Shader* p_shader);
 
-        std::shared_ptr<Rendering::Resources::Mesh> GetMesh();
-        void SetMesh(std::shared_ptr<Rendering::Resources::Mesh> p_mesh);
+		const std::shared_ptr<Mesh> GetMesh() const noexcept { return m_mesh; };
+        void SetMesh(std::shared_ptr<Mesh> p_mesh);
         
-        std::shared_ptr<Rendering::Resources::Mesh> m_mesh;
+        std::shared_ptr<Mesh> m_mesh;
         Shaders::Shader* m_shader;
     };
 }

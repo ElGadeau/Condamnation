@@ -1,10 +1,7 @@
 #pragma once
 #include <iostream>
-#include <any>
 #include <string>
-#include <Rendering/Export.h>
 #include <Rendering/Resources/Model.h>
-#include <Rendering/LowRenderer/Transform.h>
 #include <Rendering/LowRenderer/Camera.h>
 #include <Components/Component.h>
 
@@ -25,9 +22,10 @@ namespace Core
         void Update(Rendering::LowRenderer::Camera& cam, std::vector<GameObject>& p_lights);
         void ReloadShader();
 
-        static bool CheckCollision(std::vector<std::shared_ptr<Core::GameObject>>& p_gameObjects);
+        static bool CheckCollision(std::vector<std::shared_ptr<GameObject>>& p_gameObjects);
 
-        std::string& GetName();
+		const std::string& GetName() const noexcept {	return m_name; }
+
         template<class ComponentType>
         ComponentType* AddComponent()
         {

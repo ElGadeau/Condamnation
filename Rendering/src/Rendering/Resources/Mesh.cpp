@@ -36,18 +36,7 @@ void Rendering::Resources::Mesh::Unbind() const noexcept
     m_vertexArray->Unbind();
 }
 
-const uint32_t Rendering::Resources::Mesh::GetVertexCount() const noexcept
-{
-    return m_vertexCount;
-}
-
-const uint32_t Rendering::Resources::Mesh::GetIndicesCount() const noexcept
-{
-    return m_indicesCount;
-}
-
-void Rendering::Resources::Mesh::CreateBuffers(const std::vector<Geometry::Vertex>& p_vertices,
-                         const std::vector<uint32_t>& p_indices) noexcept
+void Rendering::Resources::Mesh::CreateBuffers(const std::vector<Geometry::Vertex>& p_vertices, const std::vector<uint32_t>& p_indices) noexcept
 {
     std::vector<float> rawPositions{};
     std::vector<float> rawTextCoords{};

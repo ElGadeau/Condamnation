@@ -53,22 +53,12 @@ void GLFWDevice::RefreshEvents() const noexcept
     glfwPollEvents();
 }
 
-std::shared_ptr<GLFWWindow> GLFWDevice::GetWindow() const noexcept
-{
-    return m_window;
-}
-
 void GLFWDevice::CalculateDeltaTime() noexcept
 {
     currentTime = glfwGetTime();
     deltaTime = currentTime - lastTime;
     deltaTime *= MAX_FPS;
     lastTime = currentTime;
-}
-
-double GLFWDevice::GetDeltaTime() const noexcept
-{
-    return deltaTime;
 }
 
 void GLFWDevice::Close()

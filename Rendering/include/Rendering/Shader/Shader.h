@@ -24,7 +24,7 @@ namespace Rendering::Shaders
         const char* m_fragPath;
 
 		static GLuint CreateShader(const GLuint& p_type, const std::string& p_source);
-        static std::string GetSource(const std::string p_filePath);
+        static std::string GetSource(const std::string& p_filePath);
 		void Load(const char* p_Shader, const GLuint& p_type, const char* p_pathf, const GLuint& p_typef);
 		void Update(LowRenderer::Camera& cam, Rendering::LowRenderer::Transform& trans, Rendering::LowRenderer::Material& p_mat, Rendering::LowRenderer::Light* p_lights, const size_t p_lightSize);
 		void ApplyShader();

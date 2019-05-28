@@ -4,14 +4,6 @@
 #include <Rendering/Resources/Loaders/ShaderLoader.h>
 #include <Rendering/Shader/Shader.h>
 
-Core::MeshManager::MeshManager()
-{
-}
-
-Core::MeshManager::~MeshManager()
-{
-}
-
 void Core::MeshManager::AddMesh(const char* p_filePath)
 {
     meshes.push_back(Rendering::Resources::Model::LoadMesh(p_filePath));
@@ -52,14 +44,3 @@ void Core::MeshManager::LoadShaders()
     AddShader("../Resources/Shaders/vertShader.vert", "../Resources/Shaders/fragShader2.frag");
     AddShader("../Resources/Shaders/vertShader.vert", "../Resources/Shaders/lightShader.frag");
 }
-
-std::shared_ptr<Rendering::Resources::Mesh> Core::MeshManager::GetMesh(const int& p_position)
-{
-    return meshes[p_position];
-}
-
-Rendering::Shaders::Shader* Core::MeshManager::GetShader(const int& p_position)
-{
-    return shaders[p_position];
-}
-

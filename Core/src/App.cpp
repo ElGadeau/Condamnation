@@ -44,7 +44,7 @@ int main()
     renderer->SetupCulling();
 
     Rendering::Managers::InputManager m_inputManager(device->GetWindow());
-    Rendering::Managers::CameraManager m_camera(glm::vec3(20.0f, 0, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f), -90.0f, -25.0f);
+    Rendering::Managers::CameraManager m_camera(glm::vec3(20.0f, 10, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f), -180.0f, -25.0f);
     
     Core::RenderEngine m_renderEngine;
     Core::MeshManager modelManager;

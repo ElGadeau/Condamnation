@@ -34,6 +34,14 @@ namespace Rendering::Utils
             m_callbacks.clear();
         }
 
+		enum KeyState
+		{
+			Null = -1,
+			KeyDown = 1,
+			KeyUp = 2,
+			Key = 3,
+			Completed = 4
+        };
         enum KeyCode
         {
             None = -1, //not assigned to our keyboard (shouldn't be sent as return of a key)

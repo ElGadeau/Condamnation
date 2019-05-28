@@ -20,8 +20,9 @@ namespace Rendering::Resources
         void Bind() const noexcept;
         void Unbind() const noexcept;
 
-        const uint32_t GetVertexCount() const noexcept;
-        const uint32_t GetIndicesCount() const noexcept;
+        const uint32_t& GetVertexCount() const noexcept { return m_vertexCount;}
+		;
+        const uint32_t& GetIndicesCount() const noexcept { return m_indicesCount; }
 
         void CreateBuffers(const std::vector<Geometry::Vertex>& p_vertices,
             const std::vector<uint32_t>& p_indices) noexcept;
