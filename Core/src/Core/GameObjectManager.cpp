@@ -12,17 +12,17 @@ Core::GameObjectManager::GameObjectManager()
 
 Core::GameObjectManager::GameObjectManager(Core::MeshManager& p_modelManager)
 {
-    //std::shared_ptr<Core::GameObject> flatTerrain(new Core::GameObject(p_modelManager.GetMesh(0), p_modelManager.GetShader(0), "Terrain"));
+    std::shared_ptr<Core::GameObject> flatTerrain(new Core::GameObject(p_modelManager.GetMesh(0), p_modelManager.GetShader(0), "Terrain"));
     std::shared_ptr<Core::GameObject> DirLight(new Core::GameObject(p_modelManager.meshes[1], p_modelManager.GetShader(1),"Directionnal"));
-    //std::shared_ptr<Core::GameObject> OrangeLight(new Core::GameObject(p_modelManager.GetMesh(1), p_modelManager.GetShader(1), "OrangeLight"));
-    //std::shared_ptr<Core::GameObject> BlueLight(new Core::GameObject(p_modelManager.GetMesh(1), p_modelManager.GetShader(1), "BlueLight"));
+    std::shared_ptr<Core::GameObject> OrangeLight(new Core::GameObject(p_modelManager.GetMesh(1), p_modelManager.GetShader(1), "OrangeLight"));
+    std::shared_ptr<Core::GameObject> BlueLight(new Core::GameObject(p_modelManager.GetMesh(1), p_modelManager.GetShader(1), "BlueLight"));
     std::shared_ptr<Core::GameObject> Torus(new Core::GameObject(p_modelManager.GetMesh(3), p_modelManager.GetShader(0), "Torus"));
     std::shared_ptr<Core::GameObject> Gear(new Core::GameObject(p_modelManager.GetMesh(4), p_modelManager.GetShader(0), "Gear"));
 
-    //m_gameObjects.emplace_back(flatTerrain);
+    m_gameObjects.emplace_back(flatTerrain);
     m_gameObjects.emplace_back(DirLight);
-    //m_gameObjects.emplace_back(OrangeLight);
-    //m_gameObjects.emplace_back(BlueLight);
+    m_gameObjects.emplace_back(OrangeLight);
+    m_gameObjects.emplace_back(BlueLight);
     m_gameObjects.emplace_back(Torus);
     m_gameObjects.emplace_back(Gear);
 

@@ -8,7 +8,7 @@ namespace Components
     class ModelComp : public Component
     {
     public:
-        ModelComp();
+        ModelComp() { m_model = new Rendering::Resources::Model(); };
         ~ModelComp() { delete m_model; };
         Rendering::Resources::Model* m_model;
     };

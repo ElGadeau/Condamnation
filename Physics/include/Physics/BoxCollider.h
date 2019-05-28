@@ -11,7 +11,6 @@ namespace Physics
         Collider();
         ~Collider();
 
-        //void SetAxes(std::vector<glm::vec3>& p_normals);
         void UpdateBoundingBox();
 
         float m_maxX;

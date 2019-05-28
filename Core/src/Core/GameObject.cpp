@@ -47,8 +47,8 @@ Core::GameObject::GameObject(std::shared_ptr<Rendering::Resources::Mesh> p_mesh,
 
     AddComponent<Components::MaterialComp>();
 
-//    AddComponent<Components::BoxColliderComp>()->m_collider->m_points = GetComponent<Components::ModelComp>()->m_model->m_mesh->m_positions;
-//    GetComponent<Components::BoxColliderComp>()->m_collider->m_modelMat = &GetComponent<Components::TransformComp>()->m_transform->m_transMat;
+    AddComponent<Components::BoxColliderComp>()->m_collider->m_points = GetComponent<Components::ModelComp>()->m_model->m_mesh->m_positions;
+    GetComponent<Components::BoxColliderComp>()->m_collider->m_modelMat = &GetComponent<Components::TransformComp>()->m_transform->m_transMat;
 }
 
 Core::GameObject::~GameObject()
