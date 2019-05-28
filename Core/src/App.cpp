@@ -74,8 +74,8 @@ int main()
         m_camera.ProcessMouseInput(m_inputManager.GetMouseCursorPos());
 
         renderer->Clear();
-
         gameobjects.Update(device->GetDeltaTime());
+        Core::GameObject::CheckCollision(gameobjects.m_gameObjects);
                 
         m_renderEngine.DrawElements(gameobjects.m_gameObjects, lights, *m_camera.GetCamera(), *renderer);
         

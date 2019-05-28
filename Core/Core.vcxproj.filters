@@ -30,12 +30,6 @@
     <ClCompile Include="src\Core\GameObjectManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\Components\Component.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Components\ModelComp.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\Components\TransformComp.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>

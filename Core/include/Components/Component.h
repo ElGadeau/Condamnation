@@ -5,7 +5,7 @@ namespace Components
     class Component
     {
     public:
-        Component();
+        Component() = default;
         virtual ~Component() = default;
 
         static const size_t m_type;

@@ -1,6 +1,7 @@
 #include "stdafx.h"
-#include <Core/GameObject.h>
+#include <string>
 
+#include <Core/GameObject.h>
 #include <Components/ModelComp.h>
 #include <Components/TransformComp.h>
 #include <Components/LightComp.h>
@@ -21,7 +22,7 @@ Core::GameObject::GameObject()
     AddComponent<Components::MaterialComp>();
 
     AddComponent<Components::BoxColliderComp>()->m_collider->m_points = GetComponent<Components::ModelComp>()->m_model->m_mesh->m_positions;
-    GetComponent<Components::BoxColliderComp>()->m_collider->m_modelMat = &GetComponent<Components::TransformComp>()->m_transform->m_transMat;
+    GetComponent<Components::BoxColliderComp>()->m_collider->m_modelMat = GetComponent<Components::TransformComp>()->m_transform->m_transMat;
 }
 
 Core::GameObject::GameObject(const char* p_meshPath, const char* p_vertPath, const char* p_fragPath)
@@ -34,7 +35,7 @@ Core::GameObject::GameObject(const char* p_meshPath, const char* p_vertPath, con
     AddComponent<Components::MaterialComp>();
 
     AddComponent<Components::BoxColliderComp>()->m_collider->m_points = GetComponent<Components::ModelComp>()->m_model->m_mesh->m_positions;
-    GetComponent<Components::BoxColliderComp>()->m_collider->m_modelMat = &GetComponent<Components::TransformComp>()->m_transform->m_transMat;
+    GetComponent<Components::BoxColliderComp>()->m_collider->m_modelMat = GetComponent<Components::TransformComp>()->m_transform->m_transMat;
 }
 
 Core::GameObject::GameObject(std::shared_ptr<Rendering::Resources::Mesh> p_mesh, Rendering::Shaders::Shader* p_Shader, const char* p_name)
@@ -48,7 +49,7 @@ Core::GameObject::GameObject(std::shared_ptr<Rendering::Resources::Mesh> p_mesh,
     AddComponent<Components::MaterialComp>();
 
     AddComponent<Components::BoxColliderComp>()->m_collider->m_points = GetComponent<Components::ModelComp>()->m_model->m_mesh->m_positions;
-    GetComponent<Components::BoxColliderComp>()->m_collider->m_modelMat = &GetComponent<Components::TransformComp>()->m_transform->m_transMat;
+    GetComponent<Components::BoxColliderComp>()->m_collider->m_modelMat = GetComponent<Components::TransformComp>()->m_transform->m_transMat;
 }
 
 Core::GameObject::~GameObject()
@@ -100,18 +101,23 @@ bool Core::GameObject::CheckCollision(std::vector<std::shared_ptr<Core::GameObje
         {
             if (p_gameObjects[i]->m_name != p_gameObjects[j]->m_name)
             {
-                Physics::Collider* colliderOne = p_gameObjects[i]->GetComponent<Components::BoxColliderComp>()->m_collider;
-                Physics::Collider* colliderTwo = p_gameObjects[j]->GetComponent<Components::BoxColliderComp>()->m_collider;
+                Physics::Collider& colliderOne = *p_gameObjects[i]->GetComponent<Components::BoxColliderComp>()->m_collider;
+                Physics::Collider& colliderTwo = *p_gameObjects[j]->GetComponent<Components::BoxColliderComp>()->m_collider;
 
-                if (colliderOne->m_maxX > colliderTwo->m_minX ||
-                    colliderOne->m_maxY > colliderTwo->m_minY ||
-                    colliderOne->m_maxZ > colliderTwo->m_minZ ||
-                    colliderOne->m_minX < colliderTwo->m_maxX ||
-                    colliderOne->m_minY < colliderTwo->m_maxY ||
-                    colliderOne->m_minZ < colliderTwo->m_maxZ)
+
+                bool isOverlapping = false;
+                if (colliderOne.m_maxX < colliderTwo.m_minX || colliderOne.m_minX > colliderTwo.m_maxX)
+                    isOverlapping = false;
+                else if (colliderOne.m_maxY < colliderTwo.m_minY || colliderOne.m_minY > colliderTwo.m_maxY)
+                    isOverlapping = false;
+                else if (colliderOne.m_maxZ < colliderTwo.m_minZ || colliderOne.m_minZ > colliderTwo.m_maxZ)
+                    isOverlapping = false;
+                else
                 {
-                    const std::string output = p_gameObjects[i]->m_name + " Collided with " + p_gameObjects[j]->m_name;
-                    std::cout << output << std::endl;
+                    isOverlapping = true;
+                    if (isOverlapping)
+
+                    std::cout << p_gameObjects[i]->m_name << " Collided with " << p_gameObjects[j]->m_name << std::endl;
                     return true;
                 }
             }
