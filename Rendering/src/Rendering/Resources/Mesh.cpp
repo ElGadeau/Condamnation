@@ -9,7 +9,7 @@ Rendering::Resources::Mesh::Mesh(const std::vector<Geometry::Vertex>& p_vertices
 
     for (const auto& vertex : p_vertices)
     {
-        m_positions.push_back(new glm::vec3(vertex.m_position));
+        m_positions.push_back(vertex.m_position);
     }
 
     m_vertexArray = std::make_unique<Buffers::VertexArray>();

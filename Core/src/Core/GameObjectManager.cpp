@@ -41,8 +41,8 @@ Core::GameObjectManager::GameObjectManager(Core::MeshManager& p_modelManager)
     //flatTerrain->GetComponent<Components::TransformComp>()->m_transform->Rotate(glm::vec3(0, 0, 0));
     //flatTerrain->GetComponent<Components::MaterialComp>()->m_material->SetColor(0.8f, 0.8f, 0.8f);
 
-    Gear->GetComponent<Components::TransformComp>()->m_transform->Translate({ 10, 5, 0 });
-    Torus->GetComponent<Components::TransformComp>()->m_transform->Translate({ 40, 5, 0 });
+    Gear->GetComponent<Components::TransformComp>()->m_transform->Translate({ 20, 20, 20 });
+    Torus->GetComponent<Components::TransformComp>()->m_transform->Translate({ 40, 5, 10 });
     Torus->GetComponent<Components::MaterialComp>()->m_material->SetColor(0, 1, 1);
     Torus->GetComponent<Components::MaterialComp>()->m_material->SetShininess(1);
     Gear->GetComponent<Components::MaterialComp>()->m_material->SetColor(0.4f, 0.4f, 0.4f);
