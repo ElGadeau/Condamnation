@@ -40,3 +40,8 @@ void Physics::Collider::UpdateBoundingBox()
             m_minZ = result.z;
     }
 }
+
+void Physics::Collider::PrintBoundingBox()
+{
+	std::cout << "X: " << m_minX << ", " << m_maxX << "; Y: " << m_minY << ", " << m_maxY << "; Z: " << m_minZ << ", " << m_maxZ << '\n';
+}
