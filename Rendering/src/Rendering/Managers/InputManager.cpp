@@ -31,9 +31,9 @@ Rendering::Managers::InputManager::~InputManager() noexcept
 bool Rendering::Managers::InputManager::GetKeyDown(const KeyCode& p_keyCode)
 {
     if (!(m_inputBuffer.find(p_keyCode) == m_inputBuffer.end()))
-        if (m_inputBuffer.find(p_keyCode)->second == "KeyDown")
+        if (m_inputBuffer.find(p_keyCode)->second == KeyState::KeyDown)
         {
-            m_inputBuffer.at(p_keyCode) = "Complete";
+            m_inputBuffer.at(p_keyCode) = KeyState::Completed;
             return true;
         }
     return false;
@@ -43,9 +43,9 @@ bool Rendering::Managers::InputManager::GetKeyDown(const KeyCode& p_keyCode)
 bool Rendering::Managers::InputManager::GetKeyUp(const KeyCode& p_keyCode)
 {
     if (!(m_inputBuffer.find(p_keyCode) == m_inputBuffer.end()))
-        if (m_inputBuffer.find(p_keyCode)->second == "KeyUp")
+        if (m_inputBuffer.find(p_keyCode)->second == KeyState::KeyUp)
         {
-            m_inputBuffer.at(p_keyCode) = "Complete";
+            m_inputBuffer.at(p_keyCode) = KeyState::Completed;
             return true;
         }
     return false;
@@ -54,19 +54,19 @@ bool Rendering::Managers::InputManager::GetKeyUp(const KeyCode& p_keyCode)
 bool Rendering::Managers::InputManager::GetKey(const KeyCode& p_keyCode)
 {
     if (!(m_inputBuffer.find(p_keyCode) == m_inputBuffer.end()))
-        if (m_inputBuffer.find(p_keyCode)->second == "KeyDown")
+        if (m_inputBuffer.find(p_keyCode)->second == KeyState::KeyDown)
             return true;
     return false;
 }
 
 void Rendering::Managers::InputManager::OnKeyPressed(int p_key)
 {
-    m_inputBuffer.insert_or_assign(p_key, "KeyDown");
+    m_inputBuffer.insert_or_assign(p_key, KeyState::KeyDown);
 }
 
 void Rendering::Managers::InputManager::OnKeyReleased(int p_key)
 {
-    m_inputBuffer.insert_or_assign(p_key, "KeyUp");
+    m_inputBuffer.insert_or_assign(p_key, KeyState::KeyUp);
 }
 
 void Rendering::Managers::InputManager::OnMouseButtonPressed(int p_button)
@@ -82,9 +82,4 @@ void Rendering::Managers::InputManager::OnMouseButtonReleased(int p_button)
 void Rendering::Managers::InputManager::UpdateCursorPos()
 {
     glfwGetCursorPos(std::any_cast<GLFWwindow*>(m_window->Data()), &std::get<0>(m_mouseCursorPos), &std::get<1>(m_mouseCursorPos));
-}
-
-std::tuple<double, double>& Rendering::Managers::InputManager::GetMouseCursorPos()
-{
-    return m_mouseCursorPos;
 }

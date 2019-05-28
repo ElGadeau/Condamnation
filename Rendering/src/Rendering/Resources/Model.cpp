@@ -19,16 +19,6 @@ std::shared_ptr<Rendering::Resources::Mesh> Rendering::Resources::Model::LoadMes
     return Rendering::Resources::Loaders::MeshLoader::Load(p_filePath);
 }
 
-std::shared_ptr<Rendering::Resources::Mesh> Rendering::Resources::Model::GetMesh()
-{
-	return m_mesh;
-}
-
-Rendering::Shaders::Shader* Rendering::Resources::Model::GetShader()
-{
-	return m_shader;
-}
-
 void Rendering::Resources::Model::SetShader(Rendering::Shaders::Shader* p_shader)
 {
 	m_shader = p_shader;

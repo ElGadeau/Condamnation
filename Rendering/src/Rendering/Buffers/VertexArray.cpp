@@ -23,11 +23,6 @@ void VertexArray::Unbind() const noexcept
     glBindVertexArray(0);
 }
 
-const GLuint VertexArray::GetId() const noexcept
-{
-    return m_id;
-}
-
 void VertexArray::AddBuffer(const VertexBuffer& p_buffer,
     const int& p_countElements, const GLType& p_type) noexcept
 {

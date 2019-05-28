@@ -7,9 +7,9 @@ namespace Core
     class GameObjectManager
     {
     public:
-        GameObjectManager();
+        GameObjectManager() = default;
         GameObjectManager(Core::MeshManager& p_modelManager);
-        ~GameObjectManager();
+        ~GameObjectManager() = default;
         std::vector<std::shared_ptr<Core::GameObject>> m_gameObjects;
         void Update(float p_deltaTime);
         int LoadScene();

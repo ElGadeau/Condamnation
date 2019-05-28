@@ -7,16 +7,13 @@
 
 static double angle = 0;
 
-Core::GameObjectManager::GameObjectManager()
-{
-}
-
 Core::GameObjectManager::GameObjectManager(Core::MeshManager& p_modelManager)
 {
     //std::shared_ptr<Core::GameObject> flatTerrain(new Core::GameObject(p_modelManager.GetMesh(0), p_modelManager.GetShader(0), "Terrain"));
     //std::shared_ptr<Core::GameObject> DirLight(new Core::GameObject(p_modelManager.meshes[1], p_modelManager.GetShader(1),"Directionnal"));
     //std::shared_ptr<Core::GameObject> OrangeLight(new Core::GameObject(p_modelManager.GetMesh(1), p_modelManager.GetShader(1), "OrangeLight"));
     //std::shared_ptr<Core::GameObject> BlueLight(new Core::GameObject(p_modelManager.GetMesh(1), p_modelManager.GetShader(1), "BlueLight"));
+
     std::shared_ptr<Core::GameObject> Torus(new Core::GameObject(p_modelManager.GetMesh(3), p_modelManager.GetShader(0), "Torus"));
     std::shared_ptr<Core::GameObject> Gear(new Core::GameObject(p_modelManager.GetMesh(4), p_modelManager.GetShader(0), "Gear"));
 
@@ -50,11 +47,6 @@ Core::GameObjectManager::GameObjectManager(Core::MeshManager& p_modelManager)
     Torus->GetComponent<Components::MaterialComp>()->m_material->SetShininess(1);
     Gear->GetComponent<Components::MaterialComp>()->m_material->SetColor(0.4f, 0.4f, 0.4f);
     Gear->GetComponent<Components::MaterialComp>()->m_material->SetShininess(1);
-}
-
-
-Core::GameObjectManager::~GameObjectManager()
-{
 }
 
 void Core::GameObjectManager::Update(float p_deltaTime)

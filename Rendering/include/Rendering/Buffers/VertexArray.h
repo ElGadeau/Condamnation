@@ -24,7 +24,7 @@ namespace Rendering::Buffers
         void Bind() const noexcept;
         void Unbind() const noexcept;
 
-        const GLuint GetId() const noexcept;
+		const GLuint& GetId() const noexcept { return m_id; }
 
         void AddBuffer(const VertexBuffer& p_buffer, 
                        const int& p_countElements, 

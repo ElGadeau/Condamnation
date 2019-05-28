@@ -77,8 +77,3 @@ void Rendering::Managers::CameraManager::MoveCamera(const glm::vec3& p_direction
 {
     m_camera->m_position += p_direction * m_camera->m_movementSpeed;
 }
-
-std::shared_ptr<Rendering::LowRenderer::Camera> Rendering::Managers::CameraManager::GetCamera()
-{
-    return m_camera;
-}

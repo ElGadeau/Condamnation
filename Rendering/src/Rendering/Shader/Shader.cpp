@@ -46,7 +46,7 @@ GLuint Rendering::Shaders::Shader::CreateShader(const GLuint & p_type, const std
 	return m_shaderID;
 }
 
-std::string Rendering::Shaders::Shader::GetSource(const std::string p_filePath)
+std::string Rendering::Shaders::Shader::GetSource(const std::string& p_filePath)
 {
 	std::string code;
 	std::ifstream file;

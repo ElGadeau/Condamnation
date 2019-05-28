@@ -3,7 +3,6 @@
 
 #include <Rendering/Export.h>
 #include <Rendering/LowRenderer/Camera.h>
-#include <list>
 #include <Rendering/Managers/InputManager.h>
 
 namespace Rendering::Managers
@@ -11,7 +10,7 @@ namespace Rendering::Managers
     class API_RENDERING CameraManager
     {
     public:
-        CameraManager(const glm::vec3& p_position = glm::vec3(0.0f, 0.0f, 0.0f), const glm::vec3& p_up = glm::vec3(0.0f, 1.0f, 0.0f), const float& p_yaw = LowRenderer::YAW, const float& p_pitch = LowRenderer::PITCH);
+        CameraManager(const glm::vec3& p_position = glm::vec3(0.0f, 0.0f, 0.0f), const glm::vec3& p_up = glm::vec3(0.0f, 1.0f, 0.0f), const float& p_yaw = -90.0f, const float& p_pitch = 0);
         CameraManager(const float& p_posX, const float& p_posY, const float& p_posZ, const float& p_upX, const float& p_upY, const float& p_upZ, const float& p_yaw, const float& p_pitch);
 
         void Init(const glm::vec3& p_position, const glm::vec3& p_up, const float& p_yaw, const float& p_pitch);
@@ -20,10 +19,10 @@ namespace Rendering::Managers
         void ProcessMouseInput(const std::tuple<double, double>& p_mouseCursor);
         void MoveCamera(const glm::vec3& p_direction);
 
-        std::shared_ptr<LowRenderer::Camera> GetCamera();
+		std::shared_ptr<LowRenderer::Camera> GetCamera() const noexcept { return m_camera; }
 
     private:
-        std::shared_ptr<LowRenderer::Camera> m_camera = nullptr;
+		std::shared_ptr<LowRenderer::Camera> m_camera{};
 
         double m_lastX = 1920 / 2;
         double m_lastY = 1080 / 2;

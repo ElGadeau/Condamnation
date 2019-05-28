@@ -16,9 +16,9 @@ namespace Rendering::LowRenderer
         void Scale(const glm::vec3& p_scaling);
         void SetPosition(const glm::vec3 & p_pos);
 
-        glm::vec3 GetPosition() const { return m_pos; };
-        glm::vec3 GetRotation() const { return m_rot; };
-        glm::vec3 GetScale() const { return m_scale; };
+        const glm::vec3& GetPosition() const noexcept { return m_pos; };
+        const glm::vec3& GetRotation() const noexcept { return m_rot; };
+        const glm::vec3& GetScale() const noexcept { return m_scale; };
         glm::mat4 m_transMat;
 
     private:

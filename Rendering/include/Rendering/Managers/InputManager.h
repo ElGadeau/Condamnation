@@ -11,6 +11,7 @@ namespace Rendering::Managers
     {
     public:
         using KeyCode = Utils::Event<int>::KeyCode;
+        using KeyState = Utils::Event<int>::KeyState;
 
         InputManager(const std::shared_ptr<Context::IWindow>&& p_window) noexcept;
         ~InputManager() noexcept;
@@ -20,7 +21,8 @@ namespace Rendering::Managers
         bool GetKey(const KeyCode& p_keyCode);
 
         void UpdateCursorPos();
-        std::tuple<double, double>& GetMouseCursorPos();
+
+		const std::tuple<double, double>& GetMouseCursorPos() const noexcept { return m_mouseCursorPos; }
 
     private:
         void OnKeyPressed(int p_key);
@@ -29,17 +31,17 @@ namespace Rendering::Managers
         void OnMouseButtonReleased(int p_button);
 
 
-        std::shared_ptr<Context::IWindow> m_window;
+		std::shared_ptr<Context::IWindow> m_window;
 
         std::list<int> m_keyInputList;
         glm::vec2 m_MouseInputList;
 
-        uint8_t m_idKeyPressedListener;
-        uint8_t m_idKeyReleasedListener;
-        uint8_t m_idMouseButtonPressedListener;
-        uint8_t m_idMouseButtonReleasedListener;
+        uint8_t m_idKeyPressedListener {0};
+        uint8_t m_idKeyReleasedListener {0};
+        uint8_t m_idMouseButtonPressedListener {0};
+        uint8_t m_idMouseButtonReleasedListener {0};
 
-        std::unordered_map<int, std::string> m_inputBuffer;
+        std::unordered_map<int, int> m_inputBuffer;
         std::tuple<double, double> m_mouseCursorPos;
 
     };

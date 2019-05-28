@@ -125,8 +125,3 @@ bool Core::GameObject::CheckCollision(std::vector<std::shared_ptr<Core::GameObje
     }
     return false;
 }
-
-std::string & Core::GameObject::GetName()
-{
-    return m_name;
-}
