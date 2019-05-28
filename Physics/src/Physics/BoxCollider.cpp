@@ -20,9 +20,9 @@ Physics::Collider::~Collider()
 
 void Physics::Collider::UpdateBoundingBox()
 {
-    for (unsigned int i = 0; i < m_points.size(); ++i)
+    for (unsigned int i = 0; i < m_points->size(); ++i)
     {
-        glm::vec4 result = *m_modelMat * glm::vec4(m_points[i], 0.0);
+        glm::vec4 result = *m_modelMat * glm::vec4(*m_points[i].data(), 0.0);
 
         if (result.x > m_maxX)
             m_maxX = result.x;

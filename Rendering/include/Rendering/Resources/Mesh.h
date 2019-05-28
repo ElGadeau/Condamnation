@@ -26,7 +26,7 @@ namespace Rendering::Resources
         void CreateBuffers(const std::vector<Geometry::Vertex>& p_vertices,
             const std::vector<uint32_t>& p_indices) noexcept;
 
-        std::vector<glm::vec3> m_positions;
+        std::vector<glm::vec3>* m_positions;
 
     private:
         const uint32_t m_vertexCount{};

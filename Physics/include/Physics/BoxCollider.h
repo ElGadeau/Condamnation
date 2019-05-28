@@ -21,7 +21,7 @@ namespace Physics
         float m_minZ;
 
         glm::mat4* m_modelMat;
-        std::vector<glm::vec3> m_points;
+        std::vector<glm::vec3>* m_points;
     };
 }
 

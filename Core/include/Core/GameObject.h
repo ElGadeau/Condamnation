@@ -18,7 +18,7 @@ namespace Core
         GameObject(std::shared_ptr<Rendering::Resources::Mesh> p_mesh, Rendering::Shaders::Shader* p_Shader, const char* p_name);
         ~GameObject();
 
-        Rendering::Resources::Model* m_model;
+        //Rendering::Resources::Model* m_model;
 
         void SetGameObjectMesh(std::shared_ptr<Rendering::Resources::Mesh> p_mesh);
         void SetModelShader(Rendering::Shaders::Shader& p_shader);
