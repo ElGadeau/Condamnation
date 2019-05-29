@@ -10,10 +10,15 @@ namespace Core
         GameObjectManager() = default;
         GameObjectManager(Core::MeshManager& p_modelManager);
         ~GameObjectManager() = default;
-        std::vector<std::shared_ptr<Core::GameObject>> m_gameObjects;
+
         void Update(float p_deltaTime);
         int LoadScene();
         std::shared_ptr<Core::GameObject> Find(const std::string& p_name);
+
+		[[nodiscard]] std::vector<std::shared_ptr<Core::GameObject>>& GetGameObjects() noexcept;
+
+    private:
+        std::vector<std::shared_ptr<Core::GameObject>> m_gameObjects;
     };
 }
 

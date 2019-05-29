@@ -7,10 +7,13 @@ namespace Components
     class MaterialComp : public Component
     {
     public:
-        MaterialComp() : m_material(new Rendering::LowRenderer::Material) {};
-        ~MaterialComp() { delete m_material; };
+		MaterialComp() : m_material { std::make_shared<Rendering::LowRenderer::Material>() } {};
+		~MaterialComp() = default;
 
-        Rendering::LowRenderer::Material* m_material;
+		[[nodiscard]] std::shared_ptr<Rendering::LowRenderer::Material> GetMaterial() const noexcept { return m_material; }
+
+    private:
+        std::shared_ptr<Rendering::LowRenderer::Material> m_material;
     };
 }
 

@@ -30,9 +30,6 @@
     <ClCompile Include="src\Core\GameObjectManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\Components\TransformComp.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\AI\PathFinding.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>

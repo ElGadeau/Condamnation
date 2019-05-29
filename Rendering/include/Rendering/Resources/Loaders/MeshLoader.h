@@ -10,7 +10,7 @@ namespace Rendering::Resources::Loaders
         MeshLoader() = delete;
         ~MeshLoader() = delete;
 
-		static std::shared_ptr<Rendering::Resources::Mesh> Load(const char* pfile);
+		static std::shared_ptr<Rendering::Resources::Mesh> Load(const std::string& pfile);
     };
 	
 }

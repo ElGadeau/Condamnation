@@ -6,7 +6,7 @@
 #include <../assimp/include/assimp/scene.h>
 #include <../assimp/include/assimp/postprocess.h>
 
-std::shared_ptr<Rendering::Resources::Mesh> Rendering::Resources::Loaders::MeshLoader::Load(const char* pfile)
+std::shared_ptr<Rendering::Resources::Mesh> Rendering::Resources::Loaders::MeshLoader::Load(const std::string& pfile)
 {
 
 	std::vector<Rendering::Geometry::Vertex> vertices;

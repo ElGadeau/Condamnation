@@ -21,6 +21,7 @@
 
 #include <Rendering/Resources/Mesh.h>
 #include <Core/RenderEngine.h>
+#include "Components/BoxColliderComp.h"
 
 std::vector<Core::GameObject> GenerateLights(std::vector<std::shared_ptr<Core::GameObject>>& m_gameObjectVector)
 {
@@ -54,7 +55,7 @@ int main()
     Core::GameObjectManager gameobjects(modelManager);
         
     std::vector<Core::GameObject> lights;
-    lights = GenerateLights(gameobjects.m_gameObjects);
+    lights = GenerateLights(gameobjects.GetGameObjects());
     
     float angle = 0;
     while (!device->ShouldClose())
@@ -64,7 +65,7 @@ int main()
         
         angle += 0.005f;
         if (m_inputManager.GetKeyDown(Rendering::Managers::InputManager::KeyCode::R))
-            modelManager.ReloadShader(gameobjects.m_gameObjects);
+            modelManager.ReloadShader(gameobjects.GetGameObjects());
 
         if (m_inputManager.GetKeyDown(Rendering::Managers::InputManager::KeyCode::Escape))
             device->Close();
@@ -74,8 +75,8 @@ int main()
         m_camera.ProcessMouseInput(m_inputManager.GetMouseCursorPos());
         renderer->Clear();
         gameobjects.Update(device->GetDeltaTime());
-        m_renderEngine.DrawElements(gameobjects.m_gameObjects, lights, *m_camera.GetCamera(), *renderer);
-        
+                
+        m_renderEngine.DrawElements(gameobjects.GetGameObjects(), lights, *m_camera.GetCamera(), *renderer);
         device->Render();
 
     }

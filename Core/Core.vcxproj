@@ -179,7 +179,6 @@
     <ClCompile Include="src\App.cpp" />
     <ClCompile Include="src\Core\GameObject.cpp" />
     <ClCompile Include="src\Core\MeshManager.cpp" />
-    <ClCompile Include="src\Components\TransformComp.cpp" />
     <ClCompile Include="src\Core\RenderEngine.cpp" />
   </ItemGroup>
   <ItemGroup>

@@ -6,22 +6,23 @@
 
 void Core::MeshManager::AddMesh(const char* p_filePath)
 {
-    meshes.push_back(Rendering::Resources::Model::LoadMesh(p_filePath));
+    m_meshes.push_back(Rendering::Resources::Model::LoadMesh(p_filePath));
 }
 
 void Core::MeshManager::AddShader(const char* p_vertPath, const char* p_fragPath)
 {
-    shaders.push_back(Rendering::Resources::Loaders::ShaderLoader::LoadShader(p_vertPath, p_fragPath));
+	std::shared_ptr<Rendering::Shaders::Shader> newShader = Rendering::Resources::Loaders::ShaderLoader::LoadShader(p_vertPath, p_fragPath);
+    m_shaders.push_back(newShader);
 }
 
 void Core::MeshManager::ReloadShader(std::vector<std::shared_ptr<Core::GameObject>>& p_gameObjects)
 {
-    for (unsigned int i = 0; i < shaders.size(); ++i)
+    for (unsigned int i = 0; i < m_shaders.size(); ++i)
     {
-        const char* pathA = shaders[i]->m_vertPath;
-        const char* pathB = shaders[i]->m_fragPath;
+        const char* pathA = m_shaders[i]->m_vertPath;
+        const char* pathB = m_shaders[i]->m_fragPath;
 
-        shaders[i] = Rendering::Resources::Loaders::ShaderLoader::LoadShader(pathA, pathB);
+        m_shaders[i] = std::make_shared<Rendering::Shaders::Shader>(*Rendering::Resources::Loaders::ShaderLoader::LoadShader(pathA, pathB));
     }
 
     for (auto& gameObject : p_gameObjects)
