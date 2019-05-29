@@ -15,7 +15,7 @@ Core::GameObjectManager::GameObjectManager(Core::MeshManager& p_modelManager)
     std::shared_ptr<Core::GameObject> BlueLight = std::make_shared<Core::GameObject>(p_modelManager.GetMesh(1), p_modelManager.GetShader(1), "BlueLight");
 
     std::shared_ptr<Core::GameObject> Torus = std::make_shared<Core::GameObject>(p_modelManager.GetMesh(3), p_modelManager.GetShader(0), "Torus");
-    std::shared_ptr<Core::GameObject> Gear = std::make_shared<Core::GameObject>(p_modelManager.GetMesh(4), p_modelManager.GetShader(0), "Gear");
+    std::shared_ptr<Core::GameObject> Gear = std::make_shared<Core::GameObject>(p_modelManager.GetMesh(1), p_modelManager.GetShader(0), "Gear");
 
     m_gameObjects.emplace_back(flatTerrain);
     m_gameObjects.emplace_back(DirLight);
@@ -59,9 +59,9 @@ void Core::GameObjectManager::Update(float p_deltaTime)
     Find("BlueLight")->GetComponent<Components::TransformComp>()->GetTransform()->Translate(glm::vec3(cos(angle * 20), 0, sin(angle * 20)) * p_deltaTime);
     Find("BlueLight")->GetComponent<Components::LightComp>()->GetLight()->m_pos = Find("BlueLight")->GetComponent<Components::TransformComp>()->GetTransform()->GetPosition();
 
-    Find("Torus")->GetComponent<Components::TransformComp>()->GetTransform()->Rotate(glm::vec3(1, 0, 0) * p_deltaTime);
+    //Find("Torus")->GetComponent<Components::TransformComp>()->GetTransform()->Rotate(glm::vec3(1, 0, 0) * p_deltaTime);
     Find("Torus")->GetComponent<Components::TransformComp>()->GetTransform()->Translate(glm::vec3(cos(angle) / 10, 0, 0) * p_deltaTime);
-    Find("Gear")->GetComponent<Components::TransformComp>()->GetTransform()->Rotate(glm::vec3(0, 1, 0) * p_deltaTime);
+    //Find("Gear")->GetComponent<Components::TransformComp>()->GetTransform()->Rotate(glm::vec3(0, 1, 0) * p_deltaTime);
     Find("Torus")->CollidesWith(Find("Gear"));
 }
 

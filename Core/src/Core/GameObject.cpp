@@ -96,6 +96,7 @@ bool Core::GameObject::CollidesWith(const std::shared_ptr<Core::GameObject>& p_g
     {
         Physics::Collider& colliderOne = *GetComponent<Components::BoxColliderComp>()->GetCollider();
         Physics::Collider& colliderTwo = *p_gameObject->GetComponent<Components::BoxColliderComp>()->GetCollider();
+        p_gameObject->GetComponent<Components::BoxColliderComp>()->GetCollider()->PrintBoundingBox();
 
         bool isOverlapping = true;
         if (colliderOne.maxVec.x < colliderTwo.minVec.x || colliderOne.minVec.x > colliderTwo.maxVec.x)
