@@ -22,8 +22,8 @@ namespace Core
         void Update(Rendering::LowRenderer::Camera& cam, std::vector<GameObject>& p_lights);
         void ReloadShader();
 
-        static bool CheckCollision(std::vector<std::shared_ptr<GameObject>>& p_gameObjects);
-
+        bool CollidesWith(const std::shared_ptr<GameObject>& p_gameObjects);
+        void ResolveCollisions(std::vector<std::shared_ptr<Core::GameObject>>& p_gameObjects);
 		const std::string& GetName() const noexcept {	return m_name; }
 
         template<class ComponentType>

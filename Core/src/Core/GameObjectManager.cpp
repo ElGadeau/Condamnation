@@ -61,7 +61,7 @@ void Core::GameObjectManager::Update(float p_deltaTime)
     Find("Torus")->GetComponent<Components::TransformComp>()->m_transform->Rotate(glm::vec3(1, 0, 0) * p_deltaTime);
     Find("Torus")->GetComponent<Components::TransformComp>()->m_transform->Translate(glm::vec3(cos(angle) / 10, 0, 0) * p_deltaTime);
     Find("Gear")->GetComponent<Components::TransformComp>()->m_transform->Rotate(glm::vec3(0, 1, 0) * p_deltaTime);
-    Core::GameObject::CheckCollision(m_gameObjects);
+    Find("Torus")->CollidesWith(Find("Gear"));
 }
 
 int Core::GameObjectManager::LoadScene()
