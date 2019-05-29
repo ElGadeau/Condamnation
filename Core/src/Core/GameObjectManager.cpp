@@ -53,18 +53,14 @@ void Core::GameObjectManager::Update(float p_deltaTime)
 {
     angle += 0.005f * p_deltaTime;
 
-    for (auto& p_gameObject : m_gameObjects)
-    {
-        p_gameObject->GetComponent<Components::BoxColliderComp>()->GetCollider()->m_modelMat = p_gameObject->GetComponent<Components::TransformComp>()->GetTransform()->m_transMat;
-    }
-
     Find("OrangeLight")->GetComponent<Components::LightComp>()->GetLight()->m_pos = Find("OrangeLight")->GetComponent<Components::TransformComp>()->GetTransform()->GetPosition();
     Find("BlueLight")->GetComponent<Components::TransformComp>()->GetTransform()->Translate(glm::vec3(cos(angle * 20), 0, sin(angle * 20)) * p_deltaTime);
     Find("BlueLight")->GetComponent<Components::LightComp>()->GetLight()->m_pos = Find("BlueLight")->GetComponent<Components::TransformComp>()->GetTransform()->GetPosition();
 
-
     Find("Torus")->GetComponent<Components::TransformComp>()->GetTransform()->Rotate(glm::vec3(1, 0, 0) * p_deltaTime);
+    Find("Torus")->GetComponent<Components::TransformComp>()->GetTransform()->Translate(glm::vec3(cos(angle) / 10, 0, 0) * p_deltaTime);
     Find("Gear")->GetComponent<Components::TransformComp>()->GetTransform()->Rotate(glm::vec3(0, 1, 0) * p_deltaTime);
+    Find("Torus")->CollidesWith(Find("Gear"));
 }
 
 int Core::GameObjectManager::LoadScene()

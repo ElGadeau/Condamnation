@@ -75,17 +75,8 @@ int main()
         m_camera.ProcessMouseInput(m_inputManager.GetMouseCursorPos());
         renderer->Clear();
         gameobjects.Update(device->GetDeltaTime());
-
-        Core::GameObject::CheckCollision(gameobjects.GetGameObjects());
                 
         m_renderEngine.DrawElements(gameobjects.GetGameObjects(), lights, *m_camera.GetCamera(), *renderer);
-
-		//gameobjects.Find("ads")->GetComponent<Components::BoxColliderComp>()->GetCollider()->PrintBoundingBox();
-		std::cout << "--------------------------\n";
-		std::cout << "BLue light\n";
-		gameobjects.Find("BlueLight")->GetComponent<Components::BoxColliderComp>()->GetCollider()->PrintBoundingBox();
-		std::cout << "Orange light\n";
-		gameobjects.Find("OrangeLight")->GetComponent<Components::BoxColliderComp>()->GetCollider()->PrintBoundingBox();
         device->Render();
 
     }
