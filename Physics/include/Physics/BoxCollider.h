@@ -11,17 +11,17 @@ namespace Physics
         Collider(std::vector<glm::vec3>& p_vec);
         ~Collider();
 
+        void SetBoundingBox();
         void UpdateBoundingBox();
 		void PrintBoundingBox() const;
 
-        float m_maxX;
-        float m_minX;
-        float m_maxY;
-        float m_minY;
-        float m_maxZ;
-        float m_minZ;
+        glm::vec4 maxVectmp;
+        glm::vec4 minVectmp;
+        glm::vec4 maxVec;
+        glm::vec4 minVec;
 
         glm::mat4 m_modelMat;
+
         std::vector<glm::vec3>& m_points;
     };
 }

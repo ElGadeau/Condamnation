@@ -50,6 +50,7 @@ Core::GameObject::GameObject(std::shared_ptr<Rendering::Resources::Mesh> p_mesh,
 
     AddComponent<Components::BoxColliderComp>();
     GetComponent<Components::BoxColliderComp>()->SetCollider(GetComponent<Components::ModelComp>()->m_model->m_mesh->m_positions);
+    GetComponent<Components::BoxColliderComp>()->m_collider->SetBoundingBox();
     GetComponent<Components::BoxColliderComp>()->m_collider->m_modelMat = GetComponent<Components::TransformComp>()->m_transform->m_transMat;
 }
 
@@ -95,8 +96,8 @@ bool Core::GameObject::CheckCollision(std::vector<std::shared_ptr<Core::GameObje
 {
     for (unsigned int k = 0; k < p_gameObjects.size(); ++k)
     {
+        p_gameObjects[k]->GetComponent<Components::BoxColliderComp>()->m_collider->m_modelMat = p_gameObjects[k]->GetComponent<Components::TransformComp>()->m_transform->m_transMat;
         p_gameObjects[k]->GetComponent<Components::BoxColliderComp>()->m_collider->UpdateBoundingBox();
-        p_gameObjects[k]->GetComponent<Components::BoxColliderComp>()->m_collider->PrintBoundingBox();
     }
 
     for (unsigned int i = 0; i < p_gameObjects.size(); ++i)
@@ -108,21 +109,18 @@ bool Core::GameObject::CheckCollision(std::vector<std::shared_ptr<Core::GameObje
                 Physics::Collider& colliderOne = *p_gameObjects[i]->GetComponent<Components::BoxColliderComp>()->m_collider;
                 Physics::Collider& colliderTwo = *p_gameObjects[j]->GetComponent<Components::BoxColliderComp>()->m_collider;
 
+                bool isOverlapping = true;
+                if (colliderOne.maxVec.x < colliderTwo.minVec.x || colliderOne.minVec.x > colliderTwo.maxVec.x)
+                    isOverlapping = false;
+                if (colliderOne.maxVec.y < colliderTwo.minVec.y || colliderOne.minVec.y > colliderTwo.maxVec.y)
+                    isOverlapping = false;
+                if (colliderOne.maxVec.z < colliderTwo.minVec.z || colliderOne.minVec.z > colliderTwo.maxVec.z)
+                    isOverlapping = false;
 
-                bool isOverlapping = false;
-                if (colliderOne.m_maxX < colliderTwo.m_minX || colliderOne.m_minX > colliderTwo.m_maxX)
-                    isOverlapping = false;
-                else if (colliderOne.m_maxY < colliderTwo.m_minY || colliderOne.m_minY > colliderTwo.m_maxY)
-                    isOverlapping = false;
-                else if (colliderOne.m_maxZ < colliderTwo.m_minZ || colliderOne.m_minZ > colliderTwo.m_maxZ)
-                    isOverlapping = false;
-                else
+                if(isOverlapping)
                 {
-                    isOverlapping = true;
-                    if (isOverlapping)
-
                     std::cout << p_gameObjects[i]->m_name << " Collided with " << p_gameObjects[j]->m_name << std::endl;
-                    return true;
+                    puts(" ");
                 }
             }
         }
