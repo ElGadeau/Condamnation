@@ -174,8 +174,6 @@
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="src\Components\PlayerComp.cpp" />
-    <ClCompile Include="src\Entities\Bullet.cpp" />
     <ClCompile Include="src\AI\PathFinding.cpp" />
     <ClCompile Include="src\Core\GameObjectManager.cpp" />
     <ClCompile Include="src\App.cpp" />
@@ -192,7 +190,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="include\Entities\Bullet.h" />
     <ClInclude Include="include\Components\BoxColliderComp.h" />
     <ClInclude Include="include\Core\GameObjectManager.h" />
     <ClInclude Include="include\Components\Component.h" />
@@ -204,7 +201,6 @@
     <ClInclude Include="include\Components\ModelComp.h" />
     <ClInclude Include="include\Components\RigidBodyComp.h" />
     <ClInclude Include="include\Components\MaterialComp.h" />
-    <ClInclude Include="include\Components\PlayerComp.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

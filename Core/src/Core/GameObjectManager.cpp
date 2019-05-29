@@ -65,7 +65,6 @@ void Core::GameObjectManager::Update(float p_deltaTime)
 
     Find("Torus")->GetComponent<Components::TransformComp>()->GetTransform()->Rotate(glm::vec3(1, 0, 0) * p_deltaTime);
     Find("Gear")->GetComponent<Components::TransformComp>()->GetTransform()->Rotate(glm::vec3(0, 1, 0) * p_deltaTime);
-
 }
 
 int Core::GameObjectManager::LoadScene()
