@@ -2,60 +2,49 @@
 #define STB_IMAGE_IMPLEMENTATION
 #include <stb_image.h>
 #include <Rendering/Resources/Texture.h>
-#include "iostream";
+#include "iostream"
 
-Texture::Texture() :m_loaded(false)
+Texture::Texture()
 {
-	glGenTextures(1, &m_id);
-
+	
+	glGenTextures(1, &m_texture);
+	
 	Bind();
 
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	
 	Unbind();
 }
 
-
 Texture::~Texture()
 {
-	glDeleteTextures(1, &m_id);
+	glDeleteTextures(1, &m_texture);
 }
 
-void Texture::Bind() const
+void Texture::Bind()
 {
-	glBindTexture(GL_TEXTURE_2D, m_id);
+	glBindTexture(GL_TEXTURE_2D, m_texture);
 }
 
-void Texture::Unbind() const
+void Texture::Unbind()
 {
 	glBindTexture(GL_TEXTURE_2D, 0);
 }
 
-void Texture::LoadTexture(const std::string& p_filepath)
+void Texture::LoadTexture(const std::string & fileName)
 {
-	int width;
-	int height;
-	int nrChannels;
+	int width, height, numComponents;
+	unsigned char* data = stbi_load((fileName).c_str(), &width, &height, &numComponents, 4);
+	
+	if (data == nullptr)
+		std::cerr << "Unable to load texture: " << fileName << std::endl;
 
-	stbi_uc * data = stbi_load(p_filepath.data(), &width, &height, &nrChannels, 0);
-	stbi__vertical_flip(data, width, height, nrChannels);
-
-	if (data != nullptr)
-	{
-		std::cout << "Texture loaded: " << p_filepath.c_str() << "\n";
-		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA8, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
-		glGenerateMipmap(GL_TEXTURE_2D);
-		m_loaded = true;
-		std::cout << "Texture loaded: " << p_filepath.c_str() << "\n";
-	}
-	else
-	{
-		std::cout << "Failed to load texture at path : " << p_filepath.c_str() << '\n';
-		m_loaded = false;
-	}
-
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, data);
+	glGenerateMipmap(GL_TEXTURE_2D);
 	stbi_image_free(data);
+
 }
+

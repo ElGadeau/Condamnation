@@ -5,6 +5,7 @@ in vec4 vertexColor; // the input variable from the vertex shader (same name and
 in vec3 o_normal;
 in vec3 o_pos;
 in mat4 ModelMat;
+in vec2 TexCoords;
 
 struct LightSource
 {
@@ -18,6 +19,7 @@ uniform LightSource pointLights[8];
 uniform vec3 viewPos;
 uniform vec3 objColor;
 uniform float objShininess;
+uniform sampler2D objectTexture;
 
 int radius = 8;
 
@@ -72,5 +74,5 @@ void main()
          }
         resultFinal += result;
     }
-    FragColor = vec4(resultFinal, 1.0);
+    FragColor = texture(objectTexture,TexCoords) * vec4(resultFinal, 1.0);
 } 
