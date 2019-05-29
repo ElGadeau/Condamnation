@@ -20,7 +20,7 @@ namespace Physics
         glm::vec4 maxVec;
         glm::vec4 minVec;
 
-        glm::mat4* m_modelMat;
+        glm::mat4 m_modelMat;
 
         std::vector<glm::vec3>& m_points;
     };
