@@ -29,6 +29,14 @@ void Physics::Collider::UpdateBoundingBox()
         if (result.x > m_maxX)
             m_maxX = result.x;
 
+		if (i == 0)
+		{
+			m_minX = m_maxX;
+			m_minY = m_maxY;
+			m_minZ = m_maxZ;
+			
+		}
+
         if (result.x < m_minX)
             m_minX = result.x;
 
@@ -46,7 +54,7 @@ void Physics::Collider::UpdateBoundingBox()
     }
 }
 
-void Physics::Collider::PrintBoundingBox()
+void Physics::Collider::PrintBoundingBox() const
 {
 	std::cout << "X: " << m_minX << ", " << m_maxX << "; Y: " << m_minY << ", " << m_maxY << "; Z: " << m_minZ << ", " << m_maxZ << '\n';
 }

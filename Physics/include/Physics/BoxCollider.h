@@ -12,7 +12,7 @@ namespace Physics
         ~Collider();
 
         void UpdateBoundingBox();
-		void PrintBoundingBox();
+		void PrintBoundingBox() const;
 
         float m_maxX;
         float m_minX;
