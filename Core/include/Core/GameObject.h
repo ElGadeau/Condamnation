@@ -12,13 +12,11 @@ namespace Core
     public:
         GameObject();
         GameObject(const char* p_meshPath, const char* p_vertPath, const char* p_fragPath);
-        GameObject(std::shared_ptr<Rendering::Resources::Mesh> p_mesh, Rendering::Shaders::Shader* p_Shader, const char* p_name);
-        ~GameObject();
-
-        //Rendering::Resources::Model* m_model;
+        GameObject(std::shared_ptr<Rendering::Resources::Mesh> p_mesh, std::shared_ptr<Rendering::Shaders::Shader> p_Shader, const char* p_name);
+        ~GameObject() = default;
 
         void SetGameObjectMesh(std::shared_ptr<Rendering::Resources::Mesh> p_mesh);
-        void SetModelShader(Rendering::Shaders::Shader& p_shader);
+        void SetModelShader(std::shared_ptr<Rendering::Shaders::Shader> p_shader);
         void Update(Rendering::LowRenderer::Camera& cam, std::vector<GameObject>& p_lights);
         void ReloadShader();
 
@@ -48,7 +46,7 @@ namespace Core
             }
             if(result == nullptr)
             {
-                //std::cout << "Component not found !" << std::endl;
+                std::cout << "Component not found !" << std::endl;
             }
             
             return result.get();

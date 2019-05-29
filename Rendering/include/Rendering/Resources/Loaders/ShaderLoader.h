@@ -11,6 +11,6 @@ namespace Rendering::Resources::Loaders
 		ShaderLoader();
 		~ShaderLoader();
 
-		static Rendering::Shaders::Shader* LoadShader(const char* p_shaderPath, const char* p_shaderPathB);
+		static std::shared_ptr<Shaders::Shader> LoadShader(const char* p_shaderPath, const char* p_shaderPathB);
 	};
 }

@@ -9,9 +9,12 @@ namespace Components
     {
     public:
         BoxColliderComp() = default;
-        ~BoxColliderComp() { delete m_collider; }
+		~BoxColliderComp() = default;
 
-        void SetCollider(std::vector<glm::vec3>& p_vec) { m_collider = new Physics::Collider(p_vec); }
-        Physics::Collider* m_collider;
+        void SetCollider(std::vector<glm::vec3>& p_vec) { m_collider = std::make_shared<Physics::Collider>(p_vec); }
+		[[nodiscard]] std::shared_ptr<Physics::Collider> GetCollider() const noexcept { return m_collider; }
+
+    private:
+        std::shared_ptr<Physics::Collider> m_collider;
     };
 }

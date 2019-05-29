@@ -2,17 +2,9 @@
 #include <Rendering/Resources/Loaders/ShaderLoader.h>
 #include <Rendering/Shader/Shader.h>
 
-Rendering::Resources::Loaders::ShaderLoader::ShaderLoader()
+std::shared_ptr<Rendering::Shaders::Shader> Rendering::Resources::Loaders::ShaderLoader::LoadShader(const char* p_shaderPath, const char* p_shaderPathB)
 {
-}
-
-Rendering::Resources::Loaders::ShaderLoader::~ShaderLoader()
-{
-}
-
-Rendering::Shaders::Shader * Rendering::Resources::Loaders::ShaderLoader::LoadShader(const char* p_shaderPath, const char* p_shaderPathB)
-{
-	Rendering::Shaders::Shader* m_shader = new Rendering::Shaders::Shader{};
+	std::shared_ptr<Shaders::Shader> m_shader = std::make_shared<Shaders::Shader>();
     m_shader->m_vertPath = p_shaderPath;
     m_shader->m_fragPath = p_shaderPathB;
 

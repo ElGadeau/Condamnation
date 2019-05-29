@@ -21,6 +21,7 @@
 
 #include <Rendering/Resources/Mesh.h>
 #include <Core/RenderEngine.h>
+#include "Components/BoxColliderComp.h"
 
 std::vector<Core::GameObject> GenerateLights(std::vector<std::shared_ptr<Core::GameObject>>& m_gameObjectVector)
 {
@@ -54,7 +55,7 @@ int main()
     Core::GameObjectManager gameobjects(modelManager);
         
     std::vector<Core::GameObject> lights;
-    lights = GenerateLights(gameobjects.m_gameObjects);
+    lights = GenerateLights(gameobjects.GetGameObjects());
     
     float angle = 0;
     while (!device->ShouldClose())
@@ -64,7 +65,7 @@ int main()
         
         angle += 0.005f;
         if (m_inputManager.GetKeyDown(Rendering::Managers::InputManager::KeyCode::R))
-            modelManager.ReloadShader(gameobjects.m_gameObjects);
+            modelManager.ReloadShader(gameobjects.GetGameObjects());
 
         if (m_inputManager.GetKeyDown(Rendering::Managers::InputManager::KeyCode::Escape))
             device->Close();
@@ -75,10 +76,16 @@ int main()
 
         renderer->Clear();
         gameobjects.Update(device->GetDeltaTime());
-        Core::GameObject::CheckCollision(gameobjects.m_gameObjects);
+        Core::GameObject::CheckCollision(gameobjects.GetGameObjects());
                 
-        m_renderEngine.DrawElements(gameobjects.m_gameObjects, lights, *m_camera.GetCamera(), *renderer);
-        
+        m_renderEngine.DrawElements(gameobjects.GetGameObjects(), lights, *m_camera.GetCamera(), *renderer);
+
+		//gameobjects.Find("ads")->GetComponent<Components::BoxColliderComp>()->GetCollider()->PrintBoundingBox();
+		std::cout << "--------------------------\n";
+		std::cout << "BLue light\n";
+		gameobjects.Find("BlueLight")->GetComponent<Components::BoxColliderComp>()->GetCollider()->PrintBoundingBox();
+		std::cout << "Orange light\n";
+		gameobjects.Find("OrangeLight")->GetComponent<Components::BoxColliderComp>()->GetCollider()->PrintBoundingBox();
         device->Render();
 
     }
