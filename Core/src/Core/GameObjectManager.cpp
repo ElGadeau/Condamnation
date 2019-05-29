@@ -53,7 +53,7 @@ void Core::GameObjectManager::Update(float p_deltaTime)
 {
     angle += 0.005f * p_deltaTime;
     for(auto& gameObject : m_gameObjects)
-        gameObject->GetComponent<Components::BoxColliderComp>()->GetCollider()->m_modelMat = gameObject->GetComponent<Components::TransformComp>()->GetTransform()->m_transMat;
+        gameObject->GetComponent<Components::BoxColliderComp>()->GetCollider()->GetModelMat() = gameObject->GetComponent<Components::TransformComp>()->GetTransform()->m_transMat;
     
     Find("OrangeLight")->GetComponent<Components::LightComp>()->GetLight()->m_pos = Find("OrangeLight")->GetComponent<Components::TransformComp>()->GetTransform()->GetPosition();
     Find("BlueLight")->GetComponent<Components::TransformComp>()->GetTransform()->Translate(glm::vec3(cos(angle * 20), 0, sin(angle * 20)) * p_deltaTime);

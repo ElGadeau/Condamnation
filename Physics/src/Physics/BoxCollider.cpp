@@ -41,19 +41,19 @@ void Physics::Collider::SetBoundingBox()
             m_minZ = result.z;
     }
 
-    maxVectmp = glm::vec4(m_maxX, m_maxY, m_maxZ, 1.0);
-    minVectmp = glm::vec4(m_minX, m_minY, m_minZ, 1.0);
+    m_minVectmp = glm::vec4(m_minX, m_minY, m_minZ, 1.0);
+    m_maxVectmp = glm::vec4(m_maxX, m_maxY, m_maxZ, 1.0);
 }
 
 void Physics::Collider::UpdateBoundingBox()
 {
-    maxVec = m_modelMat * maxVectmp;
-    minVec = m_modelMat * minVectmp;
+    m_maxVec = m_modelMat * m_maxVectmp;
+    m_minVec = m_modelMat * m_minVectmp;
 }
 
 void Physics::Collider::PrintBoundingBox() const
 {
-	std::cout << "maxVec: " << maxVec.x << " / " << maxVec.y << " / " << maxVec.z << '\n';
-	std::cout << "minVec: " << minVec.x << " / " << minVec.y << " / " << minVec.z << '\n';
+	std::cout << "maxVec: " << m_maxVec.x << " / " << m_maxVec.y << " / " << m_maxVec.z << '\n';
+	std::cout << "minVec: " << m_minVec.x << " / " << m_minVec.y << " / " << m_minVec.z << '\n';
     puts("-----------");
 }

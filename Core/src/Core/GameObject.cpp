@@ -21,7 +21,7 @@ Core::GameObject::GameObject()
     AddComponent<Components::ModelComp>();
     AddComponent<Components::MaterialComp>();
 
-    AddComponent<Components::BoxColliderComp>()->GetCollider()->m_points = GetComponent<Components::ModelComp>()->GetModel()->m_mesh->m_positions;
+    AddComponent<Components::BoxColliderComp>()->GetCollider()->GetPoints() = GetComponent<Components::ModelComp>()->GetModel()->m_mesh->m_positions;
 }
 
 Core::GameObject::GameObject(const char* p_meshPath, const char* p_vertPath, const char* p_fragPath)
@@ -33,7 +33,7 @@ Core::GameObject::GameObject(const char* p_meshPath, const char* p_vertPath, con
 
     AddComponent<Components::MaterialComp>();
 
-    AddComponent<Components::BoxColliderComp>()->GetCollider()->m_points = GetComponent<Components::ModelComp>()->GetModel()->m_mesh->m_positions;
+    AddComponent<Components::BoxColliderComp>()->GetCollider()->GetPoints() = GetComponent<Components::ModelComp>()->GetModel()->m_mesh->m_positions;
 }
 
 Core::GameObject::GameObject(std::shared_ptr<Rendering::Resources::Mesh> p_mesh, std::shared_ptr<Rendering::Shaders::Shader> p_Shader, const char* p_name)
@@ -98,11 +98,11 @@ bool Core::GameObject::CollidesWith(const std::shared_ptr<Core::GameObject>& p_g
         Physics::Collider& colliderTwo = *p_gameObject->GetComponent<Components::BoxColliderComp>()->GetCollider();
 
         bool isOverlapping = true;
-        if (colliderOne.maxVec.x < colliderTwo.minVec.x || colliderOne.minVec.x > colliderTwo.maxVec.x)
+        if (colliderOne.GetMaxVec().x < colliderTwo.GetMinVec().x || colliderOne.GetMinVec().x > colliderTwo.GetMaxVec().x)
             isOverlapping = false;
-        if (colliderOne.maxVec.y < colliderTwo.minVec.y || colliderOne.minVec.y > colliderTwo.maxVec.y)
+        if (colliderOne.GetMaxVec().y < colliderTwo.GetMinVec().y || colliderOne.GetMinVec().y > colliderTwo.GetMaxVec().y)
             isOverlapping = false;
-        if (colliderOne.maxVec.z < colliderTwo.minVec.z || colliderOne.minVec.z > colliderTwo.maxVec.z)
+        if (colliderOne.GetMaxVec().z < colliderTwo.GetMinVec().z || colliderOne.GetMinVec().z > colliderTwo.GetMaxVec().z)
             isOverlapping = false;
 
         if(isOverlapping)
