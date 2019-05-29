@@ -4,6 +4,7 @@
 
 Physics::Collider::Collider(std::vector<glm::vec3>& p_vec) : m_points{ p_vec }
 {
+    m_modelMat = glm::mat4(1.0);
 }
 
 
@@ -46,8 +47,8 @@ void Physics::Collider::SetBoundingBox()
 
 void Physics::Collider::UpdateBoundingBox()
 {
-    maxVec = *m_modelMat * maxVectmp;
-    minVec = *m_modelMat * minVectmp;
+    maxVec = m_modelMat * maxVectmp;
+    minVec = m_modelMat * minVectmp;
 }
 
 void Physics::Collider::PrintBoundingBox() const

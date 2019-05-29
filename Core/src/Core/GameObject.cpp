@@ -22,7 +22,6 @@ Core::GameObject::GameObject()
     AddComponent<Components::MaterialComp>();
 
     AddComponent<Components::BoxColliderComp>()->GetCollider()->m_points = GetComponent<Components::ModelComp>()->GetModel()->m_mesh->m_positions;
-    GetComponent<Components::BoxColliderComp>()->GetCollider()->m_modelMat = &GetComponent<Components::TransformComp>()->GetTransform()->m_transMat;
 }
 
 Core::GameObject::GameObject(const char* p_meshPath, const char* p_vertPath, const char* p_fragPath)
@@ -35,7 +34,6 @@ Core::GameObject::GameObject(const char* p_meshPath, const char* p_vertPath, con
     AddComponent<Components::MaterialComp>();
 
     AddComponent<Components::BoxColliderComp>()->GetCollider()->m_points = GetComponent<Components::ModelComp>()->GetModel()->m_mesh->m_positions;
-    GetComponent<Components::BoxColliderComp>()->GetCollider()->m_modelMat = &GetComponent<Components::TransformComp>()->GetTransform()->m_transMat;
 }
 
 Core::GameObject::GameObject(std::shared_ptr<Rendering::Resources::Mesh> p_mesh, std::shared_ptr<Rendering::Shaders::Shader> p_Shader, const char* p_name)
@@ -52,7 +50,6 @@ Core::GameObject::GameObject(std::shared_ptr<Rendering::Resources::Mesh> p_mesh,
 
     GetComponent<Components::BoxColliderComp>()->SetCollider(GetComponent<Components::ModelComp>()->GetModel()->m_mesh->m_positions);
     GetComponent<Components::BoxColliderComp>()->GetCollider()->SetBoundingBox();
-    GetComponent<Components::BoxColliderComp>()->GetCollider()->m_modelMat = &GetComponent<Components::TransformComp>()->GetTransform()->m_transMat;
 }
 
 void Core::GameObject::SetGameObjectMesh(std::shared_ptr<Rendering::Resources::Mesh> p_mesh)
@@ -67,6 +64,7 @@ void Core::GameObject::SetModelShader(std::shared_ptr<Rendering::Shaders::Shader
 
 void Core::GameObject::Update(Rendering::LowRenderer::Camera & p_cam, std::vector<GameObject>& p_lights)
 {
+
     std::vector<Rendering::LowRenderer::Light> m_lights;
     for (auto& light : p_lights)
     {
@@ -98,6 +96,7 @@ bool Core::GameObject::CollidesWith(const std::shared_ptr<Core::GameObject>& p_g
     {
         Physics::Collider& colliderOne = *GetComponent<Components::BoxColliderComp>()->GetCollider();
         Physics::Collider& colliderTwo = *p_gameObject->GetComponent<Components::BoxColliderComp>()->GetCollider();
+        p_gameObject->GetComponent<Components::BoxColliderComp>()->GetCollider()->PrintBoundingBox();
 
         bool isOverlapping = true;
         if (colliderOne.maxVec.x < colliderTwo.minVec.x || colliderOne.minVec.x > colliderTwo.maxVec.x)
