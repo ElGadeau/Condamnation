@@ -1,5 +1,6 @@
-#include <Core/GameObjectManager.h>
 #include <tinyxml2.h>
+
+#include <Core/GameObjectManager.h>
 #include <Components/LightComp.h>
 #include <Components/TransformComp.h>
 #include <Components/MaterialComp.h>

@@ -1,4 +1,5 @@
 #include "stdafx.h"
+
 #include <Rendering/LowRenderer/Transform.h>
 
 using namespace Rendering::LowRenderer;

@@ -1,6 +1,6 @@
 #include "stdafx.h"
-#include <Rendering/LowRenderer/Light.h>
 
+#include <Rendering/LowRenderer/Light.h>
 
 Rendering::LowRenderer::Light::Light()
 {

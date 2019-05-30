@@ -1,4 +1,5 @@
 ﻿#include "stdafx.h"
+
 #include <Rendering/Test.h>
 #include <Rendering/Context/OpenGL/GLFWDevice.h>
 #include <Rendering/Context/OpenGL/GLEWDriver.h>

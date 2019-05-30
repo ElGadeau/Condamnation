@@ -1,7 +1,9 @@
 #pragma once
 
 #include <memory>
+
 #include <Rendering/LowRenderer/Transform.h>
+
 #include <Components/Component.h>
 #include <Components/LightComp.h>
 

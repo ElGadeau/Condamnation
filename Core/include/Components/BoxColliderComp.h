@@ -1,7 +1,10 @@
 #pragma once
-#include <Components/Component.h>
-#include <Physics/BoxCollider.h>
+
 #include <glm/ext.hpp>
+
+#include <Physics/BoxCollider.h>
+
+#include <Components/Component.h>
 
 namespace Components
 {

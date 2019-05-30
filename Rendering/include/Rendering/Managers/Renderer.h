@@ -1,5 +1,7 @@
 #pragma once
+
 #include <GL/glew.h>
+
 #include <Rendering/Export.h>
 #include <Rendering/Context/IDriver.h>
 #include <Rendering/Managers/CameraManager.h>

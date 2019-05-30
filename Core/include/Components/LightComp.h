@@ -1,7 +1,8 @@
 #pragma once
 
-#include <Components/Component.h>
 #include <Rendering/LowRenderer/Light.h>
+
+#include <Components/Component.h>
 
 namespace Components
 {

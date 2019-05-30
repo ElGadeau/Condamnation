@@ -1,6 +1,8 @@
 #pragma once
+
 #include <iostream>
 #include <GL/glew.h>
+
 #include <Rendering/LowRenderer/Camera.h>
 #include <Rendering/LowRenderer/Transform.h>
 #include <Rendering/LowRenderer/Light.h>

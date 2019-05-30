@@ -1,4 +1,5 @@
 #include "stdafx.h"
+
 #include <Rendering/Managers/Renderer.h>
 
 void Rendering::Managers::Renderer::Clear() const noexcept

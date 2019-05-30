@@ -1,4 +1,5 @@
 #include "stdafx.h"
+
 #include <Rendering/Resources/Loaders/ShaderLoader.h>
 #include <Rendering/Shader/Shader.h>
 

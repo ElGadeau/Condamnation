@@ -1,4 +1,5 @@
 #include "stdafx.h"
+
 #include <Rendering/Managers/InputManager.h>
 
 Rendering::Managers::InputManager::InputManager(

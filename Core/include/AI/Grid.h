@@ -1,6 +1,8 @@
 #pragma once
-#include <AI/Dots.h>
+
 #include <array>
+
+#include <AI/Dots.h>
 
 namespace Core::AI
 {

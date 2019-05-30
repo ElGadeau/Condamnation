@@ -1,5 +1,6 @@
-#include <AI/Dots.h>
 #include <iostream>
+
+#include <AI/Dots.h>
 
 Core::AI::Dots::Dots()
 {

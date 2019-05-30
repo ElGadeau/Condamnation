@@ -1,5 +1,7 @@
 #pragma once
+
 #include <Rendering/LowRenderer/Material.h>
+
 #include <Components/Component.h>
 
 namespace Components

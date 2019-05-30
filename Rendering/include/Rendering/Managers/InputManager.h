@@ -1,4 +1,5 @@
 #pragma once
+
 #include <memory>
 #include <list>
 
@@ -31,7 +32,7 @@ namespace Rendering::Managers
         void OnMouseButtonReleased(int p_button);
 
 
-		std::shared_ptr<Context::IWindow> m_window;
+		std::shared_ptr<Context::IWindow> m_window{};
 
         std::list<int> m_keyInputList{};
         glm::vec2 m_MouseInputList{0,0};
@@ -41,8 +42,8 @@ namespace Rendering::Managers
         uint8_t m_idMouseButtonPressedListener {0};
         uint8_t m_idMouseButtonReleasedListener {0};
 
-        std::unordered_map<int, int> m_inputBuffer;
-        std::tuple<double, double> m_mouseCursorPos;
+        std::unordered_map<int, int> m_inputBuffer{};
+        std::tuple<double, double> m_mouseCursorPos{};
 
     };
 }

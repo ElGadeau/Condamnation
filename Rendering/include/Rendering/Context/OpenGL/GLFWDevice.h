@@ -1,4 +1,5 @@
 #pragma once
+
 #include <memory>
 
 #include <Rendering/Context/IDevice.h>

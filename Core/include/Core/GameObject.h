@@ -1,8 +1,11 @@
 #pragma once
+
 #include <iostream>
 #include <string>
+
 #include <Rendering/Resources/Model.h>
 #include <Rendering/LowRenderer/Camera.h>
+
 #include <Components/Component.h>
 
 namespace Core

@@ -1,8 +1,10 @@
 #include "stdafx.h"
+#include <iostream>
+
 #define STB_IMAGE_IMPLEMENTATION
 #include <stb_image.h>
+
 #include <Rendering/Resources/Texture.h>
-#include "iostream"
 
 Texture::Texture()
 {

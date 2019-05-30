@@ -1,6 +1,8 @@
 #include "stdafx.h"
+
 #include <Rendering/Buffers/VertexBuffer.h>
 #include <Rendering/Geometry/Vertex.h>
+
 using namespace Rendering::Buffers;
 
 VertexBuffer::VertexBuffer(const float* p_data,

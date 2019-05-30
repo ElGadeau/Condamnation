@@ -1,11 +1,12 @@
 #include "stdafx.h"
+
+#include <fstream>
+#include <sstream>
+
+#include <GL/glew.h>
 #include <glm/gtc/type_ptr.hpp>
 
 #include <Rendering/Shader/Shader.h>
-
-#include <GL/glew.h>
-#include <fstream>
-#include <sstream>
 
 Rendering::Shaders::Shader::Shader()
 {
