@@ -22,7 +22,7 @@ Core::GameObjectManager::GameObjectManager(Core::MeshManager& p_modelManager)
     m_gameObjects.emplace_back(Torus);
     m_gameObjects.emplace_back(Gear);
 
-    OrangeLight->GetComponent<Components::TransformComp>()->GetTransform()->Translate(glm::vec3(0, 2, 0));
+    OrangeLight->GetComponent<Components::TransformComp>()->SetLocalTransformPos(glm::vec3(0, 2, 0));
     OrangeLight->AddComponent<Components::LightComp>()->GetLight()->m_pos = OrangeLight->GetComponent<Components::TransformComp>()->GetTransform()->GetPosition();
     OrangeLight->GetComponent<Components::LightComp>()->GetLight()->m_color = glm::vec3(1, 1, 0);
 
@@ -39,7 +39,7 @@ Core::GameObjectManager::GameObjectManager(Core::MeshManager& p_modelManager)
     flatTerrain->GetComponent<Components::TransformComp>()->GetTransform()->Rotate(glm::vec3(0, 0, 0));
     flatTerrain->GetComponent<Components::MaterialComp>()->GetMaterial()->SetColor(0.8f, 0.8f, 0.8f);
 
-    Gear->GetComponent<Components::TransformComp>()->GetTransform()->Translate({ 0, 5, 0 });
+    Gear->GetComponent<Components::TransformComp>()->GetTransform()->Translate({ 1, 5, 8 });
     Torus->GetComponent<Components::TransformComp>()->GetTransform()->Translate({ 0, 5, 0 });
     Torus->GetComponent<Components::MaterialComp>()->GetMaterial()->SetColor(0, 1, 1);
     Torus->GetComponent<Components::MaterialComp>()->GetMaterial()->SetShininess(1);
@@ -54,7 +54,7 @@ void Core::GameObjectManager::Update(float p_deltaTime)
         gameObject->GetComponent<Components::BoxColliderComp>()->GetCollider()->GetModelMat() = gameObject->GetComponent<Components::TransformComp>()->GetTransform()->m_transMat;
     
     Find("OrangeLight")->GetComponent<Components::LightComp>()->GetLight()->m_pos = Find("OrangeLight")->GetComponent<Components::TransformComp>()->GetTransform()->GetPosition();
-    Find("BlueLight")->GetComponent<Components::TransformComp>()->GetTransform()->Translate(glm::vec3(cos(m_angle * 20), 0, sin(m_angle * 20)) * p_deltaTime);
+    Find("BlueLight")->GetComponent<Components::TransformComp>()->GetTransform()->SetPosition(glm::vec3(cos(m_angle * 20) * 10, 8, sin(m_angle * 20) * 10) * p_deltaTime);
     Find("BlueLight")->GetComponent<Components::LightComp>()->GetLight()->m_pos = Find("BlueLight")->GetComponent<Components::TransformComp>()->GetTransform()->GetPosition();
 
     //Find("Torus")->GetComponent<Components::TransformComp>()->GetTransform()->Rotate(glm::vec3(1, 0, 0) * p_deltaTime);

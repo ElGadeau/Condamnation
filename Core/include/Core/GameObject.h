@@ -17,12 +17,13 @@ namespace Core
 
         void SetGameObjectMesh(std::shared_ptr<Rendering::Resources::Mesh>& p_mesh);
         void SetModelShader(std::shared_ptr<Rendering::Shaders::Shader>& p_shader);
+
         void Update(Rendering::LowRenderer::Camera& cam, std::vector<GameObject>& p_lights);
         void ReloadShader();
 
         bool CollidesWith(const std::shared_ptr<GameObject>& p_gameObjects);
         void ResolveCollisions(std::vector<std::shared_ptr<Core::GameObject>>& p_gameObjects);
-		const std::string& GetName() const noexcept {	return m_name; }
+		const std::string& GetName() const noexcept { return m_name; }
 
         template<class ComponentType, typename ... args>
         ComponentType* AddComponent(args ... p_args)
@@ -53,8 +54,10 @@ namespace Core
         }
 
     private:
-        std::string m_name;
-        std::vector<std::shared_ptr<Components::Component>> m_components;
         float degree;
+        std::string m_name;
+		std::shared_ptr<GameObject> m_parent = nullptr;
+		std::shared_ptr<GameObject> m_child = nullptr;
+        std::vector<std::shared_ptr<Components::Component>> m_components;
     };
 }

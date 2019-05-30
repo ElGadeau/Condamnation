@@ -38,7 +38,8 @@ void Transform::Scale(const glm::vec3& p_scaling)
 
 void Transform::SetPosition(const glm::vec3 & p_pos)
 {
-    m_transMat = glm::translate(m_transMat, -m_pos);
+	m_transMat[3] = glm::vec4(p_pos, 1.0f);
+   /* m_transMat = glm::translate(m_transMat, -m_pos);
     m_transMat = glm::translate(m_transMat, p_pos);
-    m_pos = p_pos;
+    m_pos = p_pos;*/
 }
