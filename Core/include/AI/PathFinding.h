@@ -1,18 +1,17 @@
 #pragma once
-#include <AI/Dots.h>
+#include <AI/Grid.h>
+#include <memory>
 
 namespace Core::AI
 {
-    class PathFindind
+    class PathFinding
     {
     public:
-        PathFindind(int p_sizeX, int p_sizeY);
-        ~PathFindind();
+        PathFinding(int p_sizeX, int p_sizeY);
+        ~PathFinding() = default;
 
-        Dots** m_grid;
+        void FindNeighbors(Grid& p_grid, Dots& p_dot) const;
 
-    private:
-        int m_sizeX;
-        int m_sizeY;
+        std::unique_ptr<Grid> m_grid;
     };
 }
