@@ -3,9 +3,10 @@
 #include <Rendering/Managers/InputManager.h>
 
 Rendering::Managers::CameraManager::CameraManager(const glm::vec3& p_position,
-    const glm::vec3& p_up, const float& p_yaw, const float& p_pitch)
+    const glm::vec3& p_up, const float& p_yaw, const float& p_pitch, bool p_freeFloat)
 {
     Init(p_position, p_up, p_yaw, p_pitch);
+	m_freeFloat = p_freeFloat;
 }
 
 Rendering::Managers::CameraManager::CameraManager(const float& p_posX, const float& p_posY,
@@ -24,9 +25,16 @@ void Rendering::Managers::CameraManager::Init(const glm::vec3& p_position, const
 
 void Rendering::Managers::CameraManager::ProcessKeyInput(InputManager& p_inputManager, const double& p_deltaTime)
 {
+	glm::vec3 FPS = m_camera->m_front;
+	FPS.y = 0.0f;
+	glm::vec3 freeFloat = m_camera->m_front;
+
     if (p_inputManager.GetKey(InputManager::KeyCode::W)) //move forward
     {
-        MoveCamera(m_camera->m_front * p_deltaTime);
+		if (m_freeFloat)
+			MoveCamera(freeFloat * static_cast<float>(p_deltaTime));
+		else
+			MoveCamera(FPS * static_cast<float>(p_deltaTime));
     }
     if (p_inputManager.GetKey(InputManager::KeyCode::A)) //move left
     {
@@ -34,7 +42,10 @@ void Rendering::Managers::CameraManager::ProcessKeyInput(InputManager& p_inputMa
     }
     if (p_inputManager.GetKey(InputManager::KeyCode::S)) //move backward
     {
-        MoveCamera(-m_camera->m_front * p_deltaTime);
+		if (m_freeFloat)
+			MoveCamera(-freeFloat * static_cast<float>(p_deltaTime));
+		else
+			MoveCamera(-FPS * static_cast<float>(p_deltaTime));
     }
     if (p_inputManager.GetKey(InputManager::KeyCode::D)) //move right
     {

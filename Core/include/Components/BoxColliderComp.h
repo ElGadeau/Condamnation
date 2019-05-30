@@ -8,7 +8,7 @@ namespace Components
     class BoxColliderComp : public Component
     {
     public:
-        BoxColliderComp() = default;
+		BoxColliderComp(Core::GameObject& p_gameObject) : m_gameObject{ p_gameObject } {}
 		~BoxColliderComp() = default;
 
         void SetCollider(std::vector<glm::vec3>& p_vec) { m_collider = std::make_shared<Physics::Collider>(p_vec); }
@@ -16,5 +16,6 @@ namespace Components
 
     private:
         std::shared_ptr<Physics::Collider> m_collider;
+        Core::GameObject& m_gameObject;
     };
 }

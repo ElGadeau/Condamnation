@@ -24,10 +24,10 @@ namespace Core
         void ResolveCollisions(std::vector<std::shared_ptr<Core::GameObject>>& p_gameObjects);
 		const std::string& GetName() const noexcept {	return m_name; }
 
-        template<class ComponentType>
-        ComponentType* AddComponent()
+        template<class ComponentType, typename ... args>
+        ComponentType* AddComponent(args ... p_args)
         {
-            std::shared_ptr<ComponentType> comp = std::make_shared<ComponentType>();
+            std::shared_ptr<ComponentType> comp = std::make_shared<ComponentType>(*this, p_args ...);
             m_components.emplace_back(comp);
             return comp.get();
         }
