@@ -1,13 +1,10 @@
 #include "stdafx.h"
-#include <glm/gtc/matrix_transform.hpp>
-#include <glm/ext/matrix_projection.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
 #include <Rendering/Shader/Shader.h>
 
 #include <GL/glew.h>
 #include <fstream>
-#include <math.h>
 #include <sstream>
 
 Rendering::Shaders::Shader::Shader()

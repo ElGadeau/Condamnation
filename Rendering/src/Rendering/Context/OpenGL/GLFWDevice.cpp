@@ -61,7 +61,7 @@ void GLFWDevice::CalculateDeltaTime() noexcept
     lastTime = currentTime;
 }
 
-void GLFWDevice::Close()
+void GLFWDevice::Close() const noexcept
 {
     glfwSetWindowShouldClose(std::any_cast<GLFWwindow*>(m_window->Data()), true);
 }

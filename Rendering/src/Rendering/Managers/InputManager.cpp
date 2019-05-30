@@ -1,9 +1,8 @@
 #include "stdafx.h"
 #include <Rendering/Managers/InputManager.h>
-#include <Rendering/Managers/CameraManager.h>
 
 Rendering::Managers::InputManager::InputManager(
-    const std::shared_ptr<Context::IWindow>&& p_window) noexcept
+    const std::shared_ptr<Context::IWindow>& p_window) noexcept
     : m_window{p_window}
 {
     m_idKeyPressedListener = p_window->m_keyPressedEvent.AddListener(
@@ -26,6 +25,7 @@ Rendering::Managers::InputManager::~InputManager() noexcept
     assert(m_window->m_keyReleasedEvent.RemoveListener(m_idKeyReleasedListener));
     assert(m_window->m_mouseButtonPressedEvent.RemoveListener(m_idMouseButtonPressedListener));
     assert(m_window->m_mouseButtonReleasedEvent.RemoveListener(m_idMouseButtonReleasedListener));
+    
 }
 
 bool Rendering::Managers::InputManager::GetKeyDown(const KeyCode& p_keyCode)

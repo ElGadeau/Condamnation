@@ -1,11 +1,9 @@
 #include <Core/GameObjectManager.h>
 #include <tinyxml2.h>
-#include "Components/LightComp.h"
-#include "Components/TransformComp.h"
-#include "Components/MaterialComp.h"
-#include "Components/BoxColliderComp.h"
-
-static double angle = 0;
+#include <Components/LightComp.h>
+#include <Components/TransformComp.h>
+#include <Components/MaterialComp.h>
+#include <Components/BoxColliderComp.h>
 
 Core::GameObjectManager::GameObjectManager(Core::MeshManager& p_modelManager)
 {
@@ -51,16 +49,16 @@ Core::GameObjectManager::GameObjectManager(Core::MeshManager& p_modelManager)
 
 void Core::GameObjectManager::Update(float p_deltaTime)
 {
-    angle += 0.005f * p_deltaTime;
+    m_angle += 0.005f * p_deltaTime;
     for(auto& gameObject : m_gameObjects)
         gameObject->GetComponent<Components::BoxColliderComp>()->GetCollider()->GetModelMat() = gameObject->GetComponent<Components::TransformComp>()->GetTransform()->m_transMat;
     
     Find("OrangeLight")->GetComponent<Components::LightComp>()->GetLight()->m_pos = Find("OrangeLight")->GetComponent<Components::TransformComp>()->GetTransform()->GetPosition();
-    Find("BlueLight")->GetComponent<Components::TransformComp>()->GetTransform()->Translate(glm::vec3(cos(angle * 20), 0, sin(angle * 20)) * p_deltaTime);
+    Find("BlueLight")->GetComponent<Components::TransformComp>()->GetTransform()->Translate(glm::vec3(cos(m_angle * 20), 0, sin(m_angle * 20)) * p_deltaTime);
     Find("BlueLight")->GetComponent<Components::LightComp>()->GetLight()->m_pos = Find("BlueLight")->GetComponent<Components::TransformComp>()->GetTransform()->GetPosition();
 
     //Find("Torus")->GetComponent<Components::TransformComp>()->GetTransform()->Rotate(glm::vec3(1, 0, 0) * p_deltaTime);
-    Find("Torus")->GetComponent<Components::TransformComp>()->GetTransform()->Translate(glm::vec3(cos(angle) / 10, 0, 0) * p_deltaTime);
+    Find("Torus")->GetComponent<Components::TransformComp>()->GetTransform()->Translate(glm::vec3(cos(m_angle) / 10, 0, 0) * p_deltaTime);
     //Find("Gear")->GetComponent<Components::TransformComp>()->GetTransform()->Rotate(glm::vec3(0, 1, 0) * p_deltaTime);
     Find("Torus")->CollidesWith(Find("Gear"));
 }

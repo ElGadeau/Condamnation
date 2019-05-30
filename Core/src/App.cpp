@@ -6,8 +6,6 @@
 #include <Core/GameObjectManager.h>
 #include <Core/MeshManager.h>
 
-#include <Components/Component.h>
-#include <Components/TransformComp.h>
 #include <Components/LightComp.h>
 
 #include <Rendering/Context/OpenGL/GLFWDevice.h>
@@ -17,9 +15,7 @@
 #include <Rendering/Managers/InputManager.h>
 #include <Rendering/Managers/CameraManager.h>
 
-#include <Physics/Physics.h>
 
-#include <Rendering/Resources/Mesh.h>
 #include <Core/RenderEngine.h>
 #include "Components/BoxColliderComp.h"
 
@@ -40,20 +36,20 @@ std::vector<Core::GameObject> GenerateLights(std::vector<std::shared_ptr<Core::G
 int main()
 {
     auto device = std::make_unique<Rendering::Context::OpenGL::GLFWDevice>();
-    auto renderer = std::make_unique<Rendering::Managers::Renderer>();
+	std::unique_ptr<Rendering::Managers::Renderer> renderer = std::make_unique<Rendering::Managers::Renderer>();
     renderer->Initialize<Rendering::Context::OpenGL::GLEWDriver>();
     renderer->SetupCulling();
 
     Rendering::Managers::InputManager m_inputManager(device->GetWindow());
     Rendering::Managers::CameraManager m_camera(glm::vec3(20.0f, 10, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f), -180.0f, -25.0f);
-    
+
     Core::RenderEngine m_renderEngine;
     Core::MeshManager modelManager;
     modelManager.LoadMeshes();
     modelManager.LoadShaders();
-    
-    Core::GameObjectManager gameobjects(modelManager);
         
+    Core::GameObjectManager gameobjects(modelManager);
+    
     std::vector<Core::GameObject> lights;
     lights = GenerateLights(gameobjects.GetGameObjects());
     
@@ -73,12 +69,11 @@ int main()
         m_inputManager.UpdateCursorPos();
         m_camera.ProcessKeyInput(m_inputManager, device->GetDeltaTime());
         m_camera.ProcessMouseInput(m_inputManager.GetMouseCursorPos());
-        renderer->Clear();
+        renderer->Clear();  
         gameobjects.Update(device->GetDeltaTime());
                 
         m_renderEngine.DrawElements(gameobjects.GetGameObjects(), lights, *m_camera.GetCamera(), *renderer);
         device->Render();
-
     }
 
     return  0;

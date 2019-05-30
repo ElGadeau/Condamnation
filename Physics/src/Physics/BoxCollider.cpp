@@ -7,11 +7,6 @@ Physics::Collider::Collider(std::vector<glm::vec3>& p_vec) : m_points{ p_vec }
     m_modelMat = glm::mat4(1.0);
 }
 
-
-Physics::Collider::~Collider()
-{
-
-}
 void Physics::Collider::SetBoundingBox()
 {
     float m_maxX = 0;
@@ -21,10 +16,8 @@ void Physics::Collider::SetBoundingBox()
     float m_maxZ = 0;
     float m_minZ = 0;
 
-    for (unsigned int i = 0; i < m_points.size(); ++i)
+    for (auto& result : m_points)
     {
-        glm::vec3 result = m_points[i];
-
         if (result.x > m_maxX)
             m_maxX = result.x;
         else if (result.x < m_minX)

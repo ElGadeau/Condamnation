@@ -1,7 +1,6 @@
 #pragma once
 #include <Rendering/Export.h>
 #include <Rendering/Context/IWindow.h>
-#include <Rendering/Utils/Event.h>
 
 namespace Rendering::Context::OpenGL
 {

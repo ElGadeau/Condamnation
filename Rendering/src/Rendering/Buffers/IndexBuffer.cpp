@@ -13,8 +13,8 @@ IndexBuffer::IndexBuffer(const uint32_t* p_data, const size_t& p_countElements) 
                  GL_STATIC_DRAW);
 }
 
-IndexBuffer::IndexBuffer(const std::vector<uint32_t>& p_data) noexcept
-    : IndexBuffer(p_data.data(), p_data.size())
+IndexBuffer::IndexBuffer(const std::vector<uint32_t>& p_data) noexcept : IndexBuffer(p_data.data(),
+                                                                                     p_data.size())
 {
 }
 

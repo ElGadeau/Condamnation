@@ -19,6 +19,7 @@ namespace Core
 
     private:
         std::vector<std::shared_ptr<Core::GameObject>> m_gameObjects;
+        float m_angle;
     };
 }
 

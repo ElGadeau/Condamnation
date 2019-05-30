@@ -13,7 +13,7 @@ namespace Rendering::Managers
         using KeyCode = Utils::Event<int>::KeyCode;
         using KeyState = Utils::Event<int>::KeyState;
 
-        InputManager(const std::shared_ptr<Context::IWindow>&& p_window) noexcept;
+        InputManager(const std::shared_ptr<Context::IWindow>& p_window) noexcept;
         ~InputManager() noexcept;
 
         bool GetKeyDown(const KeyCode& p_keyCode);
@@ -33,8 +33,8 @@ namespace Rendering::Managers
 
 		std::shared_ptr<Context::IWindow> m_window;
 
-        std::list<int> m_keyInputList;
-        glm::vec2 m_MouseInputList;
+        std::list<int> m_keyInputList{};
+        glm::vec2 m_MouseInputList{0,0};
 
         uint8_t m_idKeyPressedListener {0};
         uint8_t m_idKeyReleasedListener {0};

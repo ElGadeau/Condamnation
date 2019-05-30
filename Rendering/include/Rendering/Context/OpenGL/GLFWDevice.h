@@ -24,7 +24,7 @@ namespace Rendering::Context::OpenGL
 		std::shared_ptr<GLFWWindow> GetWindow() const noexcept { return m_window; }
 		const double& GetDeltaTime() const noexcept { return deltaTime; }
         		
-        void Close();
+        void Close() const noexcept;
 
     private:
         std::shared_ptr<GLFWWindow> m_window{};

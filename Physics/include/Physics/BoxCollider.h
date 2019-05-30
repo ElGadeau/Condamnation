@@ -9,7 +9,7 @@ namespace Physics
     {
     public:
         Collider(std::vector<glm::vec3>& p_vec);
-        ~Collider();
+        ~Collider() = default;
 
         void SetBoundingBox();
         void UpdateBoundingBox();

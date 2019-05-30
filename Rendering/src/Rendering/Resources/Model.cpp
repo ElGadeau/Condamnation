@@ -2,7 +2,6 @@
 #include <Rendering/Resources/Model.h>
 #include <Rendering/Resources/Loaders/MeshLoader.h>
 #include <Rendering/Shader/Shader.h>
-#include <Rendering/LowRenderer/Camera.h>
 
 Rendering::Resources::Model::Model()
 {

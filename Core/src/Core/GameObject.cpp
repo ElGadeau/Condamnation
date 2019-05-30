@@ -11,10 +11,8 @@
 #include <Rendering/Resources/Model.h>
 #include <Rendering/Resources/Loaders/ShaderLoader.h>
 
-#include <Rendering/LowRenderer/Transform.h>
 #include <Rendering/Shader/Shader.h>
 
-float degree = 0;
 Core::GameObject::GameObject()
 {
     AddComponent<Components::TransformComp>();
@@ -52,12 +50,12 @@ Core::GameObject::GameObject(std::shared_ptr<Rendering::Resources::Mesh> p_mesh,
     GetComponent<Components::BoxColliderComp>()->GetCollider()->SetBoundingBox();
 }
 
-void Core::GameObject::SetGameObjectMesh(std::shared_ptr<Rendering::Resources::Mesh> p_mesh)
+void Core::GameObject::SetGameObjectMesh(std::shared_ptr<Rendering::Resources::Mesh>& p_mesh)
 {
     GetComponent<Components::ModelComp>()->GetModel()->SetMesh(p_mesh);
 }
 
-void Core::GameObject::SetModelShader(std::shared_ptr<Rendering::Shaders::Shader> p_shader)
+void Core::GameObject::SetModelShader(std::shared_ptr<Rendering::Shaders::Shader>& p_shader)
 {
     GetComponent<Components::ModelComp>()->GetModel()->SetShader(p_shader);
 }
@@ -81,10 +79,10 @@ void Core::GameObject::Update(Rendering::LowRenderer::Camera & p_cam, std::vecto
 
 void Core::GameObject::ReloadShader()
 {
-    const char* pathA = GetComponent<Components::ModelComp>()->GetModel()->GetShader()->m_vertPath;
-    const char* pathB = GetComponent<Components::ModelComp>()->GetModel()->GetShader()->m_fragPath;
+    const char* vertexPath = GetComponent<Components::ModelComp>()->GetModel()->GetShader()->m_vertPath;
+    const char* fragPath = GetComponent<Components::ModelComp>()->GetModel()->GetShader()->m_fragPath;
 
-    GetComponent<Components::ModelComp>()->GetModel()->SetShader(Rendering::Resources::Loaders::ShaderLoader::LoadShader(pathA, pathB));
+    GetComponent<Components::ModelComp>()->GetModel()->SetShader(Rendering::Resources::Loaders::ShaderLoader::LoadShader(vertexPath, fragPath));
 }
 
 bool Core::GameObject::CollidesWith(const std::shared_ptr<Core::GameObject>& p_gameObject)
@@ -109,10 +107,6 @@ bool Core::GameObject::CollidesWith(const std::shared_ptr<Core::GameObject>& p_g
         {
             std::cout << m_name << " Collided with " << p_gameObject->m_name << std::endl;
             return true;
-        }
-        else
-        {
-            return false;
         }
     }
     return false;

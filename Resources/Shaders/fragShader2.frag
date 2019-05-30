@@ -74,5 +74,5 @@ void main()
          }
         resultFinal += result;
     }
-    FragColor = texture(objectTexture,TexCoords) * vec4(resultFinal, 1.0);
+    FragColor = vec4(resultFinal, 1.0);
 } 

@@ -15,8 +15,8 @@ namespace Core
         GameObject(std::shared_ptr<Rendering::Resources::Mesh> p_mesh, std::shared_ptr<Rendering::Shaders::Shader> p_Shader, const char* p_name);
         ~GameObject() = default;
 
-        void SetGameObjectMesh(std::shared_ptr<Rendering::Resources::Mesh> p_mesh);
-        void SetModelShader(std::shared_ptr<Rendering::Shaders::Shader> p_shader);
+        void SetGameObjectMesh(std::shared_ptr<Rendering::Resources::Mesh>& p_mesh);
+        void SetModelShader(std::shared_ptr<Rendering::Shaders::Shader>& p_shader);
         void Update(Rendering::LowRenderer::Camera& cam, std::vector<GameObject>& p_lights);
         void ReloadShader();
 
@@ -55,5 +55,6 @@ namespace Core
     private:
         std::string m_name;
         std::vector<std::shared_ptr<Components::Component>> m_components;
+        float degree;
     };
 }
