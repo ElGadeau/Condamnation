@@ -59,9 +59,6 @@
     <ClInclude Include="include\Components\ModelComp.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\Components\RigidBodyComp.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="include\Components\MaterialComp.h">
       <Filter>Header Files</Filter>
     </ClInclude>

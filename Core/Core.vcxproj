@@ -199,7 +199,6 @@
     <ClInclude Include="include\Components\TransformComp.h" />
     <ClInclude Include="include\Core\RenderEngine.h" />
     <ClInclude Include="include\Components\ModelComp.h" />
-    <ClInclude Include="include\Components\RigidBodyComp.h" />
     <ClInclude Include="include\Components\MaterialComp.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

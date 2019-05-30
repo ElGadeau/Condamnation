@@ -23,7 +23,7 @@ namespace Components
 		void SetParent(Core::GameObject& p_parent) { m_parent = std::shared_ptr<TransformComp>(p_parent.GetComponent<TransformComp>()); }
 		void SetParent(std::shared_ptr<Core::GameObject> p_parent) { m_parent = std::shared_ptr<TransformComp>(p_parent->GetComponent<TransformComp>()); }
 
-		void Update()
+		void Update() override
 		{
 			if (m_parent != nullptr)
 			{

@@ -8,7 +8,7 @@ namespace Components
     public:
         Component() = default;
         virtual ~Component() = default;
-
+		virtual void Update() = 0;
         static const size_t m_type;
 
         bool IsEqual(const size_t p_type) 

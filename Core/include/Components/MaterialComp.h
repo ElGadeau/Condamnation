@@ -11,7 +11,7 @@ namespace Components
 		~MaterialComp() = default;
 
 		[[nodiscard]] std::shared_ptr<Rendering::LowRenderer::Material> GetMaterial() const noexcept { return m_material; }
-
+		void Update() override {}
     private:
         std::shared_ptr<Rendering::LowRenderer::Material> m_material;
 		Core::GameObject& m_gameObject;

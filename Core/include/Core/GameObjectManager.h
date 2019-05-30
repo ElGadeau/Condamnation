@@ -14,7 +14,6 @@ namespace Core
         void Update(float p_deltaTime);
         int LoadScene();
         std::shared_ptr<Core::GameObject> Find(const std::string& p_name);
-
 		[[nodiscard]] std::vector<std::shared_ptr<Core::GameObject>>& GetGameObjects() noexcept;
 
     private:

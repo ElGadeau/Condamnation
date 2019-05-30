@@ -75,6 +75,11 @@ void Core::GameObject::Update(Rendering::LowRenderer::Camera & p_cam, std::vecto
         *GetComponent<Components::TransformComp>()->GetTransform(),
         *GetComponent<Components::MaterialComp>()->GetMaterial(), 
         m_lights.data(), m_lights.size());
+
+	for (auto& component : m_components)
+	{
+		component->Update();
+	}
 }
 
 void Core::GameObject::ReloadShader()

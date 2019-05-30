@@ -12,7 +12,8 @@ namespace Components
 		~ModelComp() = default;
 
 		[[nodiscard]] std::shared_ptr<Rendering::Resources::Model> GetModel() const noexcept { return m_model; }
-
+		void Update() override
+		{}
     private:
         std::shared_ptr<Rendering::Resources::Model> m_model;
 		Core::GameObject& m_gameObject;
