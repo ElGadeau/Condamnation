@@ -20,7 +20,7 @@ namespace Components
 		void Update() override {}
 
     private:
-        std::shared_ptr<Physics::Collider> m_collider;
+        std::shared_ptr<Physics::Collider> m_collider{};
         Core::GameObject& m_gameObject;
     };
 }

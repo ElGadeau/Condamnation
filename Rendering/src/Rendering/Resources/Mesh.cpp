@@ -4,7 +4,7 @@
 
 Rendering::Resources::Mesh::Mesh(const std::vector<Geometry::Vertex>& p_vertices,
     const std::vector<uint32_t>& p_indices) noexcept
-    : m_vertexCount(p_vertices.size()),
+    : m_vertexCount(static_cast<uint32_t>(p_vertices.size())),
     m_indicesCount(static_cast<uint32_t>(p_indices.size()))
 {
 

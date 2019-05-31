@@ -12,7 +12,7 @@ namespace Rendering::Buffers
     {
     public:
         IndexBuffer() = delete;
-        IndexBuffer(const uint32_t* p_data, const size_t& p_countElements) noexcept;
+        IndexBuffer(const uint32_t*              p_data, const size_t& p_countElements) noexcept;
         IndexBuffer(const std::vector<uint32_t>& p_data) noexcept;
         ~IndexBuffer();
 
@@ -21,6 +21,6 @@ namespace Rendering::Buffers
         void LoadData(const void* p_data, const GLsizeiptr& p_sizeData);
 
     private:
-        GLuint m_id{};
+        GLuint m_id{0};
     };
 }

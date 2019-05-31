@@ -9,8 +9,3 @@ Rendering::LowRenderer::Light::Light()
     m_pos = glm::vec3(0, 0, 0);
     m_color = glm::vec3(1, 1, 1);
 }
-
-
-Rendering::LowRenderer::Light::~Light()
-{
-}

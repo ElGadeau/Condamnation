@@ -11,7 +11,7 @@ namespace Rendering::Context::OpenGL
         GLFWWindow();
         ~GLFWWindow();
 
-        bool ShouldClose() const noexcept override;
+        bool           ShouldClose() const noexcept override;
         const std::any Data() const noexcept override;
 
     private:
@@ -21,8 +21,7 @@ namespace Rendering::Context::OpenGL
         void BindMouseCallback() const noexcept;
         void BindMouseMovementCallback() const noexcept;
 
-    private:
         static GLFWWindow* m_instance;
-        GLFWwindow* m_glfwWindow;
+        GLFWwindow*        m_glfwWindow{nullptr};
     };
 }

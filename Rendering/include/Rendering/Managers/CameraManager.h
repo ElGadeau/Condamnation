@@ -16,9 +16,9 @@ namespace Rendering::Managers
 
         void Init(const glm::vec3& p_position, const glm::vec3& p_up, const float& p_yaw, const float& p_pitch);
 
-        void ProcessKeyInput(InputManager& p_inputManager, const double& p_deltaTime);
+        void ProcessKeyInput(InputManager& p_inputManager, const float& p_deltaTime);
         void ProcessMouseInput(const std::tuple<double, double>& p_mouseCursor);
-        void MoveCamera(const glm::vec3& p_direction);
+        void MoveCamera(const glm::vec3& p_direction) const;
 
 		std::shared_ptr<LowRenderer::Camera> GetCamera() const noexcept { return m_camera; }
 
@@ -26,7 +26,7 @@ namespace Rendering::Managers
 		bool m_freeFloat;
 		std::shared_ptr<LowRenderer::Camera> m_camera{};
 
-        double m_lastX = 1920 / 2;
-        double m_lastY = 1080 / 2;
+        float m_lastX = 1920 / 2;
+        float m_lastY = 1080 / 2;
     };
 }
