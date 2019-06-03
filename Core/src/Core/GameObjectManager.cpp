@@ -64,8 +64,11 @@ void Core::GameObjectManager::Update(float p_deltaTime)
     Find("OrangeLight")->GetComponent<Components::TransformComp>()->Update();
 
     for(auto& gameObject : m_gameObjects)
+    {
+		gameObject->GetComponent<Components::BoxColliderComp>()->GetCollider()->UpdateBoundingBox();
         gameObject->GetComponent<Components::BoxColliderComp>()->GetCollider()->GetPosVec() = gameObject->GetComponent<Components::TransformComp>()->GetTransform()->GetPosition();
-    Find("Torus")->CollidesWith(Find("Gear"));
+    }
+    //Find("Torus")->CollidesWith(Find("Gear"));
 }
 
 int Core::GameObjectManager::LoadScene()

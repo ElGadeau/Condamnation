@@ -23,7 +23,7 @@ void Components::PlayerComp::Update()
 
 std::shared_ptr<Core::GameObject> Components::PlayerComp::RayCast(Core::GameObjectManager& p_gameManager) const
 {
-	glm::vec3 currPos = m_gameObject.GetComponent<TransformComp>()->GetTransform()->GetPosition();
+	glm::vec3 currPos = m_gameObject.GetComponent<TransformComp>()->GetTransform()->GetPosition() + m_camera->GetFront();
 	glm::vec3 cameraFront = glm::normalize(m_camera->GetFront());
 	cameraFront.x /= 10.0f;
 	cameraFront.y /= 10.0f;
@@ -40,6 +40,7 @@ std::shared_ptr<Core::GameObject> Components::PlayerComp::RayCast(Core::GameObje
 					 m_gameObject.GetComponent<TransformComp>()->GetTransform()->GetPosition()) > 100)
 				continue;
 
+			currPos = currPos + cameraFront;
 			glm::vec4 minVec = gameObject->GetComponent<BoxColliderComp>()->GetCollider()->GetMinVec();
 			glm::vec4 maxVec = gameObject->GetComponent<BoxColliderComp>()->GetCollider()->GetMaxVec();
 			//gameObject->GetComponent<BoxColliderComp>()->GetCollider()->PrintBoundingBox();
@@ -52,7 +53,6 @@ std::shared_ptr<Core::GameObject> Components::PlayerComp::RayCast(Core::GameObje
 				return gameObject;
 			}
 			
-			currPos = currPos + cameraFront;
 		}
 	}
 		return nullptr;
