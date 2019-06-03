@@ -15,7 +15,7 @@ namespace Core
     public:
         GameObject();
         GameObject(const char* p_meshPath, const char* p_vertPath, const char* p_fragPath);
-        GameObject(std::shared_ptr<Rendering::Resources::Mesh> p_mesh, std::shared_ptr<Rendering::Shaders::Shader> p_Shader, const char* p_name);
+        GameObject(const std::shared_ptr<Rendering::Resources::Mesh>& p_mesh, const std::shared_ptr<Rendering::Shaders::Shader>& p_shader, const char* p_name);
         ~GameObject() = default;
 
         void SetGameObjectMesh(std::shared_ptr<Rendering::Resources::Mesh>& p_mesh);
@@ -37,30 +37,34 @@ namespace Core
         }
 
         template<class ComponentType>
-        ComponentType* GetComponent()
+        ComponentType* GetComponent() const noexcept
         {
-           std::shared_ptr<ComponentType> result;
+            std::shared_ptr<ComponentType> result;
 
-            for (auto& component : m_components) 
+            if (m_components.empty())
+                return nullptr;
+
+            for (auto& component : m_components)
             {
+                assert(component != nullptr);
                 if (result = std::dynamic_pointer_cast<ComponentType>(component))
                 {
                     break;
                 }
             }
-            if(result == nullptr)
+            if (result == nullptr)
             {
                 return nullptr;
             }
-            
+
             return result.get();
         }
 
     private:
-        float degree;
-        std::string m_name;
+        float degree{0.0f};
+        std::string m_name{};
 		std::shared_ptr<GameObject> m_parent = nullptr;
 		std::shared_ptr<GameObject> m_child = nullptr;
-        std::vector<std::shared_ptr<Components::Component>> m_components;
+        std::vector<std::shared_ptr<Components::Component>> m_components{};
     };
 }

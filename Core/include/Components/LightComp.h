@@ -14,6 +14,7 @@ namespace Components
 
 		[[nodiscard]] std::shared_ptr<Rendering::LowRenderer::Light> GetLight() const noexcept { return m_light; }
 		void Update() override {}
+
     private:
 		std::shared_ptr<Rendering::LowRenderer::Light> m_light;
 		Core::GameObject& m_gameObject;
