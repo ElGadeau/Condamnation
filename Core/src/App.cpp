@@ -15,6 +15,7 @@
 #include <Core/RenderEngine.h>
 #include <Components/LightComp.h>
 #include <Components/BoxColliderComp.h>
+#include "Components/PlayerComp.h"
 
 
 std::vector<Core::GameObject> GenerateLights(std::vector<std::shared_ptr<Core::GameObject>>& m_gameObjectVector)
@@ -50,13 +51,17 @@ int main()
     
     std::vector<Core::GameObject> lights;
     lights = GenerateLights(gameobjects.GetGameObjects());
-    
+
+	Core::GameObject player(modelManager.GetMesh(1), modelManager.GetShader(0), "Player");
+	player.AddComponent<Components::PlayerComp>(m_camera.GetCamera(), 100);
+	gameobjects.AddGameObject(player);
+
     float angle = 0;
     while (!device->ShouldClose())
     {
         device->CalculateDeltaTime();
         device->RefreshEvents();
-        
+
         angle += 0.005f;
         if (m_inputManager.GetKeyDown(Rendering::Managers::InputManager::KeyCode::R))
             modelManager.ReloadShader(gameobjects.GetGameObjects());
@@ -67,6 +72,7 @@ int main()
         m_inputManager.UpdateCursorPos();
         m_camera.ProcessKeyInput(m_inputManager, device->GetDeltaTime());
         m_camera.ProcessMouseInput(m_inputManager.GetMouseCursorPos());
+		player.GetComponent<Components::PlayerComp>()->ProcessKeyInput(gameobjects, m_inputManager, device->GetDeltaTime());
         renderer->Clear();  
         gameobjects.Update(device->GetDeltaTime());
                 

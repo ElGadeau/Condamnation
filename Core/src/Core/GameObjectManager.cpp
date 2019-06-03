@@ -112,3 +112,14 @@ std::vector<std::shared_ptr<Core::GameObject>>& Core::GameObjectManager::GetGame
 {
 	return m_gameObjects;
 }
+
+void Core::GameObjectManager::RemoveGameObject(std::shared_ptr<GameObject> p_gameObject)
+{
+	for (int i = 0; i < m_gameObjects.size(); ++i)
+	{
+		if (m_gameObjects[i] == p_gameObject)
+		{
+			m_gameObjects.erase(m_gameObjects.begin() + i);
+		}
+	}
+}

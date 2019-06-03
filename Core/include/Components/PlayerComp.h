@@ -14,7 +14,7 @@ namespace Components
 
 		void ProcessKeyInput(Core::GameObjectManager& p_gameManager, Rendering::Managers::InputManager & p_inputManager, const double & p_deltaTime);
 		void Update() override;
-		std::shared_ptr<Core::GameObject> RayCast(Core::GameObjectManager& p_gameManager);
+		std::shared_ptr<Core::GameObject> RayCast(Core::GameObjectManager& p_gameManager) const;
 
 	private:
 		Core::GameObject& m_gameObject;

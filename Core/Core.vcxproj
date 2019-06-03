@@ -177,6 +177,8 @@
     <ClCompile Include="src\AI\Dots.cpp" />
     <ClCompile Include="src\AI\Grid.cpp" />
     <ClCompile Include="src\AI\PathFinding.cpp" />
+    <ClCompile Include="src\Core\Components\BulletComp.cpp" />
+    <ClCompile Include="src\Core\Components\PlayerComp.cpp" />
     <ClCompile Include="src\Core\GameObjectManager.cpp" />
     <ClCompile Include="src\App.cpp" />
     <ClCompile Include="src\Core\GameObject.cpp" />
@@ -196,6 +198,8 @@
     <ClInclude Include="include\AI\Grid.h" />
     <ClInclude Include="include\AI\PathFinding.h" />
     <ClInclude Include="include\Components\BoxColliderComp.h" />
+    <ClInclude Include="include\Components\BulletComp.h" />
+    <ClInclude Include="include\Components\PlayerComp.h" />
     <ClInclude Include="include\Core\GameObjectManager.h" />
     <ClInclude Include="include\Components\Component.h" />
     <ClInclude Include="include\Components\LightComp.h" />
