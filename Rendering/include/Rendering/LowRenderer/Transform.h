@@ -20,6 +20,7 @@ namespace Rendering::LowRenderer
 
 		const glm::vec3 GetPosition() const noexcept { return glm::vec3(m_transMat[3].x, m_transMat[3].y, m_transMat[3].z); };
         const glm::vec3& GetRotation() const noexcept { return m_rot; };
+        const glm::mat4 GetTransMat() const noexcept { return m_transMat; };
         const glm::vec3& GetScale() const noexcept { return m_scale; };
         glm::mat4 m_transMat;
 

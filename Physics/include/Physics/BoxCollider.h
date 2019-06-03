@@ -20,6 +20,7 @@ namespace Physics
 
 		[[nodiscard]] glm::vec4& GetMaxVecTmp() noexcept { return m_maxVectmp; }
 		[[nodiscard]] glm::vec4& GetMinVecTmp() noexcept { return m_minVectmp; }
+		[[nodiscard]] glm::mat4& GetMat() noexcept { return m_modelMat; }
 		[[nodiscard]] glm::vec4& GetMaxVec() noexcept { return m_maxVec; }
 		[[nodiscard]] glm::vec4& GetMinVec() noexcept { return m_minVec; }
 		[[nodiscard]] glm::vec3& GetPosVec() noexcept { return m_pos; }
@@ -32,6 +33,8 @@ namespace Physics
         glm::vec4 m_minVec;
 
         glm::vec3 m_pos;
+
+        glm::mat4 m_modelMat;
 
         std::vector<glm::vec3>& m_points;
     };

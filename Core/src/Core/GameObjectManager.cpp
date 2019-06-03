@@ -63,12 +63,13 @@ void Core::GameObjectManager::Update(float p_deltaTime)
     Find("BlueLight")->GetComponent<Components::TransformComp>()->Update();
     Find("OrangeLight")->GetComponent<Components::TransformComp>()->Update();
 
-    for(auto& gameObject : m_gameObjects)
+    for (auto& gameObject : m_gameObjects)
     {
-		gameObject->GetComponent<Components::BoxColliderComp>()->GetCollider()->UpdateBoundingBox();
         gameObject->GetComponent<Components::BoxColliderComp>()->GetCollider()->GetPosVec() = gameObject->GetComponent<Components::TransformComp>()->GetTransform()->GetPosition();
+        gameObject->GetComponent<Components::BoxColliderComp>()->GetCollider()->GetMat() = gameObject->GetComponent<Components::TransformComp>()->GetTransform()->GetTransMat();
+        gameObject->GetComponent<Components::BoxColliderComp>()->GetCollider()->UpdateBoundingBox();
     }
-    //Find("Torus")->CollidesWith(Find("Gear"));
+    Find("Torus")->CollidesWith(Find("Gear"));
 }
 
 int Core::GameObjectManager::LoadScene()
