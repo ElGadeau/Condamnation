@@ -93,27 +93,28 @@ void Core::GameObject::ReloadShader()
 bool Core::GameObject::CollidesWith(const std::shared_ptr<Core::GameObject>& p_gameObject)
 {
     GetComponent<Components::BoxColliderComp>()->GetCollider()->UpdateBoundingBox();
+    GetComponent<Components::BoxColliderComp>()->GetCollider()->PrintBoundingBox();
     p_gameObject->GetComponent<Components::BoxColliderComp>()->GetCollider()->UpdateBoundingBox();
+    //puts("||||||||||||||||||||||||||||||||||");
+    //p_gameObject->GetComponent<Components::BoxColliderComp>()->GetCollider()->PrintBoundingBox();
 
-    if (m_name != p_gameObject->m_name)
+    Physics::Collider& colliderOne = *GetComponent<Components::BoxColliderComp>()->GetCollider();
+    Physics::Collider& colliderTwo = *p_gameObject->GetComponent<Components::BoxColliderComp>()->GetCollider();
+
+    bool isOverlapping = true;
+    if (colliderOne.GetMaxVec().x < colliderTwo.GetMinVec().x || colliderOne.GetMinVec().x > colliderTwo.GetMaxVec().x)
+        isOverlapping = false;
+    if (colliderOne.GetMaxVec().y < colliderTwo.GetMinVec().y || colliderOne.GetMinVec().y > colliderTwo.GetMaxVec().y)
+        isOverlapping = false;
+    if (colliderOne.GetMaxVec().z < colliderTwo.GetMinVec().z || colliderOne.GetMinVec().z > colliderTwo.GetMaxVec().z)
+        isOverlapping = false;
+
+    if(isOverlapping)
     {
-        Physics::Collider& colliderOne = *GetComponent<Components::BoxColliderComp>()->GetCollider();
-        Physics::Collider& colliderTwo = *p_gameObject->GetComponent<Components::BoxColliderComp>()->GetCollider();
-
-        bool isOverlapping = true;
-        if (colliderOne.GetMaxVec().x < colliderTwo.GetMinVec().x || colliderOne.GetMinVec().x > colliderTwo.GetMaxVec().x)
-            isOverlapping = false;
-        if (colliderOne.GetMaxVec().y < colliderTwo.GetMinVec().y || colliderOne.GetMinVec().y > colliderTwo.GetMaxVec().y)
-            isOverlapping = false;
-        if (colliderOne.GetMaxVec().z < colliderTwo.GetMinVec().z || colliderOne.GetMinVec().z > colliderTwo.GetMaxVec().z)
-            isOverlapping = false;
-
-        if(isOverlapping)
-        {
-            std::cout << m_name << " Collided with " << p_gameObject->m_name << std::endl;
-            return true;
-        }
+        std::cout << m_name << " Collided with " << p_gameObject->m_name << std::endl;
+        return true;
     }
+
     return false;
 }
 
