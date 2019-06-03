@@ -50,7 +50,7 @@ namespace Core
             }
             if(result == nullptr)
             {
-                std::cout << "Component not found !" << std::endl;
+                return nullptr;
             }
             
             return result.get();

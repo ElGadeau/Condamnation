@@ -40,8 +40,8 @@ void Physics::Collider::SetBoundingBox()
 
 void Physics::Collider::UpdateBoundingBox()
 {
-    m_maxVec = glm::vec4(m_pos, 1.0) + m_maxVectmp;
-    m_minVec = glm::vec4(m_pos, 1.0) + m_minVectmp;
+    m_maxVec = glm::vec4(m_pos, 0.0) + m_maxVectmp;
+    m_minVec = glm::vec4(m_pos, 0.0) + m_minVectmp;
 }
 
 void Physics::Collider::PrintBoundingBox() const

@@ -27,14 +27,14 @@ namespace Components
         void SetChildMatrix(const glm::mat4& p_mat) { m_transform->m_transMat = p_mat * m_localTransform->m_transMat; }
 		void Update() override
 		{
+			if (m_gameObject.GetComponent<Components::LightComp>() != nullptr)
+			{
+                m_gameObject.GetComponent<Components::LightComp>()->GetLight()->m_pos = m_gameObject.GetComponent<Components::TransformComp>()->GetTransform()->GetPosition();
+			}
+
 			if (m_parent != nullptr)
 			{
                 SetChildMatrix(m_parent->m_transform->m_transMat);
-				//m_transform->SetPosition(m_parent->GetTransform()->GetPosition() + m_localTransform->GetPosition());
-				if (m_gameObject.GetComponent<Components::LightComp>() != nullptr)
-				{
-					//m_gameObject.GetComponent<Components::LightComp>()->GetLight()->m_pos = m_transform->GetPosition();
-				}
 			}
 		}
 

@@ -93,10 +93,8 @@ void Core::GameObject::ReloadShader()
 bool Core::GameObject::CollidesWith(const std::shared_ptr<Core::GameObject>& p_gameObject)
 {
     GetComponent<Components::BoxColliderComp>()->GetCollider()->UpdateBoundingBox();
-    GetComponent<Components::BoxColliderComp>()->GetCollider()->PrintBoundingBox();
+    //GetComponent<Components::BoxColliderComp>()->GetCollider()->PrintBoundingBox();
     p_gameObject->GetComponent<Components::BoxColliderComp>()->GetCollider()->UpdateBoundingBox();
-    //puts("||||||||||||||||||||||||||||||||||");
-    //p_gameObject->GetComponent<Components::BoxColliderComp>()->GetCollider()->PrintBoundingBox();
 
     Physics::Collider& colliderOne = *GetComponent<Components::BoxColliderComp>()->GetCollider();
     Physics::Collider& colliderTwo = *p_gameObject->GetComponent<Components::BoxColliderComp>()->GetCollider();

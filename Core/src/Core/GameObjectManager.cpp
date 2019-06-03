@@ -53,19 +53,18 @@ Core::GameObjectManager::GameObjectManager(Core::MeshManager& p_modelManager)
 void Core::GameObjectManager::Update(float p_deltaTime)
 {
     m_angle += 0.005f * p_deltaTime;
-    Find("OrangeLight")->GetComponent<Components::TransformComp>()->Update();
-    Find("OrangeLight")->GetComponent<Components::LightComp>()->GetLight()->m_pos = Find("OrangeLight")->GetComponent<Components::TransformComp>()->GetTransform()->GetPosition();
     Find("BlueLight")->GetComponent<Components::TransformComp>()->GetTransform()->Rotate(glm::vec3(0, 1, 0) * p_deltaTime);
     Find("BlueLight")->GetComponent<Components::TransformComp>()->GetTransform()->Translate(glm::vec3(0.1, 0, 0) * p_deltaTime);
-    Find("BlueLight")->GetComponent<Components::LightComp>()->GetLight()->m_pos = Find("BlueLight")->GetComponent<Components::TransformComp>()->GetTransform()->GetPosition();
 
     Find("Torus")->GetComponent<Components::TransformComp>()->GetTransform()->Rotate(glm::vec3(0, 0, 1) * p_deltaTime);
     Find("Gear")->GetComponent<Components::TransformComp>()->GetTransform()->Rotate(glm::vec3(1, 0, 0) * p_deltaTime);
     Find("Torus")->GetComponent<Components::TransformComp>()->GetTransform()->Translate(glm::vec3(0, 0, -0.05) * p_deltaTime);
     
+    Find("BlueLight")->GetComponent<Components::TransformComp>()->Update();
+    Find("OrangeLight")->GetComponent<Components::TransformComp>()->Update();
+
     for(auto& gameObject : m_gameObjects)
         gameObject->GetComponent<Components::BoxColliderComp>()->GetCollider()->GetPosVec() = gameObject->GetComponent<Components::TransformComp>()->GetTransform()->GetPosition();
-    
     Find("Torus")->CollidesWith(Find("Gear"));
 }
 
