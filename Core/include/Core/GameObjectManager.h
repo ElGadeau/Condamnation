@@ -16,6 +16,7 @@ namespace Core
         int LoadScene();
         std::shared_ptr<Core::GameObject> Find(const std::string& p_name);
 		[[nodiscard]] std::vector<std::shared_ptr<Core::GameObject>>& GetGameObjects() noexcept;
+		void AddGameObject(GameObject& p_gameObject) { m_gameObjects.emplace_back(std::make_shared<GameObject>(p_gameObject)); }
 
     private:
         std::vector<std::shared_ptr<Core::GameObject>> m_gameObjects;
