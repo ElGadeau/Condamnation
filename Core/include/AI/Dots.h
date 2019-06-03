@@ -14,12 +14,23 @@ namespace Core::AI
         void SetPosition(const glm::vec3& p_position);
         void SetIndexXY(int p_x, int p_y);
 
-        const int& GetX() const;
-        const int& GetY() const;
-        const bool& GetIfWall() const;
+        const int& GetX() const { return x; }
+        const int& GetY() const { return y; }
 
-        std::vector<Core::AI::Dots>& GetNeighbors();
-        std::vector<Core::AI::Dots>& GetNeighboringWalls();
+        const bool& GetIfWall() const { return isWall; }
+
+        const float& GetF() const { return f; }
+        const float& GetG() const { return g; }
+        const float& GetH() const { return h; }
+
+        void SetF(float p_f) { f = p_f; }
+        void SetG(float p_g) { g = p_g; }
+        void SetH(float p_h) { h = p_h; }
+
+        void SetPrevious(Dots* p_prevDot);
+
+        std::vector<Dots>& GetNeighbors() { return m_neighbors; }
+        std::vector<Dots>& GetNeighboringWalls() { return m_neighboringWalls; }
 
         void ShowIndex() const;
     private:

@@ -21,29 +21,9 @@ void Core::AI::Dots::SetIndexXY(int p_x, int p_y)
     y = p_y;
 }
 
-const int& Core::AI::Dots::GetX() const
+void Core::AI::Dots::SetPrevious(Dots* p_prevDot)
 {
-    return x;
-}
-
-const int& Core::AI::Dots::GetY() const
-{
-    return y;
-}
-
-const bool& Core::AI::Dots::GetIfWall() const
-{
-    return isWall;
-}
-
-std::vector<Core::AI::Dots>& Core::AI::Dots::GetNeighbors()
-{
-    return m_neighbors;
-}
-
-std::vector<Core::AI::Dots>& Core::AI::Dots::GetNeighboringWalls()
-{
-    return m_neighboringWalls;
+    previous = p_prevDot;
 }
 
 void Core::AI::Dots::ShowIndex() const
