@@ -1,4 +1,5 @@
 #pragma once
+
 #include <GL/glew.h>
 
 #include <Rendering/Export.h>
@@ -22,14 +23,14 @@ namespace Rendering::Buffers
         void Bind() const noexcept;
         void Unbind() const noexcept;
 
-		const GLuint& GetId() const noexcept { return m_id; }
+        const GLuint& GetId() const noexcept { return m_id; }
 
-        void AddBuffer(const VertexBuffer& p_buffer, 
-                       const int& p_countElements, 
-                       const GLType& p_type) noexcept;
+        void AddBuffer(const VertexBuffer& p_buffer,
+                       const int&          p_countElements,
+                       const GLType&       p_type) noexcept;
 
     private:
-        GLuint m_id{};
+        GLuint  m_id{0};
         uint8_t m_availableLocation{0u};
     };
 }

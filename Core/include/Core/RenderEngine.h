@@ -1,6 +1,8 @@
 #pragma once
-#include <Core/GameObject.h>
+
 #include <Rendering/Managers/Renderer.h>
+
+#include <Core/GameObject.h>
 
 namespace Core
 {

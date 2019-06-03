@@ -1,6 +1,10 @@
 #include "stdafx.h"
 #include <string>
 
+#include <Rendering/Resources/Model.h>
+#include <Rendering/Resources/Loaders/ShaderLoader.h>
+#include <Rendering/Shader/Shader.h>
+
 #include <Core/GameObject.h>
 #include <Components/ModelComp.h>
 #include <Components/TransformComp.h>
@@ -8,10 +12,6 @@
 #include <Components/MaterialComp.h>
 #include <Components/BoxColliderComp.h>
 
-#include <Rendering/Resources/Model.h>
-#include <Rendering/Resources/Loaders/ShaderLoader.h>
-
-#include <Rendering/Shader/Shader.h>
 
 Core::GameObject::GameObject()
 {

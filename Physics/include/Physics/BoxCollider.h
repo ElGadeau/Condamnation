@@ -1,7 +1,10 @@
 #pragma once
+
 #include <vector>
-#include <Physics/Export.h>
+
 #include <glm/ext.hpp>
+
+#include <Physics/Export.h>
 
 namespace Physics
 {

@@ -1,6 +1,6 @@
 #include "stdafx.h"
-#include <Physics/BoxCollider.h>
 
+#include <Physics/BoxCollider.h>
 
 Physics::Collider::Collider(std::vector<glm::vec3>& p_vec) : m_points{ p_vec }
 {

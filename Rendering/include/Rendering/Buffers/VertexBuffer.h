@@ -1,7 +1,9 @@
 #pragma once
+
 #include <vector>
 
 #include <GL/glew.h>
+
 #include <Rendering/Export.h>
 
 namespace Rendering::Buffers
@@ -10,7 +12,7 @@ namespace Rendering::Buffers
     {
     public:
         VertexBuffer() = delete;
-        VertexBuffer(const float* p_data, const size_t& p_countElements) noexcept;
+        VertexBuffer(const float*              p_data, const size_t& p_countElements) noexcept;
         VertexBuffer(const std::vector<float>& p_data) noexcept;
         ~VertexBuffer();
 
@@ -19,6 +21,6 @@ namespace Rendering::Buffers
         void LoadData(const void* p_data, const GLsizeiptr& p_sizeData);
 
     private:
-        GLuint m_id{};
+        GLuint m_id{0};
     };
 }

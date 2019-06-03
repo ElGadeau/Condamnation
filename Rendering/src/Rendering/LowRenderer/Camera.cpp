@@ -1,6 +1,8 @@
 #include "stdafx.h"
-#include <Rendering/LowRenderer/Camera.h>
+
 #include <glm/gtc/matrix_transform.hpp>
+
+#include <Rendering/LowRenderer/Camera.h>
 
 Rendering::LowRenderer::Camera::Camera(const glm::vec3& p_position, const glm::vec3& p_up,
                                        const float&     p_yaw,      const float&     p_pitch)

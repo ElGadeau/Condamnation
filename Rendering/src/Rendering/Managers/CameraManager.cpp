@@ -1,4 +1,5 @@
 #include "stdafx.h"
+
 #include <Rendering/Managers/CameraManager.h>
 #include <Rendering/Managers/InputManager.h>
 
@@ -23,11 +24,11 @@ void Rendering::Managers::CameraManager::Init(const glm::vec3& p_position, const
     m_camera = std::make_shared<Rendering::LowRenderer::Camera>(p_position, p_up, p_yaw, p_pitch);
 }
 
-void Rendering::Managers::CameraManager::ProcessKeyInput(InputManager& p_inputManager, const double& p_deltaTime)
+void Rendering::Managers::CameraManager::ProcessKeyInput(InputManager& p_inputManager, const float& p_deltaTime)
 {
-	glm::vec3 FPS = m_camera->m_front;
+	glm::vec3 FPS = m_camera->GetFront();
+	glm::vec3 freeFloat = FPS;
 	FPS.y = 0.0f;
-	glm::vec3 freeFloat = m_camera->m_front;
 
     if (p_inputManager.GetKey(InputManager::KeyCode::W)) //move forward
     {
@@ -38,7 +39,7 @@ void Rendering::Managers::CameraManager::ProcessKeyInput(InputManager& p_inputMa
     }
     if (p_inputManager.GetKey(InputManager::KeyCode::A)) //move left
     {
-        MoveCamera(-m_camera->m_right * p_deltaTime);
+        MoveCamera(-m_camera->GetRight() * p_deltaTime);
     }
     if (p_inputManager.GetKey(InputManager::KeyCode::S)) //move backward
     {
@@ -49,42 +50,48 @@ void Rendering::Managers::CameraManager::ProcessKeyInput(InputManager& p_inputMa
     }
     if (p_inputManager.GetKey(InputManager::KeyCode::D)) //move right
     {
-        MoveCamera(m_camera->m_right * p_deltaTime);
+        MoveCamera(m_camera->GetRight() * p_deltaTime);
     }
     if (p_inputManager.GetKey(InputManager::KeyCode::LeftShift)) //move up
     {
-        MoveCamera(m_camera->m_worldUp * p_deltaTime);
+        MoveCamera(m_camera->GetWorldUp() * p_deltaTime);
     }
     if (p_inputManager.GetKey(InputManager::KeyCode::LeftControl)) //move down
     {
-        MoveCamera(-m_camera->m_worldUp * p_deltaTime);
+        MoveCamera(-m_camera->GetWorldUp() * p_deltaTime);
     }
 }
 
 void Rendering::Managers::CameraManager::ProcessMouseInput(const std::tuple<double, double>& p_mouseCursor)
 {
-    double Xoffset = std::get<0>(p_mouseCursor) - m_lastX;
-    double Yoffset = m_lastY - std::get<1>(p_mouseCursor);
+    const float mouseX = static_cast<float>(std::get<0>(p_mouseCursor));
+    const float mouseY = static_cast<float>(std::get<1>(p_mouseCursor));
+    float xOffset = mouseX - m_lastX;
+    float yOffset = m_lastY - mouseY;
 
-    m_lastX = std::get<0>(p_mouseCursor);
-    m_lastY = std::get<1>(p_mouseCursor);
+    m_lastX = mouseX;
+    m_lastY = mouseY;
 
-    Xoffset *= m_camera->m_mouseSensitivity;
-    Yoffset *= m_camera->m_mouseSensitivity;
+    const float mouseSens = m_camera->GetMouseSensitivity();
+    xOffset *= mouseSens;
+    yOffset *= mouseSens;
 
-    m_camera->m_yaw += Xoffset;
-    m_camera->m_pitch += Yoffset;
+    const float yaw = m_camera->GetYaw();
+    const float pitch = m_camera->GetPitch();
 
-    if (m_camera->m_pitch > 89.0f)
-        m_camera->m_pitch = 89.0f;
-    if (m_camera->m_pitch < -89.0f)
-        m_camera->m_pitch = -89.0f;
+    m_camera->SetYaw(yaw + xOffset) ;
+    m_camera->SetPitch(pitch + yOffset) ;
+
+    if (pitch > 89.0f)
+        m_camera->SetPitch(89.0f);
+    if (pitch < -89.0f)
+        m_camera->SetPitch(-89.0f);
 
     // Update Front, Right and Up Vectors using the updated Euler angles
     m_camera->UpdateCameraVectors();
 }
 
-void Rendering::Managers::CameraManager::MoveCamera(const glm::vec3& p_direction)
+void Rendering::Managers::CameraManager::MoveCamera(const glm::vec3& p_direction) const
 {
-    m_camera->m_position += p_direction * m_camera->m_movementSpeed;
+    m_camera->SetPosition(m_camera->GetPosition() + p_direction * m_camera->GetMovementSpeed());
 }

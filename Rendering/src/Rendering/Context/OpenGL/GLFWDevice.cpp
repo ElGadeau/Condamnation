@@ -1,4 +1,5 @@
 #include "stdafx.h"
+
 #include <Rendering/Context/OpenGL/GLFWDevice.h>
 
 using namespace Rendering::Context::OpenGL;
@@ -34,8 +35,8 @@ void GLFWDevice::Init() noexcept
 
     glfwMakeContextCurrent(std::any_cast<GLFWwindow*>(m_window->Data()));
 
-    lastTime = glfwGetTime();
-    MAX_FPS = 60;
+    m_lastTime = static_cast<float>(glfwGetTime());
+    m_maxFPS   = 60;
 }
 
 bool GLFWDevice::ShouldClose() const noexcept
@@ -55,10 +56,10 @@ void GLFWDevice::RefreshEvents() const noexcept
 
 void GLFWDevice::CalculateDeltaTime() noexcept
 {
-    currentTime = glfwGetTime();
-    deltaTime = currentTime - lastTime;
-    deltaTime *= MAX_FPS;
-    lastTime = currentTime;
+    m_currentTime = static_cast<float>(glfwGetTime());
+    m_deltaTime   = m_currentTime - m_lastTime;
+    m_deltaTime *= m_maxFPS;
+    m_lastTime = m_currentTime;
 }
 
 void GLFWDevice::Close() const noexcept

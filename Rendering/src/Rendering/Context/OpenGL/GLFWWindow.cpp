@@ -1,4 +1,5 @@
 #include "stdafx.h"
+
 #include <Rendering/Context/OpenGL/GLFWWindow.h>
 
 using namespace Rendering::Context::OpenGL;

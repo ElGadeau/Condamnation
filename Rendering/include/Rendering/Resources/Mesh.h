@@ -1,6 +1,8 @@
 #pragma once
+
 #include <vector>
 #include <memory>
+
 #include <Rendering/Export.h>
 #include <Rendering/Geometry/Vertex.h>
 #include <Rendering/Buffers/VertexArray.h>

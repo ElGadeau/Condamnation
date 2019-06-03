@@ -1,7 +1,9 @@
 #pragma once
 
 #include <memory>
+
 #include <Rendering/LowRenderer/Transform.h>
+
 #include <Components/Component.h>
 #include <Components/LightComp.h>
 
@@ -22,14 +24,13 @@ namespace Components
 		void SetParent(std::shared_ptr<TransformComp> p_parent) { m_parent = p_parent; }
 		void SetParent(Core::GameObject& p_parent) { m_parent = std::shared_ptr<TransformComp>(p_parent.GetComponent<TransformComp>()); }
 		void SetParent(std::shared_ptr<Core::GameObject> p_parent) { m_parent = std::shared_ptr<TransformComp>(p_parent->GetComponent<TransformComp>()); }
-
+        void SetChildMatrix(const glm::mat4& p_mat) { m_transform->m_transMat = p_mat * m_localTransform->m_transMat; }
 		void Update() override
 		{
 			if (m_parent != nullptr)
 			{
-				//m_transform->SetPosition(m_globalTransform->GetPosition() + m_parent->GetTransform()->GetPosition());
-				m_transform->SetPosition(m_parent->GetTransform()->GetPosition() + m_localTransform->GetPosition());
-				//m_transform->Rotate(m_transform->GetRotation());
+                SetChildMatrix(m_parent->m_transform->m_transMat);
+				//m_transform->SetPosition(m_parent->GetTransform()->GetPosition() + m_localTransform->GetPosition());
 				if (m_gameObject.GetComponent<Components::LightComp>() != nullptr)
 				{
 					//m_gameObject.GetComponent<Components::LightComp>()->GetLight()->m_pos = m_transform->GetPosition();

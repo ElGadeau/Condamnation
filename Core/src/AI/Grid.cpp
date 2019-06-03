@@ -1,5 +1,6 @@
-#include <AI/Grid.h>
 #include <iostream>
+
+#include <AI/Grid.h>
 
 Core::AI::Grid::Grid(int p_sizeX, int p_sizeY) : m_sizeX(p_sizeX), m_sizeY(p_sizeY)
 {

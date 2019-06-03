@@ -1,6 +1,8 @@
 #pragma once
-#include <AI/Grid.h>
+
 #include <memory>
+
+#include <AI/Grid.h>
 
 namespace Core::AI
 {

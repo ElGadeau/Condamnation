@@ -1,8 +1,9 @@
-#include <Core/MeshManager.h>
-#include <Core/GameObject.h>
 #include <Rendering/Resources/Model.h>
 #include <Rendering/Resources/Loaders/ShaderLoader.h>
 #include <Rendering/Shader/Shader.h>
+
+#include <Core/MeshManager.h>
+#include <Core/GameObject.h>
 
 void Core::MeshManager::AddMesh(const char* p_filePath)
 {

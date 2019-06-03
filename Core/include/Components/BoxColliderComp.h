@@ -1,7 +1,10 @@
 #pragma once
-#include <Components/Component.h>
-#include <Physics/BoxCollider.h>
+
 #include <glm/ext.hpp>
+
+#include <Physics/BoxCollider.h>
+
+#include <Components/Component.h>
 
 namespace Components
 {
@@ -17,7 +20,7 @@ namespace Components
 		void Update() override {}
 
     private:
-        std::shared_ptr<Physics::Collider> m_collider;
+        std::shared_ptr<Physics::Collider> m_collider{};
         Core::GameObject& m_gameObject;
     };
 }

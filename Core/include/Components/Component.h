@@ -1,6 +1,5 @@
 #pragma once
 
-
 namespace Components
 {
     class Component
@@ -9,7 +8,7 @@ namespace Components
         Component() = default;
         virtual ~Component() = default;
 		virtual void Update() = 0;
-        static const size_t m_type;
+        static const size_t m_type = 0;
 
         bool IsEqual(const size_t p_type) 
         {

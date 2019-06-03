@@ -1,10 +1,12 @@
 #include "stdafx.h"
+
 #include <string>
 
-#include <Rendering/Resources/Loaders/MeshLoader.h>
 #include <../assimp/include/assimp/Importer.hpp>
 #include <../assimp/include/assimp/scene.h>
 #include <../assimp/include/assimp/postprocess.h>
+
+#include <Rendering/Resources/Loaders/MeshLoader.h>
 
 std::shared_ptr<Rendering::Resources::Mesh> Rendering::Resources::Loaders::MeshLoader::Load(const std::string& pfile)
 {

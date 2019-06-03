@@ -1,7 +1,9 @@
 #pragma once
+
 #include <Rendering/Resources/Mesh.h>
-#include <Core/GameObject.h>
 #include <Rendering/Shader/Shader.h>
+
+#include <Core/GameObject.h>
 
 namespace Core
 {

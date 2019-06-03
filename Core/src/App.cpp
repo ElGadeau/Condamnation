@@ -1,23 +1,21 @@
-#include <GL/glew.h>
-#include <GLFW/glfw3.h>
 #include <memory>
 
-#include <Core/GameObject.h>
-#include <Core/GameObjectManager.h>
-#include <Core/MeshManager.h>
-
-#include <Components/LightComp.h>
+#include <GL/glew.h>
+#include <GLFW/glfw3.h>
 
 #include <Rendering/Context/OpenGL/GLFWDevice.h>
 #include <Rendering/Context/OpenGL/GLEWDriver.h>
-
 #include <Rendering/Managers/Renderer.h>
 #include <Rendering/Managers/InputManager.h>
 #include <Rendering/Managers/CameraManager.h>
 
-
+#include <Core/GameObject.h>
+#include <Core/GameObjectManager.h>
+#include <Core/MeshManager.h>
 #include <Core/RenderEngine.h>
-#include "Components/BoxColliderComp.h"
+#include <Components/LightComp.h>
+#include <Components/BoxColliderComp.h>
+
 
 std::vector<Core::GameObject> GenerateLights(std::vector<std::shared_ptr<Core::GameObject>>& m_gameObjectVector)
 {

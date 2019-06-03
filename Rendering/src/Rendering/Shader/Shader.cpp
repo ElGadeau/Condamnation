@@ -1,11 +1,12 @@
 #include "stdafx.h"
+
+#include <fstream>
+#include <sstream>
+
+#include <GL/glew.h>
 #include <glm/gtc/type_ptr.hpp>
 
 #include <Rendering/Shader/Shader.h>
-
-#include <GL/glew.h>
-#include <fstream>
-#include <sstream>
 
 Rendering::Shaders::Shader::Shader()
 {
@@ -89,12 +90,12 @@ void Rendering::Shaders::Shader::Load(const char* p_Shader, const GLuint& p_type
 
 }
 
-void Rendering::Shaders::Shader::Update(LowRenderer::Camera& cam, Rendering::LowRenderer::Transform& trans, Rendering::LowRenderer::Material& p_mat, Rendering::LowRenderer::Light* p_lights, const size_t p_lightSize)
+void Rendering::Shaders::Shader::Update(const LowRenderer::Camera& cam, const LowRenderer::Transform& trans, const LowRenderer::Material& p_mat, LowRenderer::Light* p_lights, const size_t& p_lightSize)
 {
-	glUniformMatrix4fv(m_data[0], 1, GL_FALSE, glm::value_ptr(cam.GetPerspectiveMatrix()));
-	glUniformMatrix4fv(m_data[1], 1, GL_FALSE, glm::value_ptr(cam.GetViewMatrix()));
-	glUniformMatrix4fv(m_data[2], 1, GL_FALSE, glm::value_ptr(trans.m_transMat));
-	glUniform3f(m_data[3], cam.m_position.x, cam.m_position.y, cam.m_position.z);
+	glUniformMatrix4fv(m_data[0], 1, GL_FALSE, value_ptr(cam.GetPerspectiveMatrix()));
+	glUniformMatrix4fv(m_data[1], 1, GL_FALSE, value_ptr(cam.GetViewMatrix()));
+	glUniformMatrix4fv(m_data[2], 1, GL_FALSE, value_ptr(trans.m_transMat));
+	glUniform3f(m_data[3], cam.GetPosition().x, cam.GetPosition().y, cam.GetPosition().z);
     glUniform3f(m_data[4], p_mat.r, p_mat.g, p_mat.b);
     glUniform1f(m_data[5], p_mat.shininess);
     glUniform1f(m_data[6], p_mat.opacity);
