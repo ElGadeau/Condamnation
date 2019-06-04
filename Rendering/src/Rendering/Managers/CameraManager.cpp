@@ -21,51 +21,54 @@ Rendering::Managers::CameraManager::CameraManager(const float& p_posX, const flo
 void Rendering::Managers::CameraManager::Init(const glm::vec3& p_position, const glm::vec3& p_up,
     const float& p_yaw, const float& p_pitch)
 {
-    m_camera = std::make_shared<Rendering::LowRenderer::Camera>(p_position, p_up, p_yaw, p_pitch);
+    m_camera = std::make_shared<LowRenderer::Camera>(p_position, p_up, p_yaw, p_pitch);
 }
 
-void Rendering::Managers::CameraManager::ProcessKeyInput(InputManager& p_inputManager, const float& p_deltaTime)
+void Rendering::Managers::CameraManager::ProcessKeyInput(const float& p_deltaTime)
 {
 	glm::vec3 FPS = m_camera->GetFront();
 	glm::vec3 freeFloat = FPS;
 	FPS.y = 0.0f;
 
-    if (p_inputManager.GetKey(InputManager::KeyCode::W)) //move forward
+	InputManager* inputManager = &*InputManager::GetInstance();
+
+    if (inputManager->GetKey(InputManager::KeyCode::W)) //move forward
     {
 		if (m_freeFloat)
 			MoveCamera(freeFloat * static_cast<float>(p_deltaTime));
 		else
 			MoveCamera(FPS * static_cast<float>(p_deltaTime));
     }
-    if (p_inputManager.GetKey(InputManager::KeyCode::A)) //move left
-    {
-        MoveCamera(-m_camera->GetRight() * p_deltaTime);
-    }
-    if (p_inputManager.GetKey(InputManager::KeyCode::S)) //move backward
+    if (inputManager->GetKey(InputManager::KeyCode::S)) //move backward
     {
 		if (m_freeFloat)
 			MoveCamera(-freeFloat * static_cast<float>(p_deltaTime));
 		else
 			MoveCamera(-FPS * static_cast<float>(p_deltaTime));
     }
-    if (p_inputManager.GetKey(InputManager::KeyCode::D)) //move right
+    if (inputManager->GetKey(InputManager::KeyCode::A)) //move left
+    {
+        MoveCamera(-m_camera->GetRight() * p_deltaTime);
+    }
+    if (inputManager->GetKey(InputManager::KeyCode::D)) //move right
     {
         MoveCamera(m_camera->GetRight() * p_deltaTime);
     }
-    if (p_inputManager.GetKey(InputManager::KeyCode::LeftShift)) //move up
+    if (inputManager->GetKey(InputManager::KeyCode::LeftShift)) //move up
     {
         MoveCamera(m_camera->GetWorldUp() * p_deltaTime);
     }
-    if (p_inputManager.GetKey(InputManager::KeyCode::LeftControl)) //move down
+    if (inputManager->GetKey(InputManager::KeyCode::LeftControl)) //move down
     {
         MoveCamera(-m_camera->GetWorldUp() * p_deltaTime);
     }
 }
 
-void Rendering::Managers::CameraManager::ProcessMouseInput(const std::tuple<double, double>& p_mouseCursor)
+void Rendering::Managers::CameraManager::ProcessMouseInput()
 {
-    const float mouseX = static_cast<float>(std::get<0>(p_mouseCursor));
-    const float mouseY = static_cast<float>(std::get<1>(p_mouseCursor));
+	std::tuple mouseCursor = InputManager::GetInstance()->GetMouseCursorPos();
+    const float mouseX = static_cast<float>(std::get<0>(mouseCursor));
+    const float mouseY = static_cast<float>(std::get<1>(mouseCursor));
     float xOffset = mouseX - m_lastX;
     float yOffset = m_lastY - mouseY;
 

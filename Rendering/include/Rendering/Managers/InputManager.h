@@ -17,6 +17,9 @@ namespace Rendering::Managers
         InputManager(const std::shared_ptr<Context::IWindow>& p_window) noexcept;
         ~InputManager() noexcept;
 
+		static void Init(const std::shared_ptr<Context::IWindow>& p_window);
+        static const std::unique_ptr<InputManager>& GetInstance() noexcept { return m_instance; }
+        
         bool GetKeyDown(const KeyCode& p_keyCode);
         bool GetKeyUp(const KeyCode& p_keyCode);
         bool GetKey(const KeyCode& p_keyCode);
@@ -44,6 +47,8 @@ namespace Rendering::Managers
 
         std::unordered_map<int, int> m_inputBuffer{};
         std::tuple<double, double> m_mouseCursorPos{};
+
+		static std::unique_ptr<InputManager> m_instance;
 
     };
 }

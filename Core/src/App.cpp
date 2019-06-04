@@ -41,7 +41,7 @@ int main()
     renderer->Initialize<Rendering::Context::OpenGL::GLEWDriver>();
     renderer->SetupCulling();
 
-    Rendering::Managers::InputManager m_inputManager(device->GetWindow());
+	Rendering::Managers::InputManager::Init(device->GetWindow());
     Rendering::Managers::CameraManager m_camera(glm::vec3(20.0f, 10, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f), -180.0f, -25.0f, true);
 
     Core::RenderEngine m_renderEngine;
@@ -59,22 +59,23 @@ int main()
 	gameobjects.AddGameObject(player);
 
     float angle = 0;
+	Rendering::Managers::InputManager* inputManager = &*Rendering::Managers::InputManager::GetInstance();
     while (!device->ShouldClose())
     {
         device->CalculateDeltaTime();
         device->RefreshEvents();
 		//Utils::RayCast(gameobjects.Find("Player"), m_camera.GetCamera()->GetFront(), gameobjects);
         angle += 0.005f;
-        if (m_inputManager.GetKeyDown(Rendering::Managers::InputManager::KeyCode::R))
+        if (inputManager->GetKeyDown(Rendering::Managers::InputManager::KeyCode::R))
             modelManager.ReloadShader(gameobjects.GetGameObjects());
 
-        if (m_inputManager.GetKeyDown(Rendering::Managers::InputManager::KeyCode::Escape))
+        if (inputManager->GetKeyDown(Rendering::Managers::InputManager::KeyCode::Escape))
             device->Close();
 
-        m_inputManager.UpdateCursorPos();
-        m_camera.ProcessKeyInput(m_inputManager, device->GetDeltaTime());
-        m_camera.ProcessMouseInput(m_inputManager.GetMouseCursorPos());
-		player.GetComponent<Components::PlayerComp>()->ProcessKeyInput(gameobjects, m_inputManager, device->GetDeltaTime());
+        inputManager->UpdateCursorPos();
+        m_camera.ProcessKeyInput(device->GetDeltaTime());
+        m_camera.ProcessMouseInput();
+		player.GetComponent<Components::PlayerComp>()->ProcessKeyInput(gameobjects, device->GetDeltaTime());
         renderer->Clear();  
         gameobjects.Update(device->GetDeltaTime());
                 

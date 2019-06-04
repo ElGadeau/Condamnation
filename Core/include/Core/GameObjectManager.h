@@ -9,10 +9,10 @@ namespace Core
     {
     public:
         GameObjectManager() = default;
-        GameObjectManager(Core::MeshManager& p_modelManager);
+        GameObjectManager(MeshManager& p_modelManager);
         ~GameObjectManager() = default;
 
-        void Update(float p_deltaTime);
+        void Update(const float& p_deltaTime);
         int LoadScene(const MeshManager& p_modelManager);
         std::shared_ptr<Core::GameObject> Find(const std::string& p_name);
 		[[nodiscard]] std::vector<std::shared_ptr<Core::GameObject>>& GetGameObjects() noexcept;
@@ -21,8 +21,8 @@ namespace Core
 		void RemoveGameObject(const std::string& p_name);
 
     private:
-        std::vector<std::shared_ptr<Core::GameObject>> m_gameObjects;
-        float m_angle;
+        std::vector<std::shared_ptr<GameObject>> m_gameObjects;
+        float m_angle{0.0f};
     };
 }
 

@@ -5,9 +5,9 @@
 #include <Components/BoxColliderComp.h>
 #include "Utils/Ray.h"
 
-void Components::PlayerComp::ProcessKeyInput(Core::GameObjectManager& p_gameManager, Rendering::Managers::InputManager & p_inputManager, const double & p_deltaTime)
+void Components::PlayerComp::ProcessKeyInput(Core::GameObjectManager& p_gameManager, const double & p_deltaTime)
 {
-	if (p_inputManager.GetKey(Rendering::Managers::InputManager::KeyCode::Space))
+	if (Rendering::Managers::InputManager::GetInstance()->GetKey(Rendering::Managers::InputManager::KeyCode::Space))
 	{
 		std::shared_ptr<Core::GameObject> collision = Utils::RayCast(m_gameObject, m_camera->GetFront(), p_gameManager);
 		if (collision != nullptr)

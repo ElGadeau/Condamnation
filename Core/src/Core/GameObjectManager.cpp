@@ -37,7 +37,7 @@ Core::GameObjectManager::GameObjectManager(MeshManager& p_modelManager)
 
     DirLight->GetComponent<Components::TransformComp>()->GetTransform()->Translate(glm::vec3(0, 60, 60));
     DirLight->AddComponent<Components::LightComp>()->GetLight()->SetPos(DirLight->GetComponent<Components::TransformComp>()->GetTransform()->GetPosition());
-    DirLight->GetComponent<Components::LightComp>()->GetLight()->SetColor(0.9, 0.9, 0.9);
+    DirLight->GetComponent<Components::LightComp>()->GetLight()->SetColor(0.9f, 0.9f, 0.9f);
     DirLight->GetComponent<Components::LightComp>()->GetLight()->SetDirectional(true);
     DirLight->GetComponent<Components::LightComp>()->GetLight()->SetIntensity(0.2f);
 
@@ -55,7 +55,7 @@ Core::GameObjectManager::GameObjectManager(MeshManager& p_modelManager)
 	//LoadScene(p_modelManager);
 }
 
-void Core::GameObjectManager::Update(float p_deltaTime)
+void Core::GameObjectManager::Update(const float& p_deltaTime)
 {
     m_angle += 0.005f * p_deltaTime;
 	if (Find("Torus") != nullptr)

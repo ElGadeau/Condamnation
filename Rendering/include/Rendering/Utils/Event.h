@@ -149,6 +149,6 @@ namespace Rendering::Utils
 
     private:
         callback_id                                    m_availableListener{0u};
-        std::pmr::unordered_map<callback_id, callback> m_callbacks;
+        std::unordered_map<callback_id, callback> m_callbacks;
     };
 }

@@ -12,7 +12,7 @@ namespace Components
 			m_gameObject{ p_gameObject }, m_camera{ p_camera }, m_health { p_health } {}
 		~PlayerComp() = default;
 
-		void ProcessKeyInput(Core::GameObjectManager& p_gameManager, Rendering::Managers::InputManager & p_inputManager, const double & p_deltaTime);
+		void ProcessKeyInput(Core::GameObjectManager& p_gameManager, const double & p_deltaTime);
 		void Update() override;
 		std::shared_ptr<Core::GameObject> RayCast(Core::GameObjectManager& p_gameManager) const;
 

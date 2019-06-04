@@ -2,6 +2,8 @@
 
 #include <Rendering/Managers/InputManager.h>
 
+std::unique_ptr<Rendering::Managers::InputManager> Rendering::Managers::InputManager::m_instance;
+
 Rendering::Managers::InputManager::InputManager(
     const std::shared_ptr<Context::IWindow>& p_window) noexcept
     : m_window{p_window}
@@ -26,7 +28,11 @@ Rendering::Managers::InputManager::~InputManager() noexcept
     assert(m_window->m_keyReleasedEvent.RemoveListener(m_idKeyReleasedListener));
     assert(m_window->m_mouseButtonPressedEvent.RemoveListener(m_idMouseButtonPressedListener));
     assert(m_window->m_mouseButtonReleasedEvent.RemoveListener(m_idMouseButtonReleasedListener));
-    
+}
+
+void Rendering::Managers::InputManager::Init(const std::shared_ptr<Context::IWindow>& p_window)
+{
+	m_instance = std::make_unique<InputManager>(p_window);
 }
 
 bool Rendering::Managers::InputManager::GetKeyDown(const KeyCode& p_keyCode)
