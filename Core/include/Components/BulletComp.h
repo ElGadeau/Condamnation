@@ -22,6 +22,9 @@ namespace Components
 				<< m_gameObject.GetComponent<TransformComp>()->GetTransform()->GetPosition().y << ", " << m_gameObject.GetComponent<TransformComp>()->GetTransform()->GetPosition().z << '\n';
 		}
 
+        void Serialize(XMLElement* p_compSegment) const noexcept override;
+        void Deserialize(XMLElement* p_compSegment) const noexcept override;
+
 	private:
 		Core::GameObject& m_gameObject;
 		glm::vec3 m_direction;

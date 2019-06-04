@@ -1,12 +1,14 @@
 #pragma once
 
+#include <Core/Interface/ISerializable.h>
+
 namespace Components
 {
-    class Component
+    class Component : public Core::Interface::ISerializable
     {
     public:
         Component() = default;
-        virtual ~Component() = default;
+        ~Component() = default;
 		virtual void Update() = 0;
         size_t m_type = 0;
 

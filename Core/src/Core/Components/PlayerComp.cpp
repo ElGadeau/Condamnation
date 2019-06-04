@@ -59,5 +59,15 @@ std::shared_ptr<Core::GameObject> Components::PlayerComp::RayCast(Core::GameObje
 			
 		}
 	}
-		return nullptr;
+		return {};
+}
+
+void Components::PlayerComp::Serialize(XMLElement* p_compSegment) const noexcept
+{
+	std::cout << "[PLAYER_COMP] Function not implemented\n";
+}
+
+void Components::PlayerComp::Deserialize(XMLElement* p_compSegment) const noexcept
+{
+	std::cout << "[PLAYER_COMP] Function not implemented\n";
 }

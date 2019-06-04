@@ -3,6 +3,7 @@
 #include <Rendering/Resources/Model.h>
 
 #include <Components/Component.h>
+#include <Core/GameObject.h>
 
 namespace Components
 {
@@ -13,8 +14,11 @@ namespace Components
 		~ModelComp() = default;
 
 		[[nodiscard]] std::shared_ptr<Rendering::Resources::Model> GetModel() const noexcept { return m_model; }
-		void Update() override
-		{}
+		void Update() override {}
+
+        void Serialize(XMLElement* p_compSegment) const noexcept override;
+        void Deserialize(XMLElement* p_compSegment) const noexcept override;
+
     private:
         std::shared_ptr<Rendering::Resources::Model> m_model;
 		Core::GameObject& m_gameObject;

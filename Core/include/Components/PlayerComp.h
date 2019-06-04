@@ -16,10 +16,13 @@ namespace Components
 		void Update() override;
 		std::shared_ptr<Core::GameObject> RayCast(Core::GameObjectManager& p_gameManager) const;
 
+        void Serialize(XMLElement* p_compSegment) const noexcept override;
+        void Deserialize(XMLElement* p_compSegment) const noexcept override;
+
 	private:
 		Core::GameObject& m_gameObject;
 		std::shared_ptr<Rendering::LowRenderer::Camera> m_camera;
-		int m_health;
+		int m_health{ 0 };
 
 	};
 }

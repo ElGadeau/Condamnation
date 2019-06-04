@@ -181,8 +181,13 @@ copy "$(SolutionDir)Dependencies\freetype\bin\$(Platform)\freetype.dll" "$(OutDi
     <ClCompile Include="src\AI\Dots.cpp" />
     <ClCompile Include="src\AI\Grid.cpp" />
     <ClCompile Include="src\AI\PathFinding.cpp" />
+    <ClCompile Include="src\Core\Components\BoxColliderComp.cpp" />
     <ClCompile Include="src\Core\Components\BulletComp.cpp" />
+    <ClCompile Include="src\Core\Components\LightComp.cpp" />
+    <ClCompile Include="src\Core\Components\MaterialComp.cpp" />
+    <ClCompile Include="src\Core\Components\ModelComp.cpp" />
     <ClCompile Include="src\Core\Components\PlayerComp.cpp" />
+    <ClCompile Include="src\Core\Components\TransformComp.cpp" />
     <ClCompile Include="src\Core\GameObjectManager.cpp" />
     <ClCompile Include="src\App.cpp" />
     <ClCompile Include="src\Core\GameObject.cpp" />
@@ -209,6 +214,7 @@ copy "$(SolutionDir)Dependencies\freetype\bin\$(Platform)\freetype.dll" "$(OutDi
     <ClInclude Include="include\Components\Component.h" />
     <ClInclude Include="include\Components\LightComp.h" />
     <ClInclude Include="include\Core\GameObject.h" />
+    <ClInclude Include="include\Core\Interface\ISerializable.h" />
     <ClInclude Include="include\Core\MeshManager.h" />
     <ClInclude Include="include\Components\TransformComp.h" />
     <ClInclude Include="include\Core\RenderEngine.h" />

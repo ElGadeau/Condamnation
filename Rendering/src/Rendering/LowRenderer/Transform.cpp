@@ -12,8 +12,9 @@ Transform::Transform()
 	m_transMat = glm::translate(m_transMat, glm::vec3(0, 0, 0));
 }
 
-Transform::~Transform()
+void Transform::Serialize()
 {
+
 }
 
 void Transform::Translate(const glm::vec3& p_translation)

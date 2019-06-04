@@ -8,17 +8,26 @@ namespace Rendering::LowRenderer
     {
     public:
 
-        Material() { shininess = 0.5f; r = 1; g = 1; b = 1; opacity = 1; };
+        Material() { m_shininess = 0.5f; m_r = 1; m_g = 1; m_b = 1; m_opacity = 1; };
         ~Material() {};
 
-        void SetColor(float red, float blue, float green) { r = red; g = blue; b = blue; };
-        void SetShininess(float shine) { shininess = shine; };
+        void SetColor(const float& p_red, const float& p_green, const float& p_blue) { m_r = p_red; m_g = p_green; m_b = p_blue; };
+        void SetShininess(const float& p_shininess) { m_shininess = p_shininess; };
+        void SetOpacity(const float& p_opacity) { m_opacity = p_opacity; };
 
-        float shininess;
-        float opacity;
+		const float& GetShininess() const noexcept { return m_shininess; }
+		const float& GetOpacity() const noexcept { return m_opacity; }
 
-        float r;
-        float g;
-        float b;
+		const float& GetColorR() const noexcept { return m_r; }
+		const float& GetColorG() const noexcept { return m_g; }
+		const float& GetColorB() const noexcept { return m_b; }
+
+    private:
+        float m_shininess;
+        float m_opacity;
+
+        float m_r;
+        float m_g;
+        float m_b;
     };
 }

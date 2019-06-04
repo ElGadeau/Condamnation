@@ -96,25 +96,25 @@ void Rendering::Shaders::Shader::Update(const LowRenderer::Camera& cam, const Lo
 	glUniformMatrix4fv(m_data[1], 1, GL_FALSE, value_ptr(cam.GetViewMatrix()));
 	glUniformMatrix4fv(m_data[2], 1, GL_FALSE, value_ptr(trans.m_transMat));
 	glUniform3f(m_data[3], cam.GetPosition().x, cam.GetPosition().y, cam.GetPosition().z);
-    glUniform3f(m_data[4], p_mat.r, p_mat.g, p_mat.b);
-    glUniform1f(m_data[5], p_mat.shininess);
-    glUniform1f(m_data[6], p_mat.opacity);
+    glUniform3f(m_data[4], p_mat.GetColorR(), p_mat.GetColorG(), p_mat.GetColorB());
+    glUniform1f(m_data[5], p_mat.GetShininess());
+    glUniform1f(m_data[6], p_mat.GetOpacity());
 
     for (unsigned int i = 0; i < p_lightSize; ++i)
     {
-        std::string isDirectionnalS = "pointLights[" + std::to_string(i) + "].isDirectionnal";
+        std::string isDirectionnalS = "pointLights[" + std::to_string(i) + "].isDirectional";
         std::string intensityS = "pointLights[" + std::to_string(i) + "].intensity";
         std::string positionS = "pointLights[" + std::to_string(i) + "].LightPos";
         std::string colorS = "pointLights[" + std::to_string(i) + "].LightColor";
         std::string lightShader = "lightColor";
 
-        if (trans.GetPosition() == p_lights[i].m_pos)
-            glUniform3f(glGetUniformLocation(shaderProgram, lightShader.c_str()), p_lights[i].m_color.x, p_lights[i].m_color.y, p_lights[i].m_color.z);
+        if (trans.GetPosition() == p_lights[i].GetPos())
+            glUniform3f(glGetUniformLocation(shaderProgram, lightShader.c_str()), p_lights[i].GetColor().x, p_lights[i].GetColor().y, p_lights[i].GetColor().z);
         
-        glUniform1i(glGetUniformLocation(shaderProgram, isDirectionnalS.c_str()), p_lights[i].isDirectionnal);
-        glUniform1f(glGetUniformLocation(shaderProgram, intensityS.c_str()), p_lights[i].intensity);
-        glUniform3f(glGetUniformLocation(shaderProgram, positionS.c_str()), p_lights[i].m_pos.x, p_lights[i].m_pos.y, p_lights[i].m_pos.z);
-        glUniform3f(glGetUniformLocation(shaderProgram, colorS.c_str()), p_lights[i].m_color.x, p_lights[i].m_color.y, p_lights[i].m_color.z);
+        glUniform1i(glGetUniformLocation(shaderProgram, isDirectionnalS.c_str()), static_cast<GLint>(p_lights[i].GetIsDirectional()));
+        glUniform1f(glGetUniformLocation(shaderProgram, intensityS.c_str()), p_lights[i].GetIntensity());
+        glUniform3f(glGetUniformLocation(shaderProgram, positionS.c_str()), p_lights[i].GetPos().x, p_lights[i].GetPos().y, p_lights[i].GetPos().z);
+        glUniform3f(glGetUniformLocation(shaderProgram, colorS.c_str()), p_lights[i].GetColor().x, p_lights[i].GetColor().y, p_lights[i].GetColor().z);
 
     }
     

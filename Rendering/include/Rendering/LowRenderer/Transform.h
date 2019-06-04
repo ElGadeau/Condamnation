@@ -11,7 +11,9 @@ namespace Rendering::LowRenderer
     {
     public:
 		Transform();
-		~Transform();
+		~Transform() = default;
+
+		void Serialize();
 		
         void Translate(const glm::vec3& p_translation);
         void Rotate(const glm::vec3& p_rotation);
