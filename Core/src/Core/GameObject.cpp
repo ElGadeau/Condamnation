@@ -154,3 +154,11 @@ void Core::GameObject::ResolveCollisions(std::vector<std::shared_ptr<Core::GameO
         }
     }*/
 }
+
+bool Core::operator==(GameObject& p_1, GameObject& p_2)
+{
+	if (p_1.GetName() == p_2.GetName())
+		return true;
+
+	return false;
+}

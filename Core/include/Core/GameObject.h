@@ -67,4 +67,6 @@ namespace Core
 		std::shared_ptr<GameObject> m_child = nullptr;
         std::vector<std::shared_ptr<Components::Component>> m_components{};
     };
+
+	bool operator==(GameObject& p_1, GameObject& p_2);
 }
