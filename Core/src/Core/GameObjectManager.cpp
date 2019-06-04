@@ -76,7 +76,7 @@ void Core::GameObjectManager::Update(float p_deltaTime)
             gameObject->GetComponent<Components::BoxColliderComp>()->GetCollider()->UpdateBoundingBox();
         }
     }
-    Find("Torus")->CollidesWith(Find("Empty"));
+    Find("Torus")->CollidesWith(Find("Gear"));
 }
 
 int Core::GameObjectManager::LoadScene(const MeshManager& p_modelManager)
