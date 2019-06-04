@@ -15,12 +15,7 @@ namespace Components
 		~BulletComp() = default;
 		BulletComp(const BulletComp& p_other);
 
-		void Update() override
-		{
-			m_gameObject.GetComponent<TransformComp>()->GetTransform()->Translate(m_direction * m_speed);
-			std::cout << "bullet position: " << m_gameObject.GetComponent<TransformComp>()->GetTransform()->GetPosition().x << ", " 
-				<< m_gameObject.GetComponent<TransformComp>()->GetTransform()->GetPosition().y << ", " << m_gameObject.GetComponent<TransformComp>()->GetTransform()->GetPosition().z << '\n';
-		}
+		void Update() override;
 
         void Serialize(XMLElement* p_compSegment) const noexcept override;
         void Deserialize(XMLElement* p_compSegment) const noexcept override;
