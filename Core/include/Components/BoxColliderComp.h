@@ -5,6 +5,7 @@
 #include <Physics/BoxCollider.h>
 
 #include <Components/Component.h>
+#include <Core/GameObject.h>
 
 namespace Components
 {
@@ -18,6 +19,9 @@ namespace Components
 		[[nodiscard]] std::shared_ptr<Physics::Collider> GetCollider() const noexcept { return m_collider; }
 
 		void Update() override {}
+
+        void Serialize(XMLElement* p_compSegment) const noexcept override;
+        void Deserialize(XMLElement* p_compSegment) const noexcept override;
 
     private:
         std::shared_ptr<Physics::Collider> m_collider{};

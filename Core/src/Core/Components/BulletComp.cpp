@@ -5,3 +5,13 @@ Components::BulletComp::BulletComp(const BulletComp& p_other) : m_gameObject{ p_
 	m_damage = p_other.m_damage;
 	m_speed = p_other.m_speed;
 }
+
+void Components::BulletComp::Serialize(XMLElement* p_compSegment) const noexcept
+{
+	std::cout << "[BULLET_COMP] Function not implemented\n";
+}
+
+void Components::BulletComp::Deserialize(XMLElement* p_compSegment) const noexcept
+{
+	std::cout << "[BULLET_COMP] Function not implemented\n";
+}

@@ -36,7 +36,7 @@ Core::GameObject::GameObject(const std::shared_ptr<Rendering::Resources::Mesh>& 
 
 	AddComponent<Components::BoxColliderComp>();
 
-	GetComponent<Components::BoxColliderComp>()->SetCollider(GetComponent<Components::ModelComp>()->GetModel()->m_mesh->m_positions);
+	GetComponent<Components::BoxColliderComp>()->SetCollider(GetComponent<Components::ModelComp>()->GetModel()->GetMesh()->m_positions);
 	GetComponent<Components::BoxColliderComp>()->GetCollider()->SetBoundingBox();
 }
 
@@ -64,8 +64,8 @@ void Core::GameObject::Update(Rendering::LowRenderer::Camera & p_cam, std::vecto
 
     if (GetComponent<Components::ModelComp>() != nullptr)
     {
-        GetComponent<Components::ModelComp>()->GetModel()->m_shader->ApplyShader();
-        GetComponent<Components::ModelComp>()->GetModel()->m_shader->Update(
+        GetComponent<Components::ModelComp>()->GetModel()->GetShader()->ApplyShader();
+        GetComponent<Components::ModelComp>()->GetModel()->GetShader()->Update(
         p_cam, 
         *GetComponent<Components::TransformComp>()->GetTransform(),
         *GetComponent<Components::MaterialComp>()->GetMaterial(), 

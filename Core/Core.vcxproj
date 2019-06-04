@@ -78,24 +78,24 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <IncludePath>$(SolutionDir)Physics\include;$(ProjectDir)include;$(SolutionDir)Rendering\include;$(SolutionDir)Dependencies\tinyXML\include;$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)Physics\include;$(ProjectDir)include;$(SolutionDir)Rendering\include;$(SolutionDir)Dependencies\tinyXML\include;$(SolutionDir)Dependencies\freetype\include;$(IncludePath)</IncludePath>
     <SourcePath>$(ProjectDir)src;$(SourcePath)</SourcePath>
-    <LibraryPath>$(SolutionDir)Dependencies\tinyXML\lib\$(Configuration)\$(Platform);$(LibraryPath)</LibraryPath>
+    <LibraryPath>$(SolutionDir)Dependencies\tinyXML\lib\$(Configuration)\$(Platform);$(SolutionDir)Dependencies\freetype\lib\$(Platform);$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <IncludePath>$(SolutionDir)Physics\include;$(ProjectDir)include;$(SolutionDir)Rendering\include;$(SolutionDir)Dependencies\tinyXML\include;$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)Physics\include;$(ProjectDir)include;$(SolutionDir)Rendering\include;$(SolutionDir)Dependencies\tinyXML\include;$(SolutionDir)Dependencies\freetype\include;$(IncludePath)</IncludePath>
     <SourcePath>$(ProjectDir)src;$(SourcePath)</SourcePath>
-    <LibraryPath>$(SolutionDir)Dependencies\tinyXML\lib\$(Configuration)\$(Platform);$(LibraryPath)</LibraryPath>
+    <LibraryPath>$(SolutionDir)Dependencies\tinyXML\lib\$(Configuration)\$(Platform);$(SolutionDir)Dependencies\freetype\lib\$(Platform);$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <IncludePath>$(SolutionDir)Physics\include;$(ProjectDir)include;$(SolutionDir)Rendering\include;$(SolutionDir)Dependencies\tinyXML\include;$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)Physics\include;$(ProjectDir)include;$(SolutionDir)Rendering\include;$(SolutionDir)Dependencies\tinyXML\include;$(SolutionDir)Dependencies\freetype\include;$(IncludePath)</IncludePath>
     <SourcePath>$(ProjectDir)src;$(SourcePath)</SourcePath>
-    <LibraryPath>$(SolutionDir)Dependencies\tinyXML\lib\$(Configuration)\$(Platform);$(LibraryPath)</LibraryPath>
+    <LibraryPath>$(SolutionDir)Dependencies\tinyXML\lib\$(Configuration)\$(Platform);$(SolutionDir)Dependencies\freetype\lib\$(Platform);$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <IncludePath>$(SolutionDir)Physics\include;$(ProjectDir)include;$(SolutionDir)Rendering\include;$(SolutionDir)Dependencies\tinyXML\include;$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)Physics\include;$(ProjectDir)include;$(SolutionDir)Rendering\include;$(SolutionDir)Dependencies\tinyXML\include;$(SolutionDir)Dependencies\freetype\include;$(IncludePath)</IncludePath>
     <SourcePath>$(ProjectDir)src;$(SourcePath)</SourcePath>
-    <LibraryPath>$(SolutionDir)Dependencies\tinyXML\lib\$(Configuration)\$(Platform);$(LibraryPath)</LibraryPath>
+    <LibraryPath>$(SolutionDir)Dependencies\tinyXML\lib\$(Configuration)\$(Platform);$(SolutionDir)Dependencies\freetype\lib\$(Platform);$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -108,10 +108,11 @@
       <PreprocessorDefinitions>%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>tinyxml2.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>tinyxml2.lib;freetype.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
-      <Command>copy "$(SolutionDir)Dependencies\tinyXML\bin\$(Configuration)\$(Platform)\tinyxml2.dll" "$(OutDir)"</Command>
+      <Command>copy "$(SolutionDir)Dependencies\tinyXML\bin\$(Configuration)\$(Platform)\tinyxml2.dll" "$(OutDir)"
+copy "$(SolutionDir)Dependencies\freetype\bin\$(Platform)\freetype.dll" "$(OutDir)"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -125,10 +126,11 @@
       <PreprocessorDefinitions>%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>tinyxml2.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>tinyxml2.lib;freetype.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
-      <Command>copy "$(SolutionDir)Dependencies\tinyXML\bin\$(Configuration)\$(Platform)\tinyxml2.dll" "$(OutDir)"</Command>
+      <Command>copy "$(SolutionDir)Dependencies\tinyXML\bin\$(Configuration)\$(Platform)\tinyxml2.dll" "$(OutDir)"
+copy "$(SolutionDir)Dependencies\freetype\bin\$(Platform)\freetype.dll" "$(OutDir)"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -146,10 +148,11 @@
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalDependencies>tinyxml2.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>tinyxml2.lib;freetype.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
-      <Command>copy "$(SolutionDir)Dependencies\tinyXML\bin\$(Configuration)\$(Platform)\tinyxml2.dll" "$(OutDir)"</Command>
+      <Command>copy "$(SolutionDir)Dependencies\tinyXML\bin\$(Configuration)\$(Platform)\tinyxml2.dll" "$(OutDir)"
+copy "$(SolutionDir)Dependencies\freetype\bin\$(Platform)\freetype.dll" "$(OutDir)"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -167,18 +170,24 @@
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalDependencies>tinyxml2.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>tinyxml2.lib;freetype.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
-      <Command>copy "$(SolutionDir)Dependencies\tinyXML\bin\$(Configuration)\$(Platform)\tinyxml2.dll" "$(OutDir)"</Command>
+      <Command>copy "$(SolutionDir)Dependencies\tinyXML\bin\$(Configuration)\$(Platform)\tinyxml2.dll" "$(OutDir)"
+copy "$(SolutionDir)Dependencies\freetype\bin\$(Platform)\freetype.dll" "$(OutDir)"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="src\AI\Dots.cpp" />
     <ClCompile Include="src\AI\Grid.cpp" />
     <ClCompile Include="src\AI\PathFinding.cpp" />
+    <ClCompile Include="src\Core\Components\BoxColliderComp.cpp" />
     <ClCompile Include="src\Core\Components\BulletComp.cpp" />
+    <ClCompile Include="src\Core\Components\LightComp.cpp" />
+    <ClCompile Include="src\Core\Components\MaterialComp.cpp" />
+    <ClCompile Include="src\Core\Components\ModelComp.cpp" />
     <ClCompile Include="src\Core\Components\PlayerComp.cpp" />
+    <ClCompile Include="src\Core\Components\TransformComp.cpp" />
     <ClCompile Include="src\Core\GameObjectManager.cpp" />
     <ClCompile Include="src\App.cpp" />
     <ClCompile Include="src\Core\GameObject.cpp" />
@@ -205,6 +214,7 @@
     <ClInclude Include="include\Components\Component.h" />
     <ClInclude Include="include\Components\LightComp.h" />
     <ClInclude Include="include\Core\GameObject.h" />
+    <ClInclude Include="include\Core\Interface\ISerializable.h" />
     <ClInclude Include="include\Core\MeshManager.h" />
     <ClInclude Include="include\Components\TransformComp.h" />
     <ClInclude Include="include\Core\RenderEngine.h" />

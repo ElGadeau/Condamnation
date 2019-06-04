@@ -16,6 +16,8 @@
 #include <Components/LightComp.h>
 #include <Components/BoxColliderComp.h>
 #include "Components/PlayerComp.h"
+#include <Utils/Ray.h>
+#include "Components/TransformComp.h"
 
 
 std::vector<Core::GameObject> GenerateLights(std::vector<std::shared_ptr<Core::GameObject>>& m_gameObjectVector)
@@ -61,7 +63,7 @@ int main()
     {
         device->CalculateDeltaTime();
         device->RefreshEvents();
-
+		//Utils::RayCast(gameobjects.Find("Player"), m_camera.GetCamera()->GetFront(), gameobjects);
         angle += 0.005f;
         if (m_inputManager.GetKeyDown(Rendering::Managers::InputManager::KeyCode::R))
             modelManager.ReloadShader(gameobjects.GetGameObjects());

@@ -6,6 +6,7 @@
 
 #include <Components/Component.h>
 #include <Components/LightComp.h>
+#include <Core/GameObject.h>
 
 namespace Components
 {
@@ -33,9 +34,9 @@ namespace Components
 
 		void Update() override
 		{
-			if (m_gameObject.GetComponent<Components::LightComp>() != nullptr)
+			if (m_gameObject.GetComponent<LightComp>() != nullptr)
 			{
-                m_gameObject.GetComponent<Components::LightComp>()->GetLight()->m_pos = m_gameObject.GetComponent<Components::TransformComp>()->GetTransform()->GetPosition();
+                m_gameObject.GetComponent<LightComp>()->GetLight()->SetPos(m_gameObject.GetComponent<Components::TransformComp>()->GetTransform()->GetPosition());
 			}
 
 			if (m_parent != nullptr)
@@ -46,11 +47,16 @@ namespace Components
 			//		std::cout << "ble\n";
 		}
 
+        void Serialize(XMLElement* p_compSegment) const noexcept override;
+        void Deserialize(XMLElement* p_compSegment) const noexcept override;
+
     private:
 		Core::GameObject& m_gameObject;
+
 		std::shared_ptr<TransformComp> m_parent = nullptr;
 		std::shared_ptr<TransformComp> m_child = nullptr;
-        std::shared_ptr<Rendering::LowRenderer::Transform> m_transform;
+        
+	    std::shared_ptr<Rendering::LowRenderer::Transform> m_transform;
         std::shared_ptr<Rendering::LowRenderer::Transform> m_localTransform;
     };
 }

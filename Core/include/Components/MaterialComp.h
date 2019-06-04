@@ -1,8 +1,11 @@
 #pragma once
 
+#include <memory>
+
 #include <Rendering/LowRenderer/Material.h>
 
 #include <Components/Component.h>
+#include <Core/GameObject.h>
 
 namespace Components
 {
@@ -14,7 +17,10 @@ namespace Components
 
 		[[nodiscard]] std::shared_ptr<Rendering::LowRenderer::Material> GetMaterial() const noexcept { return m_material; }
 		void Update() override {}
-    private:
+        
+        void Serialize(XMLElement* p_compSegment) const noexcept override;
+        void Deserialize(XMLElement* p_compSegment) const noexcept override;
+        private:
         std::shared_ptr<Rendering::LowRenderer::Material> m_material;
 		Core::GameObject& m_gameObject;
     };

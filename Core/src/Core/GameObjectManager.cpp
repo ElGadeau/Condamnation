@@ -5,7 +5,7 @@
 #include <Components/TransformComp.h>
 #include <Components/MaterialComp.h>
 #include <Components/BoxColliderComp.h>
-#include "Components/ModelComp.h"
+#include <Components/ModelComp.h>
 #include <unordered_map>
 
 Core::GameObjectManager::GameObjectManager(MeshManager& p_modelManager)
@@ -28,18 +28,18 @@ Core::GameObjectManager::GameObjectManager(MeshManager& p_modelManager)
     m_gameObjects.push_back(EmptyGameObject);
 
     OrangeLight->GetComponent<Components::TransformComp>()->SetLocalTransformPos(glm::vec3(0, 4, 0));
-    OrangeLight->AddComponent<Components::LightComp>()->GetLight()->m_pos = OrangeLight->GetComponent<Components::TransformComp>()->GetTransform()->GetPosition();
-    OrangeLight->GetComponent<Components::LightComp>()->GetLight()->m_color = glm::vec3(0, 1, 1);
+    OrangeLight->AddComponent<Components::LightComp>()->GetLight()->SetPos(OrangeLight->GetComponent<Components::TransformComp>()->GetTransform()->GetPosition());
+    OrangeLight->GetComponent<Components::LightComp>()->GetLight()->SetColor(0, 1, 1);
 
     BlueLight->GetComponent<Components::TransformComp>()->GetTransform()->Translate(glm::vec3(0, 2, 0));
-    BlueLight->AddComponent<Components::LightComp>()->GetLight()->m_pos = BlueLight->GetComponent<Components::TransformComp>()->GetTransform()->GetPosition();
-    BlueLight->GetComponent<Components::LightComp>()->GetLight()->m_color = glm::vec3(1, 0, 1);
+    BlueLight->AddComponent<Components::LightComp>()->GetLight()->SetPos(BlueLight->GetComponent<Components::TransformComp>()->GetTransform()->GetPosition());
+    BlueLight->GetComponent<Components::LightComp>()->GetLight()->SetColor(1, 0, 1);
 
     DirLight->GetComponent<Components::TransformComp>()->GetTransform()->Translate(glm::vec3(0, 60, 60));
-    DirLight->AddComponent<Components::LightComp>()->GetLight()->m_pos = DirLight->GetComponent<Components::TransformComp>()->GetTransform()->GetPosition();
-    DirLight->GetComponent<Components::LightComp>()->GetLight()->m_color = glm::vec3(0.9, 0.9, 0.9);
-    DirLight->GetComponent<Components::LightComp>()->GetLight()->isDirectionnal = true;
-    DirLight->GetComponent<Components::LightComp>()->GetLight()->intensity = 0.2f;
+    DirLight->AddComponent<Components::LightComp>()->GetLight()->SetPos(DirLight->GetComponent<Components::TransformComp>()->GetTransform()->GetPosition());
+    DirLight->GetComponent<Components::LightComp>()->GetLight()->SetColor(0.9, 0.9, 0.9);
+    DirLight->GetComponent<Components::LightComp>()->GetLight()->SetDirectional(true);
+    DirLight->GetComponent<Components::LightComp>()->GetLight()->SetIntensity(0.2f);
 
     flatTerrain->GetComponent<Components::TransformComp>()->GetTransform()->Rotate(glm::vec3(0, 0, 0));
     flatTerrain->GetComponent<Components::MaterialComp>()->GetMaterial()->SetColor(0.8f, 0.8f, 0.8f);
@@ -52,6 +52,7 @@ Core::GameObjectManager::GameObjectManager(MeshManager& p_modelManager)
     Gear->GetComponent<Components::MaterialComp>()->GetMaterial()->SetShininess(1);
 
     OrangeLight->GetComponent<Components::TransformComp>()->SetParent(Torus);
+	//LoadScene(p_modelManager);
 }
 
 void Core::GameObjectManager::Update(float p_deltaTime)
@@ -91,109 +92,117 @@ void Core::GameObjectManager::Update(float p_deltaTime)
 
 int Core::GameObjectManager::LoadScene(const MeshManager& p_modelManager)
 {
-	using namespace tinyxml2;
+    using namespace tinyxml2;
 
-	std::unordered_map <std::string, int> compTypes
-	{
-		{ "BoxColliderComp", 0 },
-	{ "LightComp", 1 },
-	{ "MaterialComp", 2 },
-	{ "ModelComp", 3 },
-	{ "TransformComp", 4 }
-	};
+    std::unordered_map<std::string, int> compTypes
+    {
+        {"BoxColliderComp", 0},
+        {"LightComp", 1},
+        {"MaterialComp", 2},
+        {"ModelComp", 3},
+        {"TransformComp", 4}
+    };
 
 #ifndef XMLCheckResult
 #define XMLCheckResult(a_eResult) if (a_eResult != XML_SUCCESS) { std::cerr << "Error while parsing XML [LOADER] Error Type: " << a_eResult << '\n'; return a_eResult; }
 #endif
 
-	XMLDocument xmlDoc;
-	XMLError    eResult = xmlDoc.LoadFile("scene.xml");
-	XMLCheckResult(eResult);
+    XMLDocument xmlDoc;
+    XMLError    eResult = xmlDoc.LoadFile("scene.xml");
+    XMLCheckResult(eResult);
 
-	XMLNode* root = xmlDoc.FirstChild();
-	if (root == nullptr)
-		return XML_ERROR_FILE_READ_ERROR;
+    XMLNode* root = xmlDoc.FirstChild();
+    if (root == nullptr)
+        return XML_ERROR_FILE_READ_ERROR;
 
-	XMLElement* GOList = root->FirstChildElement("GameObjectList");
-	if (GOList == nullptr)
-		return XML_ERROR_PARSING_ELEMENT;
+    XMLElement* GOList = root->FirstChildElement("GameObjectList");
+    if (GOList == nullptr)
+        return XML_ERROR_PARSING_ELEMENT;
 
-	XMLElement* GOelement = GOList->FirstChildElement("GameObject");
-	while (GOelement != nullptr)
-	{
-		const char* newGoName = nullptr;
+    XMLElement* GOelement = GOList->FirstChildElement("GameObject");
+    while (GOelement != nullptr)
+    {
+        const char* newGoName = nullptr;
 
-		newGoName = GOelement->Attribute("name");
-		if (newGoName == nullptr)
-			return XML_ERROR_PARSING_ATTRIBUTE;
+        newGoName = GOelement->Attribute("name");
+        if (newGoName == nullptr)
+            return XML_ERROR_PARSING_ATTRIBUTE;
 
-		int meshId{ 0 }, shaderId{ 0 };
+        int meshId{0}, shaderId{0};
 
-		GOelement->QueryIntAttribute("mesh", &meshId);
-		GOelement->QueryIntAttribute("shader", &shaderId);
+        GOelement->QueryIntAttribute("mesh", &meshId);
+        GOelement->QueryIntAttribute("shader", &shaderId);
 
-		std::shared_ptr<GameObject> newGo = std::make_shared<GameObject
-		>(p_modelManager.GetMesh(meshId), p_modelManager.GetShader(shaderId), newGoName);
-		m_gameObjects.push_back(newGo);
+        std::shared_ptr<GameObject> newGo = std::make_shared<GameObject
+        >(p_modelManager.GetMesh(meshId), p_modelManager.GetShader(shaderId), newGoName);
+        m_gameObjects.push_back(newGo);
 
-		XMLElement* ComponentList = GOelement->FirstChildElement("ComponentList");
-		if (GOelement == nullptr)
-			return XML_ERROR_PARSING_ELEMENT;
+        XMLElement* ComponentList = GOelement->FirstChildElement("ComponentList");
+        if (GOelement == nullptr)
+            return XML_ERROR_PARSING_ELEMENT;
 
-		XMLElement* CompElement = ComponentList->FirstChildElement("Component");
-		while (CompElement != nullptr)
-		{
-			const char* attribText = nullptr;
+        XMLElement* CompElement = ComponentList->FirstChildElement("Component");
+        while (CompElement != nullptr)
+        {
+            const char* attribText = nullptr;
 
-			attribText = CompElement->Attribute("type");
-			if (attribText == nullptr)
-				return XML_ERROR_PARSING_ATTRIBUTE;
-			std::string newCompType{ attribText };
+            attribText = CompElement->Attribute("type");
+            if (attribText == nullptr)
+                return XML_ERROR_PARSING_ATTRIBUTE;
+            std::string newCompType{attribText};
 
-			std::unordered_map<std::string, int>::const_iterator got = compTypes.find(newCompType);
+            std::unordered_map<std::string, int>::const_iterator got = compTypes.find(newCompType);
 
-			if (got == compTypes.end())
-				std::cout << "component not found\n";
-			else
-			{
-				//todo Interface Serialization to be done. Each component have a Serialize and Deserialize function to handle what values are to be changed.
-				switch (got->second)
-				{
-				case 0: //boxColliderComp
-					if (newGo->GetComponent<Components::BoxColliderComp>() == nullptr)
-						newGo->AddComponent<Components::BoxColliderComp>();
-					break;
-				case 1: //LightComp
-					if (newGo->GetComponent<Components::LightComp>() == nullptr)
-						newGo->AddComponent<Components::LightComp>();
-					break;
-				case 2: //materialComp
-					if (newGo->GetComponent<Components::MaterialComp>() == nullptr)
-						newGo->AddComponent<Components::MaterialComp>();
-					break;
-				case 3: //modelComp
-					if (newGo->GetComponent<Components::ModelComp>() == nullptr)
-						newGo->AddComponent<Components::ModelComp>();
-					break;
-				case 4: //TransformComp
-					if (newGo->GetComponent<Components::TransformComp>() == nullptr)
-						newGo->AddComponent<Components::TransformComp>();
-					break;
-				default:
-					std::cerr <<
-						"ERROR : something went wrong when trying to load components on the XML loader\n Your component type is non-existent.";
-					break;
-				}
-			}
-			CompElement = CompElement->NextSiblingElement("Component");
-		}
-		GOelement = GOelement->NextSiblingElement("GameObject");
-	}
+            if (got == compTypes.end())
+                std::cout << "component not found\n";
+            else
+            {
+                switch (got->second)
+                {
+                case 0: //boxColliderComp
+                    if (newGo->GetComponent<Components::BoxColliderComp>() == nullptr)
+                        newGo->AddComponent<Components::BoxColliderComp>();
 
-	return EXIT_SUCCESS;
+					newGo->GetComponent<Components::BoxColliderComp>()->Deserialize(CompElement);
+                    break;
+                case 1: //LightComp
+                    if (newGo->GetComponent<Components::LightComp>() == nullptr)
+                        newGo->AddComponent<Components::LightComp>();
+
+					newGo->GetComponent<Components::LightComp>()->Deserialize(CompElement);
+                    break;
+                case 2: //materialComp
+                    if (newGo->GetComponent<Components::MaterialComp>() == nullptr)
+                        newGo->AddComponent<Components::MaterialComp>();
+
+					newGo->GetComponent<Components::MaterialComp>()->Deserialize(CompElement);
+                    break;
+                case 3: //modelComp
+                    if (newGo->GetComponent<Components::ModelComp>() == nullptr)
+                        newGo->AddComponent<Components::ModelComp>();
+
+					newGo->GetComponent<Components::ModelComp>()->Deserialize(CompElement);
+                    break;
+                case 4: //TransformComp
+                    if (newGo->GetComponent<Components::TransformComp>() == nullptr)
+                        newGo->AddComponent<Components::TransformComp>();
+
+					newGo->GetComponent<Components::TransformComp>()->Deserialize(CompElement);
+                    break;
+                default:
+                    std::cerr << "ERROR : something went wrong when trying to load components on the XML loader\n Your component type is non-existent.";
+                    break;
+                }
+            }
+            CompElement = CompElement->NextSiblingElement("Component");
+        }
+        GOelement = GOelement->NextSiblingElement("GameObject");
+    }
+
+    return EXIT_SUCCESS;
 }
 
-std::shared_ptr<Core::GameObject> Core::GameObjectManager::Find(const std::string & p_name)
+std::shared_ptr<Core::GameObject> Core::GameObjectManager::Find(const std::string& p_name)
 {
     for (auto& m_gameObject : m_gameObjects)
     {
@@ -202,7 +211,7 @@ std::shared_ptr<Core::GameObject> Core::GameObjectManager::Find(const std::strin
     }
 
 	std::cout << "Could not find object " << p_name << "in Game Manager\n";
-    return nullptr;
+    return {};
 }
 
 std::vector<std::shared_ptr<Core::GameObject>>& Core::GameObjectManager::GetGameObjects() noexcept
