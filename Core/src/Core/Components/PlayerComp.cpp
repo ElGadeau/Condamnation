@@ -12,7 +12,7 @@ void Components::PlayerComp::ProcessKeyInput(Core::GameObjectManager& p_gameMana
 		std::shared_ptr<Core::GameObject> collision = Utils::RayCast(m_gameObject, m_camera->GetFront(), p_gameManager);
 		if (collision != nullptr)
 		{
-			//does not work yet : p_gameManager.RemoveGameObject(collision);
+			p_gameManager.RemoveGameObject(collision);
 		}
 	}
 }

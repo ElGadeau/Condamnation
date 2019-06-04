@@ -57,15 +57,25 @@ Core::GameObjectManager::GameObjectManager(MeshManager& p_modelManager)
 void Core::GameObjectManager::Update(float p_deltaTime)
 {
     m_angle += 0.005f * p_deltaTime;
-    Find("BlueLight")->GetComponent<Components::TransformComp>()->GetTransform()->Rotate(glm::vec3(0, 1, 0) * p_deltaTime);
-    Find("BlueLight")->GetComponent<Components::TransformComp>()->GetTransform()->Translate(glm::vec3(0.1, 0, 0) * p_deltaTime);
+	if (Find("Torus") != nullptr)
+	{
+		Find("Torus")->GetComponent<Components::TransformComp>()->GetTransform()->Rotate(glm::vec3(0, 0, 1) * p_deltaTime);
+		Find("Torus")->GetComponent<Components::TransformComp>()->GetTransform()->Translate(glm::vec3(0, 0, -0.05) * p_deltaTime);
+	}
+	else
+		std::cout << "ble\n";
+    if (Find("BlueLight") != nullptr)
+    {
+        Find("BlueLight")->GetComponent<Components::TransformComp>()->GetTransform()->Rotate(glm::vec3(0, 1, 0) * p_deltaTime);
+        Find("BlueLight")->GetComponent<Components::TransformComp>()->GetTransform()->Translate(glm::vec3(0.1, 0, 0) * p_deltaTime);     
+        Find("BlueLight")->GetComponent<Components::TransformComp>()->Update();
+    }
 
-    Find("Torus")->GetComponent<Components::TransformComp>()->GetTransform()->Rotate(glm::vec3(0, 0, 1) * p_deltaTime);
-    Find("Gear")->GetComponent<Components::TransformComp>()->GetTransform()->Rotate(glm::vec3(1, 0, 0) * p_deltaTime);
-    Find("Torus")->GetComponent<Components::TransformComp>()->GetTransform()->Translate(glm::vec3(0, 0, -0.05) * p_deltaTime);
-    
-    Find("BlueLight")->GetComponent<Components::TransformComp>()->Update();
-    Find("OrangeLight")->GetComponent<Components::TransformComp>()->Update();
+    if (Find("Gear") != nullptr)
+     Find("Gear")->GetComponent<Components::TransformComp>()->GetTransform()->Rotate(glm::vec3(1, 0, 0) * p_deltaTime);
+
+    if (Find("OrangeLight") != nullptr)
+        Find("OrangeLight")->GetComponent<Components::TransformComp>()->Update();
 
     for (auto& gameObject : m_gameObjects)
     {
@@ -76,7 +86,7 @@ void Core::GameObjectManager::Update(float p_deltaTime)
             gameObject->GetComponent<Components::BoxColliderComp>()->GetCollider()->UpdateBoundingBox();
         }
     }
-    Find("Torus")->CollidesWith(Find("Gear"));
+    //Find("Torus")->CollidesWith(Find("Gear"));
 }
 
 int Core::GameObjectManager::LoadScene(const MeshManager& p_modelManager)
@@ -206,7 +216,15 @@ void Core::GameObjectManager::RemoveGameObject(std::shared_ptr<GameObject> p_gam
 	{
 		if (m_gameObjects[i] == p_gameObject)
 		{
+			if (m_gameObjects[i]->GetComponent<Components::TransformComp>()->GetChild() != nullptr)
+			{
+				std::shared_ptr<GameObject> tmp = m_gameObjects[i]->GetChild();
+				m_gameObjects[i]->GetComponent<Components::TransformComp>()->SetParent();
+				RemoveGameObject(tmp);
+			}
+
 			m_gameObjects.erase(m_gameObjects.begin() + i);
+			return;
 		}
 	}
 }

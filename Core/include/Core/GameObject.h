@@ -27,6 +27,8 @@ namespace Core
         bool CollidesWith(const std::shared_ptr<GameObject>& p_gameObjects);
         void ResolveCollisions(std::vector<std::shared_ptr<Core::GameObject>>& p_gameObjects);
 		const std::string& GetName() const noexcept { return m_name; }
+		std::shared_ptr<GameObject> GetParent() const noexcept { return m_parent; }
+		std::shared_ptr<GameObject> GetChild() const noexcept { return m_child; }
 
         template<class ComponentType, typename ... args>
         ComponentType* AddComponent(args ... p_args)
