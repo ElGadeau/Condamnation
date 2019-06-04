@@ -193,6 +193,7 @@ copy "$(SolutionDir)Dependencies\freetype\bin\$(Platform)\freetype.dll" "$(OutDi
     <ClCompile Include="src\Core\GameObject.cpp" />
     <ClCompile Include="src\Core\MeshManager.cpp" />
     <ClCompile Include="src\Core\RenderEngine.cpp" />
+    <ClCompile Include="src\GUI\TextUI.cpp" />
     <ClCompile Include="src\Utils\Ray.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -220,6 +221,7 @@ copy "$(SolutionDir)Dependencies\freetype\bin\$(Platform)\freetype.dll" "$(OutDi
     <ClInclude Include="include\Core\RenderEngine.h" />
     <ClInclude Include="include\Components\ModelComp.h" />
     <ClInclude Include="include\Components\MaterialComp.h" />
+    <ClInclude Include="include\GUI\TextUI.h" />
     <ClInclude Include="include\Utils\Ray.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
