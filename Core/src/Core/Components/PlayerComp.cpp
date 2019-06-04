@@ -35,9 +35,12 @@ std::shared_ptr<Core::GameObject> Components::PlayerComp::RayCast(Core::GameObje
 	{
 		for (auto& gameObject : p_gameManager.GetGameObjects())
 		{
-			if (&*gameObject == &m_gameObject
-				 || glm::distance(gameObject->GetComponent<TransformComp>()->GetTransform()->GetPosition(), 
-					 m_gameObject.GetComponent<TransformComp>()->GetTransform()->GetPosition()) > 100)
+			if (&*gameObject == &m_gameObject ||
+				 glm::distance(gameObject->GetComponent<TransformComp>()->GetTransform()->GetPosition(), 
+					 m_gameObject.GetComponent<TransformComp>()->GetTransform()->GetPosition()) > 100 ||
+				gameObject->GetComponent<TransformComp>() == nullptr ||
+				gameObject->GetComponent<ModelComp>() == nullptr ||
+				gameObject->GetComponent<BoxColliderComp>() == nullptr)
 				continue;
 
 			currPos = currPos + cameraFront;

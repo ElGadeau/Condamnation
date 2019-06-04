@@ -184,6 +184,7 @@
     <ClCompile Include="src\Core\GameObject.cpp" />
     <ClCompile Include="src\Core\MeshManager.cpp" />
     <ClCompile Include="src\Core\RenderEngine.cpp" />
+    <ClCompile Include="src\Utils\Ray.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Physics\Physics.vcxproj">
@@ -209,6 +210,7 @@
     <ClInclude Include="include\Core\RenderEngine.h" />
     <ClInclude Include="include\Components\ModelComp.h" />
     <ClInclude Include="include\Components\MaterialComp.h" />
+    <ClInclude Include="include\Utils\Ray.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
