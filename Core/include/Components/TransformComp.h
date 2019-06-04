@@ -18,34 +18,53 @@ namespace Components
 		~TransformComp() = default;
 
 		void SetLocalTransformPos(const glm::vec3& p_pos) { m_localTransform->SetPosition(p_pos); }
-		void SetChild() { m_child = nullptr; }
-		void SetChild(std::shared_ptr<TransformComp> p_child) { m_child = p_child; }
-		void SetChild(Core::GameObject& p_child) { m_child = std::shared_ptr<TransformComp>(p_child.GetComponent<TransformComp>()); }
-		void SetChild(std::shared_ptr<Core::GameObject> p_child) { m_child = std::shared_ptr<TransformComp>(p_child->GetComponent<TransformComp>()); }
-		void SetParent() { m_parent = nullptr; }
-		void SetParent(std::shared_ptr<TransformComp> p_parent) { m_parent = p_parent; }
-		void SetParent(Core::GameObject& p_parent) { m_parent = std::shared_ptr<TransformComp>(p_parent.GetComponent<TransformComp>()); }
-		void SetParent(std::shared_ptr<Core::GameObject> p_parent) { m_parent = std::shared_ptr<TransformComp>(p_parent->GetComponent<TransformComp>()); }
+		void SetChild()
+		{
+			m_child->SetParent();
+		    m_child = nullptr;
+		}
+		void SetChild(std::shared_ptr<TransformComp> p_child)
+		{
+		    m_child = p_child;
+			//p_child->SetParent(std::make_shared<TransformComp>(*this));
+		}
+		void SetChild(Core::GameObject& p_child)
+		{
+		    m_child = std::shared_ptr<TransformComp>(p_child.GetComponent<TransformComp>());
+			//p_child.GetComponent<TransformComp>()->SetParent(std::make_shared<TransformComp>(*this));
+		}
+		void SetChild(std::shared_ptr<Core::GameObject> p_child)
+		{
+		    m_child = std::shared_ptr<TransformComp>(p_child->GetComponent<TransformComp>());
+			//p_child->GetComponent<TransformComp>()->SetParent(std::make_shared<TransformComp>(*this));
+		}
+		void SetParent()
+		{
+			m_parent->SetChild();
+		    m_parent = nullptr;
+		}
+		void SetParent(std::shared_ptr<TransformComp> p_parent)
+		{
+		    m_parent = p_parent;
+			//p_parent->SetChild(std::make_shared<TransformComp>(*this));
+		}
+		void SetParent(Core::GameObject& p_parent)
+		{
+		    m_parent = std::shared_ptr<TransformComp>(p_parent.GetComponent<TransformComp>());
+			//p_parent.GetComponent<TransformComp>()->SetChild(std::make_shared<TransformComp>(*this));
+		}
+		void SetParent(std::shared_ptr<Core::GameObject> p_parent)
+		{
+		    m_parent = std::shared_ptr<TransformComp>(p_parent->GetComponent<TransformComp>());
+			//p_parent->GetComponent<TransformComp>()->SetChild(std::make_shared<TransformComp>(*this));
+		}
         void SetChildMatrix(const glm::mat4& p_mat) const { m_transform->m_transMat = p_mat * m_localTransform->m_transMat; }
 
 		std::shared_ptr<TransformComp> GetChild() const { return m_child; }
 		std::shared_ptr<TransformComp> GetParent() const { return m_parent; }
 		[[nodiscard]] std::shared_ptr<Rendering::LowRenderer::Transform> GetTransform() const noexcept { return m_transform; }
 
-		void Update() override
-		{
-			if (m_gameObject.GetComponent<LightComp>() != nullptr)
-			{
-                m_gameObject.GetComponent<LightComp>()->GetLight()->SetPos(m_gameObject.GetComponent<Components::TransformComp>()->GetTransform()->GetPosition());
-			}
-
-			if (m_parent != nullptr)
-			{
-                SetChildMatrix(m_parent->m_transform->m_transMat);
-			}
-			//else if (m_gameObject.GetName() == "OrangeLight")
-			//		std::cout << "ble\n";
-		}
+		void Update() override;
 
         void Serialize(XMLElement* p_compSegment) const noexcept override;
         void Deserialize(XMLElement* p_compSegment) const noexcept override;
