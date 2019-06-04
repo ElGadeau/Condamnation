@@ -91,16 +91,8 @@ void Core::GameObject::ReloadShader()
 
 bool Core::GameObject::CollidesWith(const std::shared_ptr<Core::GameObject>& p_gameObject)
 {
-    if (GetComponent<Components::BoxColliderComp>() == nullptr)
-    {
-        std::cout << "No collider attached on " << m_name << "\n";
+    if (GetComponent<Components::BoxColliderComp>() == nullptr || p_gameObject->GetComponent<Components::BoxColliderComp>() == nullptr)
         return false;
-    }
-    else if (p_gameObject->GetComponent<Components::BoxColliderComp>() == nullptr)
-    {
-        std::cout << "No collider attached on " << p_gameObject->m_name << "\n";
-        return false;
-    }
 
     GetComponent<Components::BoxColliderComp>()->GetCollider()->UpdateBoundingBox();
     //GetComponent<Components::BoxColliderComp>()->GetCollider()->PrintBoundingBox();
@@ -119,7 +111,7 @@ bool Core::GameObject::CollidesWith(const std::shared_ptr<Core::GameObject>& p_g
 
     if(isOverlapping)
     {
-        std::cout << m_name << " Collided with " << p_gameObject->m_name << std::endl;
+        std::cout << m_name << "Collided with " << p_gameObject->m_name << "\n";
         return true;
     }
 
