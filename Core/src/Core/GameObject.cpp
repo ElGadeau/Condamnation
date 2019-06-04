@@ -16,22 +16,12 @@
 Core::GameObject::GameObject()
 {
     AddComponent<Components::TransformComp>();
-    AddComponent<Components::ModelComp>();
-    AddComponent<Components::MaterialComp>();
-
-    AddComponent<Components::BoxColliderComp>()->GetCollider()->GetPoints() = GetComponent<Components::ModelComp>()->GetModel()->m_mesh->m_positions;
 }
 
-Core::GameObject::GameObject(const char* p_meshPath, const char* p_vertPath, const char* p_fragPath)
+Core::GameObject::GameObject(const char * p_name)
 {
     AddComponent<Components::TransformComp>();
-
-    AddComponent<Components::ModelComp>()->GetModel()->SetMesh(Rendering::Resources::Model::LoadMesh(p_meshPath));
-    GetComponent<Components::ModelComp>()->GetModel()->SetShader(Rendering::Resources::Loaders::ShaderLoader::LoadShader(p_vertPath, p_fragPath));
-
-    AddComponent<Components::MaterialComp>();
-
-    AddComponent<Components::BoxColliderComp>()->GetCollider()->GetPoints() = GetComponent<Components::ModelComp>()->GetModel()->m_mesh->m_positions;
+    m_name = p_name;
 }
 
 Core::GameObject::GameObject(const std::shared_ptr<Rendering::Resources::Mesh>& p_mesh, const std::shared_ptr<Rendering::Shaders::Shader>& p_shader, const char* p_name)
@@ -52,12 +42,14 @@ Core::GameObject::GameObject(const std::shared_ptr<Rendering::Resources::Mesh>& 
 
 void Core::GameObject::SetGameObjectMesh(std::shared_ptr<Rendering::Resources::Mesh>& p_mesh)
 {
-    GetComponent<Components::ModelComp>()->GetModel()->SetMesh(p_mesh);
+    if(GetComponent<Components::ModelComp>() != nullptr)
+        GetComponent<Components::ModelComp>()->GetModel()->SetMesh(p_mesh);
 }
 
 void Core::GameObject::SetModelShader(std::shared_ptr<Rendering::Shaders::Shader>& p_shader)
 {
-    GetComponent<Components::ModelComp>()->GetModel()->SetShader(p_shader);
+    if (GetComponent<Components::ModelComp>() != nullptr)
+        GetComponent<Components::ModelComp>()->GetModel()->SetShader(p_shader);
 }
 
 void Core::GameObject::Update(Rendering::LowRenderer::Camera & p_cam, std::vector<GameObject>& p_lights)
@@ -69,12 +61,16 @@ void Core::GameObject::Update(Rendering::LowRenderer::Camera & p_cam, std::vecto
         m_lights.emplace_back(*light.GetComponent<Components::LightComp>()->GetLight());
     }
     degree += 0.01f;
-    GetComponent<Components::ModelComp>()->GetModel()->m_shader->ApplyShader();
-    GetComponent<Components::ModelComp>()->GetModel()->m_shader->Update(
+
+    if (GetComponent<Components::ModelComp>() != nullptr)
+    {
+        GetComponent<Components::ModelComp>()->GetModel()->m_shader->ApplyShader();
+        GetComponent<Components::ModelComp>()->GetModel()->m_shader->Update(
         p_cam, 
         *GetComponent<Components::TransformComp>()->GetTransform(),
         *GetComponent<Components::MaterialComp>()->GetMaterial(), 
         m_lights.data(), m_lights.size());
+    }
 
 	for (auto& component : m_components)
 	{
@@ -84,14 +80,28 @@ void Core::GameObject::Update(Rendering::LowRenderer::Camera & p_cam, std::vecto
 
 void Core::GameObject::ReloadShader()
 {
-    const char* vertexPath = GetComponent<Components::ModelComp>()->GetModel()->GetShader()->m_vertPath;
-    const char* fragPath = GetComponent<Components::ModelComp>()->GetModel()->GetShader()->m_fragPath;
+    if (GetComponent<Components::ModelComp>() != nullptr)
+    {
+        const char* vertexPath = GetComponent<Components::ModelComp>()->GetModel()->GetShader()->m_vertPath;
+        const char* fragPath = GetComponent<Components::ModelComp>()->GetModel()->GetShader()->m_fragPath;
 
-    GetComponent<Components::ModelComp>()->GetModel()->SetShader(Rendering::Resources::Loaders::ShaderLoader::LoadShader(vertexPath, fragPath));
+        GetComponent<Components::ModelComp>()->GetModel()->SetShader(Rendering::Resources::Loaders::ShaderLoader::LoadShader(vertexPath, fragPath));
+    }
 }
 
 bool Core::GameObject::CollidesWith(const std::shared_ptr<Core::GameObject>& p_gameObject)
 {
+    if (GetComponent<Components::BoxColliderComp>() == nullptr)
+    {
+        std::cout << "No collider attached on " << m_name << "\n";
+        return false;
+    }
+    else if (p_gameObject->GetComponent<Components::BoxColliderComp>() == nullptr)
+    {
+        std::cout << "No collider attached on " << p_gameObject->m_name << "\n";
+        return false;
+    }
+
     GetComponent<Components::BoxColliderComp>()->GetCollider()->UpdateBoundingBox();
     //GetComponent<Components::BoxColliderComp>()->GetCollider()->PrintBoundingBox();
     p_gameObject->GetComponent<Components::BoxColliderComp>()->GetCollider()->UpdateBoundingBox();

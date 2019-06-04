@@ -14,7 +14,7 @@ namespace Core
     {
     public:
         GameObject();
-        GameObject(const char* p_meshPath, const char* p_vertPath, const char* p_fragPath);
+        GameObject(const char* p_name);
         GameObject(const std::shared_ptr<Rendering::Resources::Mesh>& p_mesh, const std::shared_ptr<Rendering::Shaders::Shader>& p_shader, const char* p_name);
         ~GameObject() = default;
 

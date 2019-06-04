@@ -14,6 +14,7 @@ Core::GameObjectManager::GameObjectManager(MeshManager& p_modelManager)
     std::shared_ptr<GameObject> DirLight = std::make_shared<Core::GameObject>(p_modelManager.GetMesh(1), p_modelManager.GetShader(1),"Directionnal");
     std::shared_ptr<GameObject> OrangeLight = std::make_shared<Core::GameObject>(p_modelManager.GetMesh(1), p_modelManager.GetShader(1), "OrangeLight");
     std::shared_ptr<GameObject> BlueLight = std::make_shared<Core::GameObject>(p_modelManager.GetMesh(1), p_modelManager.GetShader(1), "BlueLight");
+    std::shared_ptr<GameObject> EmptyGameObject = std::make_shared<Core::GameObject>("Empty");
 
     std::shared_ptr<GameObject> Torus = std::make_shared<Core::GameObject>(p_modelManager.GetMesh(3), p_modelManager.GetShader(0), "Torus");
     std::shared_ptr<GameObject> Gear = std::make_shared<Core::GameObject>(p_modelManager.GetMesh(1), p_modelManager.GetShader(0), "Gear");
@@ -24,6 +25,7 @@ Core::GameObjectManager::GameObjectManager(MeshManager& p_modelManager)
     m_gameObjects.push_back(BlueLight);
     m_gameObjects.push_back(Torus);
     m_gameObjects.push_back(Gear);
+    m_gameObjects.push_back(EmptyGameObject);
 
     OrangeLight->GetComponent<Components::TransformComp>()->SetLocalTransformPos(glm::vec3(0, 4, 0));
     OrangeLight->AddComponent<Components::LightComp>()->GetLight()->m_pos = OrangeLight->GetComponent<Components::TransformComp>()->GetTransform()->GetPosition();
@@ -67,11 +69,14 @@ void Core::GameObjectManager::Update(float p_deltaTime)
 
     for (auto& gameObject : m_gameObjects)
     {
-        gameObject->GetComponent<Components::BoxColliderComp>()->GetCollider()->GetPosVec() = gameObject->GetComponent<Components::TransformComp>()->GetTransform()->GetPosition();
-        gameObject->GetComponent<Components::BoxColliderComp>()->GetCollider()->GetMat() = gameObject->GetComponent<Components::TransformComp>()->GetTransform()->GetTransMat();
-        gameObject->GetComponent<Components::BoxColliderComp>()->GetCollider()->UpdateBoundingBox();
+        if (gameObject->GetComponent<Components::BoxColliderComp>() != nullptr)
+        {
+            gameObject->GetComponent<Components::BoxColliderComp>()->GetCollider()->GetPosVec() = gameObject->GetComponent<Components::TransformComp>()->GetTransform()->GetPosition();
+            gameObject->GetComponent<Components::BoxColliderComp>()->GetCollider()->GetMat() = gameObject->GetComponent<Components::TransformComp>()->GetTransform()->GetTransMat();
+            gameObject->GetComponent<Components::BoxColliderComp>()->GetCollider()->UpdateBoundingBox();
+        }
     }
-    Find("Torus")->CollidesWith(Find("Gear"));
+    Find("Torus")->CollidesWith(Find("Empty"));
 }
 
 int Core::GameObjectManager::LoadScene(const MeshManager& p_modelManager)

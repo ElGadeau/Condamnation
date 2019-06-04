@@ -10,6 +10,8 @@ void Core::RenderEngine::DrawElements(std::vector<std::shared_ptr<Core::GameObje
     for (auto pGameObject : p_gameObject)
     {
         pGameObject->Update(p_camera, p_lights);
-        p_renderer.Draw(*pGameObject->GetComponent<Components::ModelComp>()->GetModel()->GetMesh());
+
+        if (pGameObject->GetComponent<Components::ModelComp>() != nullptr)
+            p_renderer.Draw(*pGameObject->GetComponent<Components::ModelComp>()->GetModel()->GetMesh());
     }
 }
