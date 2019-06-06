@@ -1,4 +1,5 @@
-#include <GUI/TextUI.h>
+#include "stdafx.h"
+#include <Rendering/GUI/TextUI.h>
 #include <iostream>
 
 GUI::TextUI::TextUI()

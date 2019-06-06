@@ -20,6 +20,7 @@
     <ClCompile Include="src\Rendering\Test.cpp" />
     <ClCompile Include="src\Rendering\Managers\CameraManager.cpp" />
     <ClCompile Include="src\Rendering\LowRenderer\Light.cpp" />
+    <ClCompile Include="src\Rendering\GUI\TextUI.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\Rendering\Buffers\IndexBuffer.h" />
@@ -49,5 +50,6 @@
     <ClInclude Include="include\Rendering\Managers\CameraManager.h" />
     <ClInclude Include="include\Rendering\LowRenderer\Light.h" />
     <ClInclude Include="include\Rendering\LowRenderer\Material.h" />
+    <ClInclude Include="include\Rendering\GUI\TextUI.h" />
   </ItemGroup>
 </Project>
