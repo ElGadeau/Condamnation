@@ -38,16 +38,16 @@ void GUI::TextUI::LoadFont()
         glGenTextures(1, &texture);
         glBindTexture(GL_TEXTURE_2D, texture);
         glTexImage2D(
-            GL_TEXTURE_2D,
-            0,
-            GL_RED,
-            face->glyph->bitmap.width,
-            face->glyph->bitmap.rows,
-            0,
-            GL_RED,
-            GL_UNSIGNED_BYTE,
-            face->glyph->bitmap.buffer
-        );
+                     GL_TEXTURE_2D,
+                     0,
+                     GL_RED,
+                     face->glyph->bitmap.width,
+                     face->glyph->bitmap.rows,
+                     0,
+                     GL_RED,
+                     GL_UNSIGNED_BYTE,
+                     face->glyph->bitmap.buffer
+                    );
 
         //set texture options
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
@@ -57,10 +57,10 @@ void GUI::TextUI::LoadFont()
 
         //now store the texture for later use
         Character character = {
-            texture,
-            glm::ivec2(face->glyph->bitmap.width, face->glyph->bitmap.rows),
-            glm::ivec2(face->glyph->bitmap_left, face->glyph->bitmap_top),
-            face->glyph->advance.x
+        texture,
+        glm::ivec2(face->glyph->bitmap.width, face->glyph->bitmap.rows),
+        glm::ivec2(face->glyph->bitmap_left, face->glyph->bitmap_top),
+        face->glyph->advance.x
         };
 
         Characters.insert(std::pair<GLchar, Character>(c, character));
@@ -68,4 +68,55 @@ void GUI::TextUI::LoadFont()
 
     FT_Done_Face(face);
     FT_Done_FreeType(ft);
+}
+
+void GUI::TextUI::RenderText(Rendering::Shaders::Shader& p_shader,
+                             const std::string&          p_text, GLfloat p_x,
+                             GLfloat                     p_y,
+                             GLfloat                     p_scale,
+                             glm::vec3                   p_color)
+{
+    p_shader.ApplyShader();
+    glUniform3f(glGetUniformLocation(p_shader.shaderProgram, "textColor"), p_color.x,
+                p_color.y, p_color.z);
+    glActiveTexture(GL_TEXTURE0);
+    glBindVertexArray(m_VAO);
+
+    //iteration through all characters
+    std::string::const_iterator c;
+    for (c = p_text.begin(); c != p_text.end(); ++c)
+    {
+        Character ch = Characters[*c];
+
+        GLfloat xPos = p_x + ch.Bearing.x * p_scale;
+        GLfloat yPos = p_y - (ch.Size.y - ch.Bearing.y) * p_scale;
+
+        GLfloat w = ch.Size.x * p_scale;
+        GLfloat h = ch.Size.y * p_scale;
+
+        //update vbo for each character
+        GLfloat vertices[6][4] = {
+            {xPos, yPos + h, 0.0, 0.0},
+            {xPos, yPos, 0.0, 1.0},
+            {xPos + w, yPos, 1.0, 1.0},
+
+            {xPos, yPos + h, 0.0, 0.0},
+            {xPos + w, yPos, 1.0, 1.0},
+            {xPos + w, yPos + h, 1.0, 0.0}
+        };
+
+        //render glyph texture
+        glBindTexture(GL_TEXTURE_2D, ch.TextureID);
+        
+        //update content of vbo
+        glBindBuffer(GL_ARRAY_BUFFER, m_VBO);
+        glBufferSubData(GL_ARRAY_BUFFER, 0, sizeof(vertices), vertices);
+        glBindBuffer(GL_ARRAY_BUFFER, 0);
+
+        //render quad
+        glDrawArrays(GL_TRIANGLES, 0, 6);
+        p_x += (ch.Advance >> 6) * p_scale;
+    }
+    glBindVertexArray(0);
+    glBindTexture(GL_TEXTURE_2D, 0);
 }
