@@ -13,8 +13,6 @@ void Components::TransformComp::Update()
 	{
 		SetChildMatrix(m_parent->m_transform->m_transMat);
 	}
-	//else if (m_gameObject.GetName() == "OrangeLight")
-	//		std::cout << "ble\n";
 }
 
 void Components::TransformComp::Serialize(XMLElement* p_compSegment) const noexcept

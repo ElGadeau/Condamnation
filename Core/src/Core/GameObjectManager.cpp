@@ -223,15 +223,16 @@ void Core::GameObjectManager::RemoveGameObject(std::shared_ptr<GameObject> p_gam
 {
 	for (int i = 0; i < m_gameObjects.size(); ++i)
 	{
-		if (m_gameObjects[i] == p_gameObject)
+		if (*m_gameObjects[i] == *p_gameObject)
 		{
 			if (m_gameObjects[i]->GetComponent<Components::TransformComp>()->GetChild() != nullptr)
 			{
-				std::shared_ptr<GameObject> tmp = m_gameObjects[i]->GetChild();
-				m_gameObjects[i]->GetComponent<Components::TransformComp>()->SetParent();
-				RemoveGameObject(tmp);
+				Core::GameObject& tmp = m_gameObjects[i]->GetComponent<Components::TransformComp>()->GetChild()->GetGameObject();
+				m_gameObjects[i]->GetComponent<Components::TransformComp>()->GetChild()->SetParent();
+				RemoveGameObject(std::make_shared<GameObject>(tmp));
+				return;
 			}
-
+			
 			m_gameObjects.erase(m_gameObjects.begin() + i);
 			return;
 		}

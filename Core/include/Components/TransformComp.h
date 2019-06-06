@@ -26,43 +26,47 @@ namespace Components
 		void SetChild(std::shared_ptr<TransformComp> p_child)
 		{
 		    m_child = p_child;
-			//p_child->SetParent(std::make_shared<TransformComp>(*this));
+			p_child->m_parent = std::make_shared<TransformComp>(*this);
 		}
 		void SetChild(Core::GameObject& p_child)
 		{
 		    m_child = std::shared_ptr<TransformComp>(p_child.GetComponent<TransformComp>());
-			//p_child.GetComponent<TransformComp>()->SetParent(std::make_shared<TransformComp>(*this));
+			p_child.GetComponent<TransformComp>()->m_parent = std::make_shared<TransformComp>(*this);
 		}
 		void SetChild(std::shared_ptr<Core::GameObject> p_child)
 		{
 		    m_child = std::shared_ptr<TransformComp>(p_child->GetComponent<TransformComp>());
-			//p_child->GetComponent<TransformComp>()->SetParent(std::make_shared<TransformComp>(*this));
+			p_child->GetComponent<TransformComp>()->m_parent = std::make_shared<TransformComp>(*this);
 		}
 		void SetParent()
 		{
-			m_parent->SetChild();
+			m_parent->m_child = nullptr;
 		    m_parent = nullptr;
 		}
 		void SetParent(std::shared_ptr<TransformComp> p_parent)
 		{
 		    m_parent = p_parent;
-			//p_parent->SetChild(std::make_shared<TransformComp>(*this));
+			p_parent->m_child = std::make_shared<TransformComp>(*this);
 		}
 		void SetParent(Core::GameObject& p_parent)
 		{
 		    m_parent = std::shared_ptr<TransformComp>(p_parent.GetComponent<TransformComp>());
-			//p_parent.GetComponent<TransformComp>()->SetChild(std::make_shared<TransformComp>(*this));
+			p_parent.GetComponent<TransformComp>()->m_child = std::make_shared<TransformComp>(*this);
 		}
 		void SetParent(std::shared_ptr<Core::GameObject> p_parent)
 		{
 		    m_parent = std::shared_ptr<TransformComp>(p_parent->GetComponent<TransformComp>());
-			//p_parent->GetComponent<TransformComp>()->SetChild(std::make_shared<TransformComp>(*this));
+			p_parent->GetComponent<TransformComp>()->m_child = std::make_shared<TransformComp>(*this);
 		}
-        void SetChildMatrix(const glm::mat4& p_mat) const { m_transform->m_transMat = p_mat * m_localTransform->m_transMat; }
+        void SetChildMatrix(const glm::mat4& p_mat) const
+		{
+		    m_transform->m_transMat = p_mat * m_localTransform->m_transMat;
+		}
 
 		std::shared_ptr<TransformComp> GetChild() const { return m_child; }
 		std::shared_ptr<TransformComp> GetParent() const { return m_parent; }
 		[[nodiscard]] std::shared_ptr<Rendering::LowRenderer::Transform> GetTransform() const noexcept { return m_transform; }
+		[[nodiscard]] Core::GameObject& GetGameObject() const { return m_gameObject; }
 
 		void Update() override;
 
