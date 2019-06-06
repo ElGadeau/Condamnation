@@ -45,4 +45,5 @@ void Core::MeshManager::LoadShaders()
 {
     AddShader("../Resources/Shaders/vertShader.vert", "../Resources/Shaders/fragShader2.frag");
     AddShader("../Resources/Shaders/vertShader.vert", "../Resources/Shaders/lightShader.frag");
+    AddShader("../Resources/Shaders/textUI.vert", "../Resources/Shaders/textUI.frag");
 }
