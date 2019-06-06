@@ -11,7 +11,7 @@
 std::shared_ptr<Rendering::Resources::Mesh> Rendering::Resources::Loaders::MeshLoader::Load(const std::string& pfile)
 {
 
-	std::vector<Rendering::Geometry::Vertex> vertices;
+	std::vector<Geometry::Vertex> vertices;
 	std::vector<uint32_t> indices;
 
     int offset = 0;
@@ -35,13 +35,11 @@ std::shared_ptr<Rendering::Resources::Mesh> Rendering::Resources::Loaders::MeshL
 	for (unsigned int i = 0; i < m_scene->mNumMeshes; ++i)
 	{
 		aiMesh* t_mesh = m_scene->mMeshes[i];
-		int t_meshFaces = t_mesh->mNumFaces;
-
 
         //Load Vertices
 		for (unsigned int vertIdx = 0u; vertIdx < t_mesh->mNumVertices; vertIdx++)
 		{
-			Rendering::Geometry::Vertex vertex;
+			Geometry::Vertex vertex;
 
 			aiVector3D vert = t_mesh->mVertices[vertIdx];
 			aiVector3D norm = t_mesh->mNormals[vertIdx];
@@ -50,9 +48,8 @@ std::shared_ptr<Rendering::Resources::Mesh> Rendering::Resources::Loaders::MeshL
 			vertex.m_normal = glm::vec3(norm.x, norm.y , norm.z );
 
 			vertices.push_back(vertex);
-
-            //Load Indices
-		}
+		} 
+        //Load Indices
 		for (unsigned int faceIdx = 0; faceIdx < t_mesh->mNumFaces; faceIdx++)
 		{
 			if (t_mesh->mFaces[faceIdx].mNumIndices == 3)

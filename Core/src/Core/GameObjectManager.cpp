@@ -53,6 +53,7 @@ Core::GameObjectManager::GameObjectManager(MeshManager& p_modelManager)
 
     OrangeLight->GetComponent<Components::TransformComp>()->SetParent(Torus);
 	//LoadScene(p_modelManager);
+	SaveScene(p_modelManager);
 }
 
 void Core::GameObjectManager::Update(const float& p_deltaTime)
@@ -90,7 +91,7 @@ void Core::GameObjectManager::Update(const float& p_deltaTime)
     //Find("Torus")->CollidesWith(Find("Gear"));
 }
 
-int Core::GameObjectManager::LoadScene(const MeshManager& p_modelManager)
+int Core::GameObjectManager::SaveScene(const MeshManager& p_modelManager)
 {
     using namespace tinyxml2;
 
@@ -102,6 +103,62 @@ int Core::GameObjectManager::LoadScene(const MeshManager& p_modelManager)
         {"ModelComp", 3},
         {"TransformComp", 4}
     };
+
+#ifndef XMLCheckResult
+#define XMLCheckResult(a_eResult) if (a_eResult != XML_SUCCESS) { std::cerr << "Error while parsing XML [LOADER] Error Type: " << a_eResult << '\n'; return a_eResult; }
+#endif
+
+	XMLDocument xmlDoc;
+	XMLNode* root = xmlDoc.NewElement("Scene");
+	xmlDoc.InsertFirstChild(root);
+
+	XMLElement* GOList = xmlDoc.NewElement("GameObjectList");
+	GOList->SetAttribute("count", static_cast<unsigned int>(m_gameObjects.size()));
+	root->InsertFirstChild(GOList);
+
+    for (auto gameObject : m_gameObjects)
+    {
+        XMLElement* GOelement = xmlDoc.NewElement("GameObject");
+		GOelement->SetAttribute("name", gameObject->GetName().c_str());
+
+        if (gameObject->GetComponent<Components::ModelComp>() != nullptr)
+        {
+            GOelement->SetAttribute("mesh", FindInstanceIteratorInVector(gameObject->GetComponent<Components::ModelComp>()->GetModel()->GetMesh(), p_modelManager.GetMeshes()));
+            GOelement->SetAttribute("shader", FindInstanceIteratorInVector(gameObject->GetComponent<Components::ModelComp>()->GetModel()->GetShader(), p_modelManager.GetShaders()));
+        }
+
+        XMLElement* ComponentList = xmlDoc.NewElement("ComponentList");
+	    ComponentList->SetAttribute("count", gameObject->GetComponentCount());
+
+        XMLElement* CompElement = xmlDoc.NewElement("Component");
+
+        for (const auto& component : gameObject->GetComponents())
+        {
+			component->Serialize(CompElement);
+			CompElement->SetText("test");
+        }
+		ComponentList->InsertEndChild(CompElement);
+		GOelement->InsertFirstChild(ComponentList);
+        GOList->InsertEndChild(GOelement);
+    }
+
+	XMLError eResult = xmlDoc.SaveFile("newScene.xml");
+	XMLCheckResult(eResult);
+	return eResult;
+}
+
+int Core::GameObjectManager::LoadScene(const MeshManager& p_modelManager)
+{
+    using namespace tinyxml2;
+
+    std::unordered_map<std::string, int> compTypes
+	{
+		{"BoxColliderComp", 0},
+		{"LightComp", 1},
+		{"MaterialComp", 2},
+		{"ModelComp", 3},
+		{"TransformComp", 4}
+	};
 
 #ifndef XMLCheckResult
 #define XMLCheckResult(a_eResult) if (a_eResult != XML_SUCCESS) { std::cerr << "Error while parsing XML [LOADER] Error Type: " << a_eResult << '\n'; return a_eResult; }
@@ -134,7 +191,7 @@ int Core::GameObjectManager::LoadScene(const MeshManager& p_modelManager)
         GOelement->QueryIntAttribute("shader", &shaderId);
 
         std::shared_ptr<GameObject> newGo = std::make_shared<GameObject
-        >(p_modelManager.GetMesh(meshId), p_modelManager.GetShader(shaderId), newGoName);
+       >(p_modelManager.GetMesh(meshId), p_modelManager.GetShader(shaderId), newGoName);
         m_gameObjects.push_back(newGo);
 
         XMLElement* ComponentList = GOelement->FirstChildElement("ComponentList");

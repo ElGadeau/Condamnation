@@ -38,8 +38,5 @@ void VertexBuffer::Unbind() const noexcept
 
 void VertexBuffer::LoadData(const void* p_data, const GLsizeiptr& p_sizeData)
 {
-    glBufferData(GL_ARRAY_BUFFER,
-                 p_sizeData,
-                 p_data,
-                 GL_STATIC_DRAW);
+    glBufferData(GL_ARRAY_BUFFER, p_sizeData, p_data, GL_STATIC_DRAW);
 }
