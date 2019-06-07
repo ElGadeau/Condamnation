@@ -11,7 +11,7 @@ namespace Core::Interface
 	public :
 		virtual ~ISerializable() = default;
 
-		virtual void Serialize(XMLElement* p_compSegment) const noexcept = 0;
+		virtual void Serialize(XMLElement* p_compSegment, XMLDocument& p_xmlDoc) const noexcept = 0;
 		virtual void Deserialize(XMLElement* p_compSegment) const noexcept = 0;
     };
 }

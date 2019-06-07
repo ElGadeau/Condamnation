@@ -60,7 +60,7 @@ namespace Components
 		}
         void SetChildMatrix(const glm::mat4& p_mat) const
 		{
-		    m_transform->m_transMat = p_mat * m_localTransform->m_transMat;
+		    m_transform->SetTransMat(p_mat * m_localTransform->GetTransMat());
 		}
 
 		std::shared_ptr<TransformComp> GetChild() const { return m_child; }
@@ -70,7 +70,7 @@ namespace Components
 
 		void Update() override;
 
-        void Serialize(XMLElement* p_compSegment) const noexcept override;
+        void Serialize(XMLElement* p_compSegment, XMLDocument& p_xmlDoc) const noexcept override;
         void Deserialize(XMLElement* p_compSegment) const noexcept override;
 
     private:

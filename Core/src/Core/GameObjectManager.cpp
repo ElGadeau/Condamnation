@@ -78,10 +78,10 @@ Core::GameObjectManager::GameObjectManager(MeshManager& p_modelManager)
     m_gameObjects.push_back(DirLight);
     m_gameObjects.push_back(OrangeLight);
     m_gameObjects.push_back(BlueLight);
+
     m_gameObjects.push_back(Cube);
 	//LoadScene(p_modelManager);
 	SaveScene(p_modelManager);
-
 }
 
 void Core::GameObjectManager::Update(const float& p_deltaTime)
@@ -148,14 +148,19 @@ int Core::GameObjectManager::SaveScene(const MeshManager& p_modelManager)
         XMLElement* ComponentList = xmlDoc.NewElement("ComponentList");
 	    ComponentList->SetAttribute("count", gameObject->GetComponentCount());
 
-        XMLElement* CompElement = xmlDoc.NewElement("Component");
 
         for (const auto& component : gameObject->GetComponents())
         {
-			component->Serialize(CompElement);
-			CompElement->SetText("test");
+            XMLElement* CompElement = xmlDoc.NewElement("Component");
+            std::string rawClassName = typeid(*component).name();
+            int offset = rawClassName.find_last_of(':');
+            std::string realName = rawClassName.substr(offset + 1);
+
+            CompElement->SetAttribute("type", realName.c_str());
+
+			component->Serialize(CompElement, xmlDoc);
+            ComponentList->InsertEndChild(CompElement);
         }
-		ComponentList->InsertEndChild(CompElement);
 		GOelement->InsertFirstChild(ComponentList);
         GOList->InsertEndChild(GOelement);
     }
@@ -183,7 +188,7 @@ int Core::GameObjectManager::LoadScene(const MeshManager& p_modelManager)
 #endif
 
     XMLDocument xmlDoc;
-    XMLError    eResult = xmlDoc.LoadFile("scene.xml");
+    XMLError    eResult = xmlDoc.LoadFile("newScene.xml");
     XMLCheckResult(eResult);
 
     XMLNode* root = xmlDoc.FirstChild();
@@ -210,7 +215,6 @@ int Core::GameObjectManager::LoadScene(const MeshManager& p_modelManager)
 
         std::shared_ptr<GameObject> newGo = std::make_shared<GameObject
        >(p_modelManager.GetMesh(meshId), p_modelManager.GetShader(shaderId), newGoName);
-        m_gameObjects.push_back(newGo);
 
         XMLElement* ComponentList = GOelement->FirstChildElement("ComponentList");
         if (GOelement == nullptr)
@@ -272,6 +276,7 @@ int Core::GameObjectManager::LoadScene(const MeshManager& p_modelManager)
             CompElement = CompElement->NextSiblingElement("Component");
         }
         GOelement = GOelement->NextSiblingElement("GameObject");
+        m_gameObjects.push_back(newGo);
     }
 
     return EXIT_SUCCESS;

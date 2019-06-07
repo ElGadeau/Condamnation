@@ -21,7 +21,7 @@ void Components::MaterialComp::Deserialize(XMLElement* p_compSegment) const noex
 	}
 }
 
-void Components::MaterialComp::Serialize(XMLElement* p_compSegment) const noexcept
+void Components::MaterialComp::Serialize(XMLElement* p_compSegment, XMLDocument& p_xmlDoc) const noexcept
 {
 	std::cout << "[MATERIAL_COMP] Function not implemented\n";
 }

@@ -20,7 +20,7 @@ namespace Components
 
 		void Update() override {}
 
-        void Serialize(XMLElement* p_compSegment) const noexcept override;
+        void Serialize(XMLElement* p_compSegment, XMLDocument& p_xmlDoc) const noexcept override;
         void Deserialize(XMLElement* p_compSegment) const noexcept override;
 
     private:

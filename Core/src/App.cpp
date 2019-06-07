@@ -54,7 +54,7 @@ int main()
     std::vector<Core::GameObject> lights;
     lights = GenerateLights(gameobjects.GetGameObjects());
 
-	Core::GameObject player(modelManager.GetMesh(1), modelManager.GetShader(0), "Player");
+	Core::GameObject player("Player");
 	player.AddComponent<Components::PlayerComp>(m_camera.GetCamera(), 100);
 	gameobjects.AddGameObject(player);
 

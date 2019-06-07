@@ -1,6 +1,6 @@
 #include <Components/BoxColliderComp.h>
 
-void Components::BoxColliderComp::Serialize(XMLElement* p_compSegment) const noexcept
+void Components::BoxColliderComp::Serialize(XMLElement* p_compSegment, XMLDocument& p_xmlDoc) const noexcept
 {
 	std::cout << "[BOXCOLLIDER_COMP] Function not implemented\n";
 }
