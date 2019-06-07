@@ -11,9 +11,9 @@ namespace Components
     {
     public:
         RigidBodyComp(Core::GameObject& p_gameObject) : m_rigidbody(new Physics::RigidBody),  m_gameObject{ p_gameObject }{}
-        ~RigidBodyComp() {delete m_rigidbody; }
+        virtual ~RigidBodyComp() {delete m_rigidbody; }
 
-        virtual void Update() override
+        void Update() override
         {
             m_gameObject.GetComponent<Components::TransformComp>()->GetTransform()->SetPosition(m_rigidbody->GetPosition());
         }

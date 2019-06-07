@@ -32,7 +32,7 @@ void main()
     float ambientStrength = 0.05;
     vec3 ambient = ambientStrength * objColor;
 
-    for(int i = 0; i < 3; i++)
+    for(int i = 0; i < 8; i++)
     {
         vec3 lightPosition = pointLights[i].LightPos;
         vec3 lightColor = pointLights[i].LightColor;

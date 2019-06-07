@@ -210,6 +210,7 @@ copy "$(SolutionDir)Dependencies\freetype\bin\$(Platform)\freetype.dll" "$(OutDi
     <ClInclude Include="include\Components\BoxColliderComp.h" />
     <ClInclude Include="include\Components\BulletComp.h" />
     <ClInclude Include="include\Components\PlayerComp.h" />
+    <ClInclude Include="include\Components\RigidBodyComp.h" />
     <ClInclude Include="include\Core\GameObjectManager.h" />
     <ClInclude Include="include\Components\Component.h" />
     <ClInclude Include="include\Components\LightComp.h" />
