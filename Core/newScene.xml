@@ -1,0 +1,39 @@
+<Scene>
+    <GameObjectList count="7">
+        <GameObject name="Terrain" mesh="0" shader="0">
+            <ComponentList count="4">
+                <Component>test</Component>
+            </ComponentList>
+        </GameObject>
+        <GameObject name="Directionnal" mesh="1" shader="1">
+            <ComponentList count="5">
+                <Component>test</Component>
+            </ComponentList>
+        </GameObject>
+        <GameObject name="OrangeLight" mesh="1" shader="1">
+            <ComponentList count="5">
+                <Component>test</Component>
+            </ComponentList>
+        </GameObject>
+        <GameObject name="BlueLight" mesh="1" shader="1">
+            <ComponentList count="5">
+                <Component>test</Component>
+            </ComponentList>
+        </GameObject>
+        <GameObject name="Torus" mesh="3" shader="0">
+            <ComponentList count="4">
+                <Component>test</Component>
+            </ComponentList>
+        </GameObject>
+        <GameObject name="Gear" mesh="1" shader="0">
+            <ComponentList count="4">
+                <Component>test</Component>
+            </ComponentList>
+        </GameObject>
+        <GameObject name="Empty">
+            <ComponentList count="1">
+                <Component>test</Component>
+            </ComponentList>
+        </GameObject>
+    </GameObjectList>
+</Scene>

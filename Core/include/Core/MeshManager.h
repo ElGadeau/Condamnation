@@ -20,12 +20,13 @@ namespace Core
         void LoadShaders();
 
         std::shared_ptr<Rendering::Resources::Mesh> GetMesh(const int& p_position) const noexcept { return m_meshes[p_position];}
+		const std::vector<std::shared_ptr<Rendering::Resources::Mesh>> GetMeshes() const noexcept { return m_meshes;}
 		std::shared_ptr<Rendering::Shaders::Shader> GetShader(const int& p_position) const noexcept { return m_shaders[p_position];	}
+		const std::vector<std::shared_ptr<Rendering::Shaders::Shader>> GetShaders() const noexcept { return m_shaders;	}
 
     private:
         std::vector<std::shared_ptr<Rendering::Resources::Mesh>> m_meshes;
         std::vector<std::shared_ptr<Rendering::Shaders::Shader>> m_shaders;
-        //std::vector<Rendering::Shaders::Shader*> shaders;
 	};
 
 }

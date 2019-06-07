@@ -25,7 +25,7 @@ namespace Core
         void ReloadShader();
 
         bool CollidesWith(const std::shared_ptr<GameObject>& p_gameObjects);
-        void ResolveCollisions(std::vector<std::shared_ptr<Core::GameObject>>& p_gameObjects);
+        void ResolveCollisions(std::vector<std::shared_ptr<GameObject>>& p_gameObjects);
 		const std::string& GetName() const noexcept { return m_name; }
 		std::shared_ptr<GameObject> GetParent() const noexcept { return m_parent; }
 		std::shared_ptr<GameObject> GetChild() const noexcept { return m_child; }
@@ -41,7 +41,10 @@ namespace Core
         template<class ComponentType>
         ComponentType* GetComponent() const noexcept
         {
-            std::shared_ptr<ComponentType> result;
+            const bool isComponent = std::is_base_of<Components::Component, ComponentType>::value;
+            assert(isComponent);
+		    
+		    std::shared_ptr<ComponentType> result;
 
             if (m_components.empty())
                 return nullptr;
@@ -61,6 +64,16 @@ namespace Core
 
             return result.get();
         }
+
+        const unsigned int GetComponentCount() const noexcept
+		{
+			return static_cast<unsigned int>(m_components.size());
+		}
+
+		std::vector<std::shared_ptr<Components::Component>>& GetComponents() noexcept
+		{
+			return m_components;
+		}
 
     private:
         float degree{0.0f};
