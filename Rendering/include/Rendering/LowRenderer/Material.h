@@ -8,7 +8,7 @@ namespace Rendering::LowRenderer
     {
     public:
 
-        Material() { m_shininess = 0.5f; m_r = 1; m_g = 1; m_b = 1; m_opacity = 1; };
+        Material() { m_shininess = 0.0f; m_r = 1; m_g = 1; m_b = 1; m_opacity = 1; };
         ~Material() {};
 
         void SetColor(const float& p_red, const float& p_green, const float& p_blue) { m_r = p_red; m_g = p_green; m_b = p_blue; };
