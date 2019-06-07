@@ -2,7 +2,7 @@
 #include <Rendering/GUI/TextUI.h>
 #include <iostream>
 
-GUI::TextUI::TextUI(Rendering::Shaders::Shader& p_shader) : m_shader(p_shader)
+GUI::TextUI::TextUI()
 {
     LoadFont();
 }
@@ -13,11 +13,11 @@ void GUI::TextUI::LoadFont()
     if (FT_Init_FreeType(&ft))
         std::cout << "ERROR::FREETYPE: could not init freetype library\n";
 
-    FT_Face face;
-    if (FT_New_Face(ft, R"(..\Resources\Font\Doom.ttf)", 0, &face))
+    // FT_Face face;
+    if (FT_New_Face(ft, R"(..\Resources\Font\Doom.ttf)", 0, &m_face))
         std::cout << "ERROR::FREETYPRE: failed to load font\n";
 
-    FT_Set_Pixel_Sizes(face, 0, 48);
+    FT_Set_Pixel_Sizes(m_face, 0, 48);
 
     // if (FT_Load_Char(face, 'X', FT_LOAD_RENDER))
     //     std::cout << "ERROR::FREETYPE: failed to load Glyph\n";
@@ -27,7 +27,7 @@ void GUI::TextUI::LoadFont()
     for (GLubyte c = 0; c < 128; c++)
     {
         //load character Glyph
-        if (FT_Load_Char(face, c, FT_LOAD_RENDER))
+        if (FT_Load_Char(m_face, c, FT_LOAD_RENDER))
         {
             std::cout << "ERROR::FREETYPE: failed to load Glyph\n";
             continue;
@@ -41,12 +41,12 @@ void GUI::TextUI::LoadFont()
                      GL_TEXTURE_2D,
                      0,
                      GL_RED,
-                     face->glyph->bitmap.width,
-                     face->glyph->bitmap.rows,
+                     m_face->glyph->bitmap.width,
+                     m_face->glyph->bitmap.rows,
                      0,
                      GL_RED,
                      GL_UNSIGNED_BYTE,
-                     face->glyph->bitmap.buffer
+                     m_face->glyph->bitmap.buffer
                     );
 
         //set texture options
@@ -58,25 +58,36 @@ void GUI::TextUI::LoadFont()
         //now store the texture for later use
         Character character = {
         texture,
-        glm::ivec2(face->glyph->bitmap.width, face->glyph->bitmap.rows),
-        glm::ivec2(face->glyph->bitmap_left, face->glyph->bitmap_top),
-        face->glyph->advance.x
+        glm::ivec2(m_face->glyph->bitmap.width, m_face->glyph->bitmap.rows),
+        glm::ivec2(m_face->glyph->bitmap_left, m_face->glyph->bitmap_top),
+        m_face->glyph->advance.x
         };
 
         Characters.insert(std::pair<GLchar, Character>(c, character));
     }
 
-    FT_Done_Face(face);
+    FT_Done_Face(m_face);
     FT_Done_FreeType(ft);
+
+    glGenVertexArrays(1, &m_VAO);
+    glGenBuffers(1, &m_VBO);
+    glBindVertexArray(m_VAO);
+    glBindBuffer(GL_ARRAY_BUFFER, m_VBO);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(GLfloat) * 6 * 4, NULL, GL_DYNAMIC_DRAW);
+    glEnableVertexAttribArray(0);
+    glVertexAttribPointer(0, 4, GL_FLOAT, GL_FALSE, 4 * sizeof(GLfloat), 0);
+    glBindBuffer(GL_ARRAY_BUFFER, 0);
+    glBindVertexArray(0);
 }
 
-void GUI::TextUI::RenderText(const std::string& p_text, GLfloat p_x,
-                             GLfloat            p_y,
-                             GLfloat            p_scale,
-                             glm::vec3          p_color)
+void GUI::TextUI::RenderText(Rendering::Shaders::Shader& p_shader,
+                             const std::string&          p_text, GLfloat p_x,
+                             GLfloat                     p_y,
+                             GLfloat                     p_scale,
+                             glm::vec3                   p_color)
 {
-    m_shader.ApplyShader();
-    glUniform3f(glGetUniformLocation(m_shader.shaderProgram, "textColor"), p_color.x,
+    p_shader.ApplyShader();
+    glUniform3f(glGetUniformLocation(p_shader.shaderProgram, "textColor"), p_color.x,
                 p_color.y, p_color.z);
     glActiveTexture(GL_TEXTURE0);
     glBindVertexArray(m_VAO);
