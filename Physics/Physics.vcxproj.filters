@@ -32,5 +32,8 @@
     <ClInclude Include="include\Physics\BoxCollider.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="include\Physics\RigidBody.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

@@ -21,6 +21,7 @@
   <ItemGroup>
     <ClInclude Include="include\Physics\BoxCollider.h" />
     <ClInclude Include="include\Physics\Export.h" />
+    <ClInclude Include="include\Physics\RigidBody.h" />
     <ClInclude Include="include\stdafx.h" />
   </ItemGroup>
   <ItemGroup>
