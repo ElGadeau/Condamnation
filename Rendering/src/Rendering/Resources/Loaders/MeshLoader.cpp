@@ -44,7 +44,12 @@ std::shared_ptr<Rendering::Resources::Mesh> Rendering::Resources::Loaders::MeshL
 			aiVector3D vert = t_mesh->mVertices[vertIdx];
 			aiVector3D norm = t_mesh->mNormals[vertIdx];
 
-			vertex.m_position = glm::vec3(vert.x, vert.y , vert.z);
+            if (t_mesh->HasTextureCoords(0))
+            {
+                vertex.m_textCoords = glm::vec2(t_mesh->mTextureCoords[0][vertIdx].x, t_mesh->mTextureCoords[0][vertIdx].y);
+            }
+
+            vertex.m_position = glm::vec3(vert.x, vert.y , vert.z);
 			vertex.m_normal = glm::vec3(norm.x, norm.y , norm.z );
 
 			vertices.push_back(vertex);

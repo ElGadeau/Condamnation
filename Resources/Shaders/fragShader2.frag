@@ -54,7 +54,7 @@ void main()
             norm = -norm;
 
         vec3 surfaceTolight = normalize(pointLights[i].LightPos - o_pos);
-        float diffuseCoeff = max(0.5, dot(norm, surfaceTolight));
+        float diffuseCoeff = max(0.0, dot(norm, surfaceTolight));
         vec3 diffuse = diffuseCoeff * pointLights[i].LightColor * pointLights[i].intensity;
 
         vec3 reflectDir = reflect(-lightDir, norm);  
@@ -76,5 +76,5 @@ void main()
          }
         resultFinal += result;
     }
-    FragColor = vec4(resultFinal, 1.0);
+    FragColor = texture(objectTexture, TexCoords * 10); //* vec4(resultFinal, 1.0);
 } 
