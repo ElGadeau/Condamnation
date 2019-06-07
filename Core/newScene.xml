@@ -1,38 +1,161 @@
 <Scene>
-    <GameObjectList count="7">
-        <GameObject name="Terrain" mesh="0" shader="0">
+    <GameObjectList count="15">
+        <GameObject name="Floor" mesh="0" shader="0">
             <ComponentList count="4">
-                <Component>test</Component>
+                <Component type="TransformComp">
+                    <scale x="5" y="1" z="5"/>
+                </Component>
+                <Component type="ModelComp"/>
+                <Component type="MaterialComp"/>
+                <Component type="BoxColliderComp"/>
+            </ComponentList>
+        </GameObject>
+        <GameObject name="Wall1" mesh="0" shader="0">
+            <ComponentList count="4">
+                <Component type="TransformComp">
+                    <position x="0" y="7" z="48"/>
+                    <rotation x="90" y="0" z="0"/>
+                    <scale x="5" y="1" z="2"/>
+                </Component>
+                <Component type="ModelComp"/>
+                <Component type="MaterialComp"/>
+                <Component type="BoxColliderComp"/>
+            </ComponentList>
+        </GameObject>
+        <GameObject name="Wall2" mesh="0" shader="0">
+            <ComponentList count="4">
+                <Component type="TransformComp">
+                    <position x="0" y="7" z="-48"/>
+                    <rotation x="90" y="0" z="0"/>
+                    <scale x="5" y="1" z="2"/>
+                </Component>
+                <Component type="ModelComp"/>
+                <Component type="MaterialComp"/>
+                <Component type="BoxColliderComp"/>
+            </ComponentList>
+        </GameObject>
+        <GameObject name="Wall3" mesh="0" shader="0">
+            <ComponentList count="4">
+                <Component type="TransformComp">
+                    <position x="20" y="7" z="0"/>
+                    <rotation x="90" y="0" z="90"/>
+                    <scale x="5" y="1" z="5"/>
+                </Component>
+                <Component type="ModelComp"/>
+                <Component type="MaterialComp"/>
+                <Component type="BoxColliderComp"/>
+            </ComponentList>
+        </GameObject>
+        <GameObject name="Wall4" mesh="0" shader="0">
+            <ComponentList count="4">
+                <Component type="TransformComp">
+                    <position x="-19" y="7" z="0"/>
+                    <rotation x="90" y="0" z="90"/>
+                    <scale x="5" y="1" z="5"/>
+                </Component>
+                <Component type="ModelComp"/>
+                <Component type="MaterialComp"/>
+                <Component type="BoxColliderComp"/>
+            </ComponentList>
+        </GameObject>
+        <GameObject name="Torch1" mesh="1" shader="1">
+            <ComponentList count="5">
+                <Component type="TransformComp">
+                    <position x="90" y="25" z="90"/>
+                </Component>
+                <Component type="ModelComp"/>
+                <Component type="MaterialComp"/>
+                <Component type="BoxColliderComp"/>
+                <Component type="LightComp"/>
+            </ComponentList>
+        </GameObject>
+        <GameObject name="Torch2" mesh="1" shader="1">
+            <ComponentList count="5">
+                <Component type="TransformComp">
+                    <position x="-90" y="25" z="-90"/>
+                </Component>
+                <Component type="ModelComp"/>
+                <Component type="MaterialComp"/>
+                <Component type="BoxColliderComp"/>
+                <Component type="LightComp"/>
+            </ComponentList>
+        </GameObject>
+        <GameObject name="Torch2" mesh="1" shader="1">
+            <ComponentList count="5">
+                <Component type="TransformComp">
+                    <position x="90" y="25" z="-90"/>
+                </Component>
+                <Component type="ModelComp"/>
+                <Component type="MaterialComp"/>
+                <Component type="BoxColliderComp"/>
+                <Component type="LightComp"/>
+            </ComponentList>
+        </GameObject>
+        <GameObject name="Torch2" mesh="1" shader="1">
+            <ComponentList count="5">
+                <Component type="TransformComp">
+                    <position x="-90" y="25" z="90"/>
+                </Component>
+                <Component type="ModelComp"/>
+                <Component type="MaterialComp"/>
+                <Component type="BoxColliderComp"/>
+                <Component type="LightComp"/>
             </ComponentList>
         </GameObject>
         <GameObject name="Directionnal" mesh="1" shader="1">
             <ComponentList count="5">
-                <Component>test</Component>
+                <Component type="TransformComp">
+                    <position x="0" y="25" z="0"/>
+                </Component>
+                <Component type="ModelComp"/>
+                <Component type="MaterialComp"/>
+                <Component type="BoxColliderComp"/>
+                <Component type="LightComp"/>
             </ComponentList>
         </GameObject>
         <GameObject name="OrangeLight" mesh="1" shader="1">
             <ComponentList count="5">
-                <Component>test</Component>
+                <Component type="TransformComp"/>
+                <Component type="ModelComp"/>
+                <Component type="MaterialComp"/>
+                <Component type="BoxColliderComp"/>
+                <Component type="LightComp"/>
             </ComponentList>
         </GameObject>
         <GameObject name="BlueLight" mesh="1" shader="1">
             <ComponentList count="5">
-                <Component>test</Component>
+                <Component type="TransformComp">
+                    <position x="0" y="2" z="0"/>
+                </Component>
+                <Component type="ModelComp"/>
+                <Component type="MaterialComp"/>
+                <Component type="BoxColliderComp"/>
+                <Component type="LightComp"/>
             </ComponentList>
         </GameObject>
         <GameObject name="Torus" mesh="3" shader="0">
             <ComponentList count="4">
-                <Component>test</Component>
+                <Component type="TransformComp">
+                    <position x="0" y="5" z="10"/>
+                </Component>
+                <Component type="ModelComp"/>
+                <Component type="MaterialComp"/>
+                <Component type="BoxColliderComp"/>
             </ComponentList>
         </GameObject>
         <GameObject name="Gear" mesh="1" shader="0">
             <ComponentList count="4">
-                <Component>test</Component>
+                <Component type="TransformComp">
+                    <position x="0" y="5" z="0"/>
+                </Component>
+                <Component type="ModelComp"/>
+                <Component type="MaterialComp"/>
+                <Component type="BoxColliderComp"/>
             </ComponentList>
         </GameObject>
         <GameObject name="Empty">
             <ComponentList count="1">
-                <Component>test</Component>
+                <Component type="TransformComp"/>
             </ComponentList>
         </GameObject>
     </GameObjectList>

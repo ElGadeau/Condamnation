@@ -94,7 +94,7 @@ void Rendering::Shaders::Shader::Update(const LowRenderer::Camera& cam, const Lo
 {
 	glUniformMatrix4fv(m_data[0], 1, GL_FALSE, value_ptr(cam.GetPerspectiveMatrix()));
 	glUniformMatrix4fv(m_data[1], 1, GL_FALSE, value_ptr(cam.GetViewMatrix()));
-	glUniformMatrix4fv(m_data[2], 1, GL_FALSE, value_ptr(trans.m_transMat));
+	glUniformMatrix4fv(m_data[2], 1, GL_FALSE, value_ptr(trans.GetTransMat()));
 	glUniform3f(m_data[3], cam.GetPosition().x, cam.GetPosition().y, cam.GetPosition().z);
     glUniform3f(m_data[4], p_mat.GetColorR(), p_mat.GetColorG(), p_mat.GetColorB());
     glUniform1f(m_data[5], p_mat.GetShininess());

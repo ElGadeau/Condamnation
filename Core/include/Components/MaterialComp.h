@@ -18,7 +18,7 @@ namespace Components
 		[[nodiscard]] std::shared_ptr<Rendering::LowRenderer::Material> GetMaterial() const noexcept { return m_material; }
 		void Update() override {}
         
-        void Serialize(XMLElement* p_compSegment) const noexcept override;
+        void Serialize(XMLElement* p_compSegment, XMLDocument& p_xmlDoc) const noexcept override;
         void Deserialize(XMLElement* p_compSegment) const noexcept override;
         private:
         std::shared_ptr<Rendering::LowRenderer::Material> m_material;

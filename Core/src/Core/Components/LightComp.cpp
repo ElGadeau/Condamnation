@@ -2,7 +2,7 @@
 
 #include <Components/LightComp.h>
 
-void Components::LightComp::Serialize(XMLElement* p_compSegment) const noexcept
+void Components::LightComp::Serialize(XMLElement* p_compSegment, XMLDocument& p_xmlDoc) const noexcept
 {
 	std::cout << "[LIGHT_COMP] Function not implemented\n";
 }

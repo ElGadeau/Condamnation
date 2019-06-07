@@ -16,7 +16,7 @@ namespace Components
 		void Update() override;
 		std::shared_ptr<Core::GameObject> RayCast(Core::GameObjectManager& p_gameManager) const;
 
-        void Serialize(XMLElement* p_compSegment) const noexcept override;
+        void Serialize(XMLElement* p_compSegment, XMLDocument& p_xmlDoc) const noexcept override;
         void Deserialize(XMLElement* p_compSegment) const noexcept override;
 
 	private:
