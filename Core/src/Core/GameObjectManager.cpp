@@ -5,6 +5,7 @@
 #include <Components/TransformComp.h>
 #include <Components/MaterialComp.h>
 #include <Components/BoxColliderComp.h>
+#include <Components/RigidBodyComp.h>
 #include <Components/ModelComp.h>
 #include <unordered_map>
 
@@ -17,13 +18,16 @@ Core::GameObjectManager::GameObjectManager(MeshManager& p_modelManager)
     std::shared_ptr<GameObject> Wall3 = std::make_shared<Core::GameObject>(p_modelManager.GetMesh(0), p_modelManager.GetShader(0), "Wall3");
     std::shared_ptr<GameObject> Wall4 = std::make_shared<Core::GameObject>(p_modelManager.GetMesh(0), p_modelManager.GetShader(0), "Wall4");
     std::shared_ptr<GameObject> Ceiling = std::make_shared<Core::GameObject>(p_modelManager.GetMesh(0), p_modelManager.GetShader(0), "Ceiling");
+    std::shared_ptr<GameObject> RigidBody = std::make_shared<Core::GameObject>("RigidBody");
 	
+    //Find("RigidBody")->AddComponent<Components::RigidBodyComp>();
+
+
     Floor->GetComponent<Components::TransformComp>()->GetTransform()->Scale(glm::vec3(5, 1, 5));
 	
     Wall1->GetComponent<Components::TransformComp>()->GetTransform()->Scale(glm::vec3(5, 1, 2));
 	Wall1->GetComponent<Components::TransformComp>()->GetTransform()->Translate(glm::vec3(0, 7, 48));
 	Wall1->GetComponent<Components::TransformComp>()->GetTransform()->Rotate(glm::vec3(90, 0, 0));
-	Wall1->GetComponent<Components::MaterialComp>()->GetMaterial()->SetColor(0.7f, 0.7f, 0.7f);
 
 	Wall2->GetComponent<Components::TransformComp>()->GetTransform()->Scale(glm::vec3(5, 1, 2));
 	Wall2->GetComponent<Components::TransformComp>()->GetTransform()->Translate(glm::vec3(0, 7, -48));
@@ -48,46 +52,48 @@ Core::GameObjectManager::GameObjectManager(MeshManager& p_modelManager)
     //lights
     std::shared_ptr<GameObject> Torch1 = std::make_shared<Core::GameObject>(p_modelManager.GetMesh(1), p_modelManager.GetShader(1), "Torch1");
     std::shared_ptr<GameObject> Torch2 = std::make_shared<Core::GameObject>(p_modelManager.GetMesh(1), p_modelManager.GetShader(1), "Torch2");
-    std::shared_ptr<GameObject> Torch3 = std::make_shared<Core::GameObject>(p_modelManager.GetMesh(1), p_modelManager.GetShader(1), "Torch2");
-    std::shared_ptr<GameObject> Torch4 = std::make_shared<Core::GameObject>(p_modelManager.GetMesh(1), p_modelManager.GetShader(1), "Torch2");
+    std::shared_ptr<GameObject> Torch3 = std::make_shared<Core::GameObject>(p_modelManager.GetMesh(1), p_modelManager.GetShader(1), "Torch3");
+    std::shared_ptr<GameObject> Torch4 = std::make_shared<Core::GameObject>(p_modelManager.GetMesh(1), p_modelManager.GetShader(1), "Torch4");
 	
     Torch1->GetComponent<Components::TransformComp>()->GetTransform()->Translate(glm::vec3(90, 25, 90));
 	Torch1->AddComponent<Components::LightComp>()->GetLight()->SetPos(Torch1->GetComponent<Components::TransformComp>()->GetTransform()->GetPosition());
-	Torch1->GetComponent<Components::LightComp>()->GetLight()->SetColor(0.9f, 0.7f, 0);
-	Torch1->GetComponent<Components::LightComp>()->GetLight()->SetDirectional(true);
-	Torch1->GetComponent<Components::LightComp>()->GetLight()->SetIntensity(0.2f);
+	Torch1->GetComponent<Components::LightComp>()->GetLight()->SetColor(1, 0, 0);
+	Torch1->GetComponent<Components::LightComp>()->GetLight()->SetDirectional(false);
+	Torch1->GetComponent<Components::LightComp>()->GetLight()->SetIntensity(100.0f);
     
     Torch2->GetComponent<Components::TransformComp>()->GetTransform()->Translate(glm::vec3(-90, 25, -90));
 	Torch2->AddComponent<Components::LightComp>()->GetLight()->SetPos(Torch2->GetComponent<Components::TransformComp>()->GetTransform()->GetPosition());
-	Torch2->GetComponent<Components::LightComp>()->GetLight()->SetColor(0.9f, 0.7f, 0);
-	Torch2->GetComponent<Components::LightComp>()->GetLight()->SetDirectional(true);
-	Torch2->GetComponent<Components::LightComp>()->GetLight()->SetIntensity(0.2f);
+	Torch2->GetComponent<Components::LightComp>()->GetLight()->SetColor(127/255, 0, 1);
+	Torch2->GetComponent<Components::LightComp>()->GetLight()->SetDirectional(false);
+	Torch2->GetComponent<Components::LightComp>()->GetLight()->SetIntensity(100.0f);
     
     Torch3->GetComponent<Components::TransformComp>()->GetTransform()->Translate(glm::vec3(90, 25, -90));
 	Torch3->AddComponent<Components::LightComp>()->GetLight()->SetPos(Torch3->GetComponent<Components::TransformComp>()->GetTransform()->GetPosition());
-	Torch3->GetComponent<Components::LightComp>()->GetLight()->SetColor(0.9f, 0.7f, 0);
-	Torch3->GetComponent<Components::LightComp>()->GetLight()->SetDirectional(true);
-	Torch3->GetComponent<Components::LightComp>()->GetLight()->SetIntensity(0.2f);
+	Torch3->GetComponent<Components::LightComp>()->GetLight()->SetColor(1, 0, 1);
+	Torch3->GetComponent<Components::LightComp>()->GetLight()->SetDirectional(false);
+	Torch3->GetComponent<Components::LightComp>()->GetLight()->SetIntensity(100.0f);
     
     Torch4->GetComponent<Components::TransformComp>()->GetTransform()->Translate(glm::vec3(-90, 25, 90));
 	Torch4->AddComponent<Components::LightComp>()->GetLight()->SetPos(Torch4->GetComponent<Components::TransformComp>()->GetTransform()->GetPosition());
-	Torch4->GetComponent<Components::LightComp>()->GetLight()->SetColor(0.9f, 0.7f, 0);
-	Torch4->GetComponent<Components::LightComp>()->GetLight()->SetDirectional(true);
-	Torch4->GetComponent<Components::LightComp>()->GetLight()->SetIntensity(0.2f);
+	Torch4->GetComponent<Components::LightComp>()->GetLight()->SetColor(0, 1, 1);
+	Torch4->GetComponent<Components::LightComp>()->GetLight()->SetDirectional(false);
+	Torch4->GetComponent<Components::LightComp>()->GetLight()->SetIntensity(100.0f);
     
     OrangeLight->GetComponent<Components::TransformComp>()->SetLocalTransformPos(glm::vec3(0, 4, 0));
     OrangeLight->AddComponent<Components::LightComp>()->GetLight()->SetPos(OrangeLight->GetComponent<Components::TransformComp>()->GetTransform()->GetPosition());
-    OrangeLight->GetComponent<Components::LightComp>()->GetLight()->SetColor(0, 1, 1);
+    OrangeLight->GetComponent<Components::LightComp>()->GetLight()->SetColor(0, 1, 0);
+    OrangeLight->GetComponent<Components::LightComp>()->GetLight()->SetIntensity(10.0f);
 
-    BlueLight->GetComponent<Components::TransformComp>()->GetTransform()->Translate(glm::vec3(0, 2, 0));
+    BlueLight->GetComponent<Components::TransformComp>()->GetTransform()->Translate(glm::vec3(0, 40, 0));
     BlueLight->AddComponent<Components::LightComp>()->GetLight()->SetPos(BlueLight->GetComponent<Components::TransformComp>()->GetTransform()->GetPosition());
-    BlueLight->GetComponent<Components::LightComp>()->GetLight()->SetColor(1, 0, 1);
+    BlueLight->GetComponent<Components::LightComp>()->GetLight()->SetColor(0, 0, 1);
+    BlueLight->GetComponent<Components::LightComp>()->GetLight()->SetIntensity(40.0f);
 
     DirLight->GetComponent<Components::TransformComp>()->GetTransform()->Translate(glm::vec3(0, 25, 0));
     DirLight->AddComponent<Components::LightComp>()->GetLight()->SetPos(DirLight->GetComponent<Components::TransformComp>()->GetTransform()->GetPosition());
-    DirLight->GetComponent<Components::LightComp>()->GetLight()->SetColor(0.9f, 0.9f, 0.9f);
+    DirLight->GetComponent<Components::LightComp>()->GetLight()->SetColor(0.0f, 0.0f, 0.0f);
     DirLight->GetComponent<Components::LightComp>()->GetLight()->SetDirectional(true);
-    DirLight->GetComponent<Components::LightComp>()->GetLight()->SetIntensity(0.9f);
+    DirLight->GetComponent<Components::LightComp>()->GetLight()->SetIntensity(0.0);
     //end lights
 
     std::shared_ptr<GameObject> EmptyGameObject = std::make_shared<Core::GameObject>("Empty");

@@ -30,6 +30,7 @@ void main()
     vec3 viewDir = normalize(viewPos - o_pos);
     // ambient lighting
     float ambientStrength = 0.05;
+    float diffuseCoeff = 0.8;
     vec3 ambient = ambientStrength * objColor;
 
     for(int i = 0; i < 8; i++)
@@ -52,21 +53,22 @@ void main()
         if(checkSide < 0.0)
             norm = -norm;
 
-        float diff = dot(norm, lightDir) / (length(lightDir) * length(norm));
-        diff = clamp(diff, 0, 1);
-        vec3 diffuse = diff * pointLights[i].LightColor;
+        vec3 surfaceTolight = normalize(pointLights[i].LightPos - o_pos);
+        float diffuseCoeff = max(0.5, dot(norm, surfaceTolight));
+        vec3 diffuse = diffuseCoeff * pointLights[i].LightColor * pointLights[i].intensity;
 
-        // specular lighting
-        float specularStrength = objShininess;
         vec3 reflectDir = reflect(-lightDir, norm);  
-        float spec = pow(max(dot(viewDir, reflectDir), 0.0), 4);
-        vec3 specular = specularStrength * spec * lightColor;  
+        float cosAngle = max(0.0, dot(viewDir, reflectDir));
+        float specCoeff = pow(cosAngle, 100);
+        vec3 specular = specCoeff * normalize(objColor + pointLights[i].LightColor) * objShininess;  
 
         float dist = distance(o_pos, lightPosition);
+        float attenuation = 1.0 / (1.0 + 0.5 * pow(dist, 2));
+
         vec3 result;
          if(!pointLights[i].isDirectionnal)
          {
-            result = (ambient + diffuse * (radius / (dist * dist)) + specular) * pointLights[i].intensity * objColor;
+            result = (ambient + attenuation * diffuse + specular);
          }
          else
          {
