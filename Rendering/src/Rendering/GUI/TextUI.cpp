@@ -2,7 +2,7 @@
 #include <Rendering/GUI/TextUI.h>
 #include <iostream>
 
-GUI::TextUI::TextUI()
+GUI::TextUI::TextUI(Rendering::Shaders::Shader& p_shader) : m_shader(p_shader)
 {
     LoadFont();
 }
@@ -70,14 +70,13 @@ void GUI::TextUI::LoadFont()
     FT_Done_FreeType(ft);
 }
 
-void GUI::TextUI::RenderText(Rendering::Shaders::Shader& p_shader,
-                             const std::string&          p_text, GLfloat p_x,
-                             GLfloat                     p_y,
-                             GLfloat                     p_scale,
-                             glm::vec3                   p_color)
+void GUI::TextUI::RenderText(const std::string& p_text, GLfloat p_x,
+                             GLfloat            p_y,
+                             GLfloat            p_scale,
+                             glm::vec3          p_color)
 {
-    p_shader.ApplyShader();
-    glUniform3f(glGetUniformLocation(p_shader.shaderProgram, "textColor"), p_color.x,
+    m_shader.ApplyShader();
+    glUniform3f(glGetUniformLocation(m_shader.shaderProgram, "textColor"), p_color.x,
                 p_color.y, p_color.z);
     glActiveTexture(GL_TEXTURE0);
     glBindVertexArray(m_VAO);

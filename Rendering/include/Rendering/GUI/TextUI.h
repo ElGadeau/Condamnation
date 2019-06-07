@@ -22,18 +22,18 @@ namespace GUI
     class API_RENDERING TextUI
     {
     public:
-        TextUI();
+        TextUI(Rendering::Shaders::Shader& p_shader);
         ~TextUI() = default;
 
         void LoadFont();
-        void RenderText(Rendering::Shaders::Shader& p_shader,
-                        const std::string&          p_text, GLfloat p_x,
-                        GLfloat                     p_y,
-                        GLfloat                     p_scale, glm::vec3 p_color);
+        void RenderText(const std::string& p_text, GLfloat p_x,
+                        GLfloat            p_y,
+                        GLfloat            p_scale, glm::vec3 p_color);
 
     private:
         GLint                       m_VAO;
         GLint                       m_VBO;
+        Rendering::Shaders::Shader  m_shader;
         std::map<GLchar, Character> Characters;
     };
 }
