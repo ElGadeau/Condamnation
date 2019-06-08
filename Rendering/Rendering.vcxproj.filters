@@ -22,6 +22,7 @@
     <ClCompile Include="src\Rendering\LowRenderer\Light.cpp" />
     <ClCompile Include="src\Rendering\GUI\TextUI.cpp" />
     <ClCompile Include="src\Rendering\Resources\Texture.cpp" />
+    <ClCompile Include="src\Rendering\LowRenderer\Material.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\Rendering\Buffers\IndexBuffer.h" />

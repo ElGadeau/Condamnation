@@ -222,6 +222,7 @@ copy "$(SolutionDir)Dependencies\freetype\bin\$(Platform)\freetype.dll" "$(OutDi
     <ClCompile Include="src\Rendering\GUI\TextUI.cpp" />
     <ClCompile Include="src\Rendering\LowRenderer\Light.cpp" />
     <ClCompile Include="src\Rendering\LowRenderer\Camera.cpp" />
+    <ClCompile Include="src\Rendering\LowRenderer\Material.cpp" />
     <ClCompile Include="src\Rendering\LowRenderer\Transform.cpp" />
     <ClCompile Include="src\Rendering\Managers\CameraManager.cpp" />
     <ClCompile Include="src\Rendering\Resources\Loaders\ShaderLoader.cpp" />

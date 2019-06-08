@@ -64,6 +64,7 @@ void Core::GameObject::Update(Rendering::LowRenderer::Camera & p_cam, std::vecto
 
     if (GetComponent<Components::ModelComp>() != nullptr)
     {
+        GetComponent<Components::MaterialComp>()->GetMaterial()->SetTextureActive();
         GetComponent<Components::ModelComp>()->GetModel()->GetShader()->ApplyShader();
         GetComponent<Components::ModelComp>()->GetModel()->GetShader()->Update(
         p_cam, 
