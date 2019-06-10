@@ -1,4 +1,4 @@
-<CastleScene>
+<scene>
     <GameObjectList count="8">
         <GameObject name="Torch1" mesh="1" shader="1">
             <ComponentList count="5">
@@ -110,4 +110,4 @@
             </ComponentList>
         </GameObject>
     </GameObjectList>
-</CastleScene>
+</scene>

@@ -87,7 +87,7 @@ Core::GameObjectManager::GameObjectManager(MeshManager& p_modelManager)
     m_gameObjects.push_back(Castle);
     m_gameObjects.push_back(Gun);
 	//LoadScene(p_modelManager);
-	SaveScene(p_modelManager);
+	SaveScene(p_modelManager, "CastleScene");
 }
 
 void Core::GameObjectManager::Update(const float& p_deltaTime)
@@ -115,7 +115,7 @@ void Core::GameObjectManager::Update(const float& p_deltaTime)
     }
 }
 
-int Core::GameObjectManager::SaveScene(const MeshManager& p_modelManager)
+int Core::GameObjectManager::SaveScene(const MeshManager& p_modelManager, const std::string& p_scenename)
 {
     using namespace tinyxml2;
 
@@ -133,7 +133,7 @@ int Core::GameObjectManager::SaveScene(const MeshManager& p_modelManager)
 #endif
 
 	XMLDocument xmlDoc;
-	XMLNode* root = xmlDoc.NewElement("Scene");
+	XMLNode* root = xmlDoc.NewElement("scene");
 	xmlDoc.InsertFirstChild(root);
 
 	XMLElement* GOList = xmlDoc.NewElement("GameObjectList");
@@ -159,7 +159,7 @@ int Core::GameObjectManager::SaveScene(const MeshManager& p_modelManager)
         {
             XMLElement* CompElement = xmlDoc.NewElement("Component");
             std::string rawClassName = typeid(*component).name();
-            int offset = rawClassName.find_last_of(':');
+            size_t offset = rawClassName.find_last_of(':');
             std::string realName = rawClassName.substr(offset + 1);
 
             CompElement->SetAttribute("type", realName.c_str());
@@ -171,12 +171,12 @@ int Core::GameObjectManager::SaveScene(const MeshManager& p_modelManager)
         GOList->InsertEndChild(GOelement);
     }
 
-	XMLError eResult = xmlDoc.SaveFile("newScene.xml");
+	XMLError eResult = xmlDoc.SaveFile(p_scenename.c_str());
 	XMLCheckResult(eResult);
 	return eResult;
 }
 
-int Core::GameObjectManager::LoadScene(const MeshManager& p_modelManager)
+int Core::GameObjectManager::LoadScene(const MeshManager& p_modelManager, const std::string& p_sceneName)
 {
     using namespace tinyxml2;
 
@@ -194,7 +194,7 @@ int Core::GameObjectManager::LoadScene(const MeshManager& p_modelManager)
 #endif
 
     XMLDocument xmlDoc;
-    XMLError    eResult = xmlDoc.LoadFile("newScene.xml");
+    XMLError    eResult = xmlDoc.LoadFile(p_sceneName.c_str());
     XMLCheckResult(eResult);
 
     XMLNode* root = xmlDoc.FirstChild();
@@ -209,19 +209,28 @@ int Core::GameObjectManager::LoadScene(const MeshManager& p_modelManager)
     while (GOelement != nullptr)
     {
         const char* newGoName = nullptr;
+        int meshId{0}, shaderId{0};
+        bool empty{ true };
 
         newGoName = GOelement->Attribute("name");
         if (newGoName == nullptr)
             return XML_ERROR_PARSING_ATTRIBUTE;
 
-        int meshId{0}, shaderId{0};
+        eResult = GOelement->QueryIntAttribute("mesh", &meshId);
+        if (eResult == XML_SUCCESS)
+            empty = false;
+        
+        eResult = GOelement->QueryIntAttribute("shader", &shaderId);
+        if (eResult == XML_SUCCESS)
+            empty = false;
 
-        GOelement->QueryIntAttribute("mesh", &meshId);
-        GOelement->QueryIntAttribute("shader", &shaderId);
+        std::shared_ptr<GameObject> newGo{};
 
-        std::shared_ptr<GameObject> newGo = std::make_shared<GameObject
-       >(p_modelManager.GetMesh(meshId), p_modelManager.GetShader(shaderId), newGoName);
-
+        if(!empty)
+            newGo = std::make_shared<GameObject>(p_modelManager.GetMesh(meshId), p_modelManager.GetShader(shaderId), newGoName);
+        else if(empty)
+            newGo = std::make_shared<GameObject>(newGoName);
+                
         XMLElement* ComponentList = GOelement->FirstChildElement("ComponentList");
         if (GOelement == nullptr)
             return XML_ERROR_PARSING_ELEMENT;
@@ -247,35 +256,32 @@ int Core::GameObjectManager::LoadScene(const MeshManager& p_modelManager)
                 case 0: //boxColliderComp
                     if (newGo->GetComponent<Components::BoxColliderComp>() == nullptr)
                         newGo->AddComponent<Components::BoxColliderComp>();
-
-					newGo->GetComponent<Components::BoxColliderComp>()->Deserialize(CompElement);
                     break;
                 case 1: //LightComp
                     if (newGo->GetComponent<Components::LightComp>() == nullptr)
                         newGo->AddComponent<Components::LightComp>();
 
-					newGo->GetComponent<Components::LightComp>()->Deserialize(CompElement);
+                    newGo->GetComponent<Components::LightComp>()->Deserialize(CompElement);
                     break;
                 case 2: //materialComp
                     if (newGo->GetComponent<Components::MaterialComp>() == nullptr)
                         newGo->AddComponent<Components::MaterialComp>();
 
-					newGo->GetComponent<Components::MaterialComp>()->Deserialize(CompElement);
+                    newGo->GetComponent<Components::MaterialComp>()->Deserialize(CompElement);
                     break;
                 case 3: //modelComp
                     if (newGo->GetComponent<Components::ModelComp>() == nullptr)
                         newGo->AddComponent<Components::ModelComp>();
-
-					newGo->GetComponent<Components::ModelComp>()->Deserialize(CompElement);
                     break;
                 case 4: //TransformComp
                     if (newGo->GetComponent<Components::TransformComp>() == nullptr)
                         newGo->AddComponent<Components::TransformComp>();
 
-					newGo->GetComponent<Components::TransformComp>()->Deserialize(CompElement);
+                    newGo->GetComponent<Components::TransformComp>()->Deserialize(CompElement);
                     break;
                 default:
-                    std::cerr << "ERROR : something went wrong when trying to load components on the XML loader\n Your component type is non-existent.";
+                    std::cerr <<
+                            "ERROR : something went wrong when trying to load components on the XML loader\n Your component type is non-existent.";
                     break;
                 }
             }
