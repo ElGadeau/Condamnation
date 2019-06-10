@@ -2,7 +2,7 @@
 
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
-
+#include <time.h>
 #include <Rendering/Context/OpenGL/GLFWDevice.h>
 #include <Rendering/Context/OpenGL/GLEWDriver.h>
 #include <Rendering/Managers/Renderer.h>
@@ -17,7 +17,8 @@
 #include <Components/BoxColliderComp.h>
 #include "Components/PlayerComp.h"
 #include <Utils/Ray.h>
-#include "Components/TransformComp.h"
+#include <Components/TransformComp.h>
+#include <Rendering/Resources/Texture.h>
 
 
 std::vector<Core::GameObject> GenerateLights(std::vector<std::shared_ptr<Core::GameObject>>& m_gameObjectVector)
@@ -36,6 +37,8 @@ std::vector<Core::GameObject> GenerateLights(std::vector<std::shared_ptr<Core::G
 
 int main()
 {
+    srand(time(nullptr));
+
     auto device = std::make_unique<Rendering::Context::OpenGL::GLFWDevice>();
 	std::unique_ptr<Rendering::Managers::Renderer> renderer = std::make_unique<Rendering::Managers::Renderer>();
     renderer->Initialize<Rendering::Context::OpenGL::GLEWDriver>();

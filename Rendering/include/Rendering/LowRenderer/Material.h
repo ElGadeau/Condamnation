@@ -3,6 +3,7 @@
 #include <glm/glm.hpp>
 
 #include <Rendering/Export.h>
+#include <Rendering/Resources/Texture.h>
 
 namespace Rendering::LowRenderer
 {
@@ -20,6 +21,11 @@ namespace Rendering::LowRenderer
         const float& GetShininess() const noexcept { return m_shininess; }
         const float& GetOpacity() const noexcept { return m_opacity; }
 
+        void LoadTexture(const char* p_filePath);
+        void SetTextureActive();
+
+        Rendering::Resources::Texture& GetTexture() { return m_tex; }
+
         glm::vec3    GetColor() const noexcept { return glm::vec3(m_r, m_g, m_b); }
         const float& GetColorR() const noexcept { return m_r; }
         const float& GetColorG() const noexcept { return m_g; }
@@ -32,5 +38,6 @@ namespace Rendering::LowRenderer
         float m_r{1};
         float m_g{1};
         float m_b{1};
+        Resources::Texture m_tex;
     };
 }

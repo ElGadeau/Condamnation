@@ -18,12 +18,14 @@ std::shared_ptr<Rendering::Resources::Mesh> Rendering::Resources::Loaders::MeshL
 
 	Assimp::Importer m_importer;
 	const aiScene* m_scene = m_importer.ReadFile(pfile,
-		aiProcess_OptimizeMeshes 
+        aiProcess_CalcTangentSpace
+		| aiProcess_OptimizeMeshes 
 		| aiProcess_OptimizeGraph
 		| aiProcess_Triangulate
 		| aiProcess_SortByPType
 		| aiProcess_GenNormals
 		| aiProcess_FixInfacingNormals
+        | aiProcess_FlipUVs
 		);
 
     if (m_scene == nullptr)
@@ -43,8 +45,10 @@ std::shared_ptr<Rendering::Resources::Mesh> Rendering::Resources::Loaders::MeshL
 
 			aiVector3D vert = t_mesh->mVertices[vertIdx];
 			aiVector3D norm = t_mesh->mNormals[vertIdx];
+            aiVector3D UV = t_mesh->mTextureCoords[0][vertIdx];
 
-			vertex.m_position = glm::vec3(vert.x, vert.y , vert.z);
+            vertex.m_textCoords = glm::vec2(UV.x, UV.y);
+            vertex.m_position = glm::vec3(vert.x, vert.y , vert.z);
 			vertex.m_normal = glm::vec3(norm.x, norm.y , norm.z );
 
 			vertices.push_back(vertex);
