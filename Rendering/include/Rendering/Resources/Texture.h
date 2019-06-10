@@ -11,17 +11,22 @@ namespace Rendering::Resources
 	    ~Texture();
         void Bind();
 	    void Unbind();
-	    int GetWidth() const { return m_Width; }
-	    int GetHeight() const { return m_Height; }
-        int GetID() const { return m_texId; }
-        void SetWidth(int p_width) { m_Width = p_width; }
-        void SetHeight(int p_height) { m_Height = p_height; }
+	    const char* GetName() const { return m_name; }
+	    const int& GetWidth() const { return m_Width; }
+	    const int& GetHeight() const { return m_Height; }
+        const int& GetID() const { return m_texId; }
 
-	    void Load(const char* Filename);
+        void SetWidth(const int& p_width) { m_Width = p_width; }
+        void SetHeight(const int& p_height) { m_Height = p_height; }
+
+	    void Load(const char* p_filePath);
 
     private:
-	    unsigned int m_texture;
-	    unsigned char* m_data;
-	    int m_Width, m_Height, m_BPP, m_texId;
+
+        const char* m_name{};
+	    unsigned int m_texture{0};
+	    unsigned char* m_data{};
+        int m_Width, m_Height, m_BPP, m_texId{0};
+        
     };
 }

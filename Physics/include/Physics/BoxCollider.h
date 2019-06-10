@@ -26,6 +26,8 @@ namespace Physics
 		[[nodiscard]] glm::vec3& GetPosVec() noexcept { return m_pos; }
 		[[nodiscard]] std::vector<glm::vec3>& GetPoints() const noexcept { return m_points; }
 
+		void SetPoints(std::vector<glm::vec3>& p_points) { m_points = p_points; }
+
     private:
         glm::vec4 m_maxVectmp;
         glm::vec4 m_minVectmp;

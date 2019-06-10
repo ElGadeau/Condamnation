@@ -29,11 +29,11 @@ void Rendering::Resources::Texture::Unbind()
 	glBindTexture(GL_TEXTURE_2D, 0);
 }
 
-void Rendering::Resources::Texture::Load(const char* FilePath)
+void Rendering::Resources::Texture::Load(const char* p_filePath)
 {
-
+    m_name = p_filePath;
     
-	m_data = stbi_load(FilePath, &m_Width, &m_Height, &m_BPP, STBI_rgb_alpha);
+	m_data = stbi_load(p_filePath, &m_Width, &m_Height, &m_BPP, STBI_rgb_alpha);
 
 	if (m_data != nullptr)
 	{
@@ -45,13 +45,13 @@ void Rendering::Resources::Texture::Load(const char* FilePath)
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 
-		std::cout << "Texture loaded: " << FilePath << "\n";
+		std::cout << "Texture loaded: " << p_filePath << "\n";
 		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, m_Width, m_Height, 0, GL_RGBA, GL_UNSIGNED_BYTE, m_data);
 
 	}
 	else
 	{
-		std::cout << "Texture : " << FilePath << "not loaded" << "\n";
+		std::cout << "Texture : " << p_filePath << "not loaded" << "\n";
 	}
 
 
