@@ -32,9 +32,9 @@ namespace GUI
                         GLfloat                     p_scale, glm::vec3 p_color);
 
     private:
-        GLuint                       m_VAO;
-        GLuint                       m_VBO;
+        glm::mat4                   m_projection;
+        GLuint                      m_VAO;
+        GLuint                      m_VBO;
         std::map<GLchar, Character> Characters;
-        FT_Face m_face;
     };
 }

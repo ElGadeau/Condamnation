@@ -17,22 +17,25 @@ Core::GameObjectManager::GameObjectManager(MeshManager& p_modelManager)
     std::shared_ptr<GameObject> floor = std::make_shared<Core::GameObject>(p_modelManager.GetMesh(2), p_modelManager.GetShader(0), "Floor");
 
 	floor->AddComponent<Components::BoxColliderComp>();
-	floor->AddComponent<Components::RigidBodyComp>(this);
+	//floor->AddComponent<Components::RigidBodyComp>(this);
 	floor->GetComponent<Components::TransformComp>()->GetTransform()->Scale(glm::vec3( 20, 1, 20));
 	floor->GetComponent<Components::TransformComp>()->GetTransform()->Rotate(glm::vec3( 90, 0, 0));
-	floor->GetComponent<Components::RigidBodyComp>()->SetKinematic(true);
+	//floor->GetComponent<Components::RigidBodyComp>()->SetKinematic(true);
 
 	Link->GetComponent<Components::TransformComp>()->GetTransform()->Scale(glm::vec3(0.05, 0.05, 0.05));
 	Link->GetComponent<Components::TransformComp>()->GetTransform()->Translate(glm::vec3(10.0, 100, 0.0));
 	Link->GetComponent<Components::TransformComp>()->GetTransform()->Rotate(glm::vec3(90, 0, 0));
 	Link->AddComponent<Components::BoxColliderComp>();
-	Link->AddComponent<Components::RigidBodyComp>(this);
+	//Link->AddComponent<Components::RigidBodyComp>(this);
+
+    // start make map
+    std::shared_ptr<GameObject> Gun = std::make_shared<Core::GameObject>(p_modelManager.GetMesh(2), p_modelManager.GetShader(0), "Gun");
     //std::shared_ptr<GameObject> RigidBody = std::make_shared<Core::GameObject>("RigidBody");
-	
+
     //Find("RigidBody")->AddComponent<Components::RigidBodyComp>();
     // make map
 
-    std::shared_ptr<GameObject> DirLight = std::make_shared<Core::GameObject>(p_modelManager.GetMesh(1), p_modelManager.GetShader(1),"Directionnal");
+    std::shared_ptr<GameObject> DirLight = std::make_shared<Core::GameObject>(p_modelManager.GetMesh(1), p_modelManager.GetShader(1), "Directionnal");
     std::shared_ptr<GameObject> OrangeLight = std::make_shared<Core::GameObject>(p_modelManager.GetMesh(1), p_modelManager.GetShader(1), "OrangeLight");
     std::shared_ptr<GameObject> BlueLight = std::make_shared<Core::GameObject>(p_modelManager.GetMesh(1), p_modelManager.GetShader(1), "BlueLight");
 
@@ -41,31 +44,31 @@ Core::GameObjectManager::GameObjectManager(MeshManager& p_modelManager)
     std::shared_ptr<GameObject> Torch2 = std::make_shared<Core::GameObject>(p_modelManager.GetMesh(1), p_modelManager.GetShader(1), "Torch2");
     std::shared_ptr<GameObject> Torch3 = std::make_shared<Core::GameObject>(p_modelManager.GetMesh(1), p_modelManager.GetShader(1), "Torch3");
     std::shared_ptr<GameObject> Torch4 = std::make_shared<Core::GameObject>(p_modelManager.GetMesh(1), p_modelManager.GetShader(1), "Torch4");
-	
+
     Torch1->GetComponent<Components::TransformComp>()->GetTransform()->Translate(glm::vec3(60, 25, 60));
-	Torch1->AddComponent<Components::LightComp>()->GetLight()->SetPos(Torch1->GetComponent<Components::TransformComp>()->GetTransform()->GetPosition());
-	Torch1->GetComponent<Components::LightComp>()->GetLight()->SetColor(1, 0, 0);
-	Torch1->GetComponent<Components::LightComp>()->GetLight()->SetDirectional(false);
-	Torch1->GetComponent<Components::LightComp>()->GetLight()->SetIntensity(400);
-    
+    Torch1->AddComponent<Components::LightComp>()->GetLight()->SetPos(Torch1->GetComponent<Components::TransformComp>()->GetTransform()->GetPosition());
+    Torch1->GetComponent<Components::LightComp>()->GetLight()->SetColor(1, 0, 0);
+    Torch1->GetComponent<Components::LightComp>()->GetLight()->SetDirectional(false);
+    Torch1->GetComponent<Components::LightComp>()->GetLight()->SetIntensity(400);
+
     Torch2->GetComponent<Components::TransformComp>()->GetTransform()->Translate(glm::vec3(-60, 25, -60));
-	Torch2->AddComponent<Components::LightComp>()->GetLight()->SetPos(Torch2->GetComponent<Components::TransformComp>()->GetTransform()->GetPosition());
-	Torch2->GetComponent<Components::LightComp>()->GetLight()->SetColor(0, 1, 0);
-	Torch2->GetComponent<Components::LightComp>()->GetLight()->SetDirectional(false);
-	Torch2->GetComponent<Components::LightComp>()->GetLight()->SetIntensity(400);
-    
+    Torch2->AddComponent<Components::LightComp>()->GetLight()->SetPos(Torch2->GetComponent<Components::TransformComp>()->GetTransform()->GetPosition());
+    Torch2->GetComponent<Components::LightComp>()->GetLight()->SetColor(0, 1, 0);
+    Torch2->GetComponent<Components::LightComp>()->GetLight()->SetDirectional(false);
+    Torch2->GetComponent<Components::LightComp>()->GetLight()->SetIntensity(400);
+
     Torch3->GetComponent<Components::TransformComp>()->GetTransform()->Translate(glm::vec3(60, 25, -60));
-	Torch3->AddComponent<Components::LightComp>()->GetLight()->SetPos(Torch3->GetComponent<Components::TransformComp>()->GetTransform()->GetPosition());
-	Torch3->GetComponent<Components::LightComp>()->GetLight()->SetColor(0, 0, 1);
-	Torch3->GetComponent<Components::LightComp>()->GetLight()->SetDirectional(false);
-	Torch3->GetComponent<Components::LightComp>()->GetLight()->SetIntensity(400);
-    
+    Torch3->AddComponent<Components::LightComp>()->GetLight()->SetPos(Torch3->GetComponent<Components::TransformComp>()->GetTransform()->GetPosition());
+    Torch3->GetComponent<Components::LightComp>()->GetLight()->SetColor(0, 0, 1);
+    Torch3->GetComponent<Components::LightComp>()->GetLight()->SetDirectional(false);
+    Torch3->GetComponent<Components::LightComp>()->GetLight()->SetIntensity(400);
+
     Torch4->GetComponent<Components::TransformComp>()->GetTransform()->Translate(glm::vec3(-60, 25, 60));
-	Torch4->AddComponent<Components::LightComp>()->GetLight()->SetPos(Torch4->GetComponent<Components::TransformComp>()->GetTransform()->GetPosition());
-	Torch4->GetComponent<Components::LightComp>()->GetLight()->SetColor(1, 0, 1);
-	Torch4->GetComponent<Components::LightComp>()->GetLight()->SetDirectional(false);
-	Torch4->GetComponent<Components::LightComp>()->GetLight()->SetIntensity(400);
-    
+    Torch4->AddComponent<Components::LightComp>()->GetLight()->SetPos(Torch4->GetComponent<Components::TransformComp>()->GetTransform()->GetPosition());
+    Torch4->GetComponent<Components::LightComp>()->GetLight()->SetColor(1, 0, 1);
+    Torch4->GetComponent<Components::LightComp>()->GetLight()->SetDirectional(false);
+    Torch4->GetComponent<Components::LightComp>()->GetLight()->SetIntensity(400);
+
     OrangeLight->GetComponent<Components::TransformComp>()->SetLocalTransformPos(glm::vec3(0, 4, 0));
     OrangeLight->AddComponent<Components::LightComp>()->GetLight()->SetPos(OrangeLight->GetComponent<Components::TransformComp>()->GetTransform()->GetPosition());
     OrangeLight->GetComponent<Components::LightComp>()->GetLight()->SetColor(0, 1, 1);
@@ -82,10 +85,10 @@ Core::GameObjectManager::GameObjectManager(MeshManager& p_modelManager)
     DirLight->GetComponent<Components::LightComp>()->GetLight()->SetDirectional(true);
     DirLight->GetComponent<Components::LightComp>()->GetLight()->SetIntensity(0.0);
     //end lights
-    
-
 
     Link->GetComponent<Components::MaterialComp>()->GetMaterial()->LoadTexture("../Resources/Textures/youngLink.png");
+    Gun->GetComponent<Components::MaterialComp>()->GetMaterial()->LoadTexture("../Resources/Textures/huntinggun.png");
+    Gun->GetComponent<Components::TransformComp>()->GetTransform()->Scale({10, 10, 10});
 
     m_gameObjects.push_back(Torch1);
     m_gameObjects.push_back(Torch2);
@@ -96,10 +99,13 @@ Core::GameObjectManager::GameObjectManager(MeshManager& p_modelManager)
     m_gameObjects.push_back(OrangeLight);
     m_gameObjects.push_back(BlueLight);
 
+
     m_gameObjects.push_back(Link);
     m_gameObjects.push_back(floor);
+    m_gameObjects.push_back(Gun);
+
 	//LoadScene(p_modelManager);
-	SaveScene(p_modelManager);
+	SaveScene(p_modelManager, "CastleScene");
 }
 
 void Core::GameObjectManager::Update(const float& p_deltaTime)
@@ -127,7 +133,7 @@ void Core::GameObjectManager::Update(const float& p_deltaTime)
     }
 }
 
-int Core::GameObjectManager::SaveScene(const MeshManager& p_modelManager)
+int Core::GameObjectManager::SaveScene(const MeshManager& p_modelManager, const std::string& p_scenename)
 {
     using namespace tinyxml2;
 
@@ -145,7 +151,7 @@ int Core::GameObjectManager::SaveScene(const MeshManager& p_modelManager)
 #endif
 
 	XMLDocument xmlDoc;
-	XMLNode* root = xmlDoc.NewElement("Scene");
+	XMLNode* root = xmlDoc.NewElement("scene");
 	xmlDoc.InsertFirstChild(root);
 
 	XMLElement* GOList = xmlDoc.NewElement("GameObjectList");
@@ -171,7 +177,7 @@ int Core::GameObjectManager::SaveScene(const MeshManager& p_modelManager)
         {
             XMLElement* CompElement = xmlDoc.NewElement("Component");
             std::string rawClassName = typeid(*component).name();
-            int offset = rawClassName.find_last_of(':');
+            size_t offset = rawClassName.find_last_of(':');
             std::string realName = rawClassName.substr(offset + 1);
 
             CompElement->SetAttribute("type", realName.c_str());
@@ -183,12 +189,12 @@ int Core::GameObjectManager::SaveScene(const MeshManager& p_modelManager)
         GOList->InsertEndChild(GOelement);
     }
 
-	XMLError eResult = xmlDoc.SaveFile("newScene.xml");
+	XMLError eResult = xmlDoc.SaveFile(p_scenename.c_str());
 	XMLCheckResult(eResult);
 	return eResult;
 }
 
-int Core::GameObjectManager::LoadScene(const MeshManager& p_modelManager)
+int Core::GameObjectManager::LoadScene(const MeshManager& p_modelManager, const std::string& p_sceneName)
 {
     using namespace tinyxml2;
 
@@ -206,7 +212,7 @@ int Core::GameObjectManager::LoadScene(const MeshManager& p_modelManager)
 #endif
 
     XMLDocument xmlDoc;
-    XMLError    eResult = xmlDoc.LoadFile("newScene.xml");
+    XMLError    eResult = xmlDoc.LoadFile(p_sceneName.c_str());
     XMLCheckResult(eResult);
 
     XMLNode* root = xmlDoc.FirstChild();
@@ -221,19 +227,28 @@ int Core::GameObjectManager::LoadScene(const MeshManager& p_modelManager)
     while (GOelement != nullptr)
     {
         const char* newGoName = nullptr;
+        int meshId{0}, shaderId{0};
+        bool empty{ true };
 
         newGoName = GOelement->Attribute("name");
         if (newGoName == nullptr)
             return XML_ERROR_PARSING_ATTRIBUTE;
 
-        int meshId{0}, shaderId{0};
+        eResult = GOelement->QueryIntAttribute("mesh", &meshId);
+        if (eResult == XML_SUCCESS)
+            empty = false;
+        
+        eResult = GOelement->QueryIntAttribute("shader", &shaderId);
+        if (eResult == XML_SUCCESS)
+            empty = false;
 
-        GOelement->QueryIntAttribute("mesh", &meshId);
-        GOelement->QueryIntAttribute("shader", &shaderId);
+        std::shared_ptr<GameObject> newGo{};
 
-        std::shared_ptr<GameObject> newGo = std::make_shared<GameObject
-       >(p_modelManager.GetMesh(meshId), p_modelManager.GetShader(shaderId), newGoName);
-
+        if(!empty)
+            newGo = std::make_shared<GameObject>(p_modelManager.GetMesh(meshId), p_modelManager.GetShader(shaderId), newGoName);
+        else if(empty)
+            newGo = std::make_shared<GameObject>(newGoName);
+                
         XMLElement* ComponentList = GOelement->FirstChildElement("ComponentList");
         if (GOelement == nullptr)
             return XML_ERROR_PARSING_ELEMENT;
@@ -259,35 +274,32 @@ int Core::GameObjectManager::LoadScene(const MeshManager& p_modelManager)
                 case 0: //boxColliderComp
                     if (newGo->GetComponent<Components::BoxColliderComp>() == nullptr)
                         newGo->AddComponent<Components::BoxColliderComp>();
-
-					newGo->GetComponent<Components::BoxColliderComp>()->Deserialize(CompElement);
                     break;
                 case 1: //LightComp
                     if (newGo->GetComponent<Components::LightComp>() == nullptr)
                         newGo->AddComponent<Components::LightComp>();
 
-					newGo->GetComponent<Components::LightComp>()->Deserialize(CompElement);
+                    newGo->GetComponent<Components::LightComp>()->Deserialize(CompElement);
                     break;
                 case 2: //materialComp
                     if (newGo->GetComponent<Components::MaterialComp>() == nullptr)
                         newGo->AddComponent<Components::MaterialComp>();
 
-					newGo->GetComponent<Components::MaterialComp>()->Deserialize(CompElement);
+                    newGo->GetComponent<Components::MaterialComp>()->Deserialize(CompElement);
                     break;
                 case 3: //modelComp
                     if (newGo->GetComponent<Components::ModelComp>() == nullptr)
                         newGo->AddComponent<Components::ModelComp>();
-
-					newGo->GetComponent<Components::ModelComp>()->Deserialize(CompElement);
                     break;
                 case 4: //TransformComp
                     if (newGo->GetComponent<Components::TransformComp>() == nullptr)
                         newGo->AddComponent<Components::TransformComp>();
 
-					newGo->GetComponent<Components::TransformComp>()->Deserialize(CompElement);
+                    newGo->GetComponent<Components::TransformComp>()->Deserialize(CompElement);
                     break;
                 default:
-                    std::cerr << "ERROR : something went wrong when trying to load components on the XML loader\n Your component type is non-existent.";
+                    std::cerr <<
+                            "ERROR : something went wrong when trying to load components on the XML loader\n Your component type is non-existent.";
                     break;
                 }
             }

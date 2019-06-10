@@ -45,7 +45,7 @@ int main()
     renderer->SetupCulling();
 
 	Rendering::Managers::InputManager::Init(device->GetWindow());
-    Rendering::Managers::CameraManager m_camera(glm::vec3(20.0f, 10, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f), -180.0f, -25.0f, true);
+    Rendering::Managers::CameraManager m_camera(glm::vec3(20.0f, 10, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f), 0, 0, true);
 
     Core::RenderEngine m_renderEngine;
     Core::MeshManager modelManager;
@@ -78,6 +78,7 @@ int main()
         inputManager->UpdateCursorPos();
         m_camera.ProcessKeyInput(device->GetDeltaTime());
         m_camera.ProcessMouseInput();
+        gameobjects.Find("Gun")->GetComponent<Components::TransformComp>()->GetTransform()->SetTransMat(m_camera.GetCamera()->GetMatrix());
 		player.GetComponent<Components::PlayerComp>()->ProcessKeyInput(gameobjects, device->GetDeltaTime());
         renderer->Clear();  
         gameobjects.Update(device->GetDeltaTime());

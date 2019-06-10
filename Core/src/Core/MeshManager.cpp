@@ -34,6 +34,7 @@ void Core::MeshManager::LoadMeshes()
 {
     AddMesh(R"(..\Resources\Meshes\YoungLink.obj)");
     AddMesh(R"(..\Resources\Meshes\sphere.fbx)");
+    AddMesh(R"(..\Resources\Meshes\HuntingGun.obj)");
    /* AddMesh(R"(..\Resources\Meshes\plane.fbx)");
     AddMesh(R"(..\Resources\Meshes\torus.fbx)");
     AddMesh(R"(..\Resources\Meshes\gear.fbx)");

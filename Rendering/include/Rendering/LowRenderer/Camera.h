@@ -44,6 +44,7 @@ namespace Rendering::LowRenderer
 		const glm::vec3& GetUp() const noexcept { return m_up; }
 		const glm::vec3& GetRight() const noexcept { return m_right; }
 		const glm::vec3& GetWorldUp() const noexcept { return m_worldUp; }
+		const glm::mat4& GetMatrix() const noexcept { return m_matrix; }
 
 		const float& GetYaw() const noexcept { return m_yaw; }
 		const float& GetPitch() const noexcept { return m_pitch; }
@@ -63,7 +64,7 @@ namespace Rendering::LowRenderer
         glm::vec3 m_up{};
         glm::vec3 m_right{};
         glm::vec3 m_worldUp{};
-
+        glm::mat4 m_matrix{};
         //euler angles
         float m_yaw{-90.0f};
         float m_pitch{0.0f};
