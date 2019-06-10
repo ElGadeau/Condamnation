@@ -13,10 +13,7 @@
 Core::GameObjectManager::GameObjectManager(MeshManager& p_modelManager)
 {
 	// start make map
-    std::shared_ptr<GameObject> Castle = std::make_shared<Core::GameObject>(p_modelManager.GetMesh(2), p_modelManager.GetShader(0), "Castle");
-    std::shared_ptr<GameObject> Mario = std::make_shared<Core::GameObject>(p_modelManager.GetMesh(3), p_modelManager.GetShader(0), "Mario");
-    std::shared_ptr<GameObject> Link = std::make_shared<Core::GameObject>(p_modelManager.GetMesh(4), p_modelManager.GetShader(0), "Link");
-    std::shared_ptr<GameObject> Donkey = std::make_shared<Core::GameObject>(p_modelManager.GetMesh(5), p_modelManager.GetShader(0), "DK");
+    std::shared_ptr<GameObject> Castle = std::make_shared<Core::GameObject>(p_modelManager.GetMesh(0), p_modelManager.GetShader(0), "Castle");
     //std::shared_ptr<GameObject> RigidBody = std::make_shared<Core::GameObject>("RigidBody");
 	
     //Find("RigidBody")->AddComponent<Components::RigidBodyComp>();
@@ -73,20 +70,9 @@ Core::GameObjectManager::GameObjectManager(MeshManager& p_modelManager)
     DirLight->GetComponent<Components::LightComp>()->GetLight()->SetIntensity(0.0);
     //end lights
     
-    Mario->GetComponent<Components::TransformComp>()->GetTransform()->Translate({ 0, 10, 0 });
-    Mario->GetComponent<Components::TransformComp>()->GetTransform()->Rotate({ -90, 0, 0 });
-    Mario->GetComponent<Components::MaterialComp>()->GetMaterial()->LoadTexture("../Resources/Textures/mario_main.png");
 
-    Castle->GetComponent<Components::MaterialComp>()->GetMaterial()->LoadTexture("../Resources/Textures/Castle.png");
-    
-    Donkey->GetComponent<Components::MaterialComp>()->GetMaterial()->LoadTexture("../Resources/Textures/DK.png");
-    Donkey->GetComponent<Components::TransformComp>()->GetTransform()->Translate({ -5, 5, 0 });
-    Donkey->GetComponent<Components::TransformComp>()->GetTransform()->Rotate({ 0, 90, 0 });
-    Donkey->GetComponent<Components::TransformComp>()->GetTransform()->Scale({ 2, 2, 2 });
 
-    Link->GetComponent<Components::MaterialComp>()->GetMaterial()->LoadTexture("../Resources/Textures/Link.png");
-    Link->GetComponent<Components::TransformComp>()->GetTransform()->Translate({ 5, 5, 0 });
-    Link->GetComponent<Components::TransformComp>()->GetTransform()->Scale({ 0.1, 0.1, 0.1 });
+    Castle->GetComponent<Components::MaterialComp>()->GetMaterial()->LoadTexture("../Resources/Textures/youngLink.png");
 
     m_gameObjects.push_back(Torch1);
     m_gameObjects.push_back(Torch2);
@@ -97,10 +83,7 @@ Core::GameObjectManager::GameObjectManager(MeshManager& p_modelManager)
     m_gameObjects.push_back(OrangeLight);
     m_gameObjects.push_back(BlueLight);
 
-    m_gameObjects.push_back(Mario);
     m_gameObjects.push_back(Castle);
-    m_gameObjects.push_back(Link);
-    m_gameObjects.push_back(Donkey);
 	//LoadScene(p_modelManager);
 	SaveScene(p_modelManager);
 }
@@ -109,7 +92,6 @@ void Core::GameObjectManager::Update(const float& p_deltaTime)
 {
 
     m_angle += 0.005f * p_deltaTime;
-    //Find("Mario")->GetComponent<Components::TransformComp>()->GetTransform()->Rotate({ 1, 0, 0 });
     if (Find("BlueLight") != nullptr)
     {
         Find("BlueLight")->GetComponent<Components::TransformComp>()->GetTransform()->Rotate(glm::vec3(0, 1, 0) * p_deltaTime);

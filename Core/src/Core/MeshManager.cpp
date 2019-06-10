@@ -32,14 +32,9 @@ void Core::MeshManager::ReloadShader(std::vector<std::shared_ptr<Core::GameObjec
 
 void Core::MeshManager::LoadMeshes()
 {
-    AddMesh(R"(..\Resources\Meshes\cubetex.fbx)");
+    AddMesh(R"(..\Resources\Meshes\YoungLink.obj)");
     AddMesh(R"(..\Resources\Meshes\sphere.fbx)");
-    AddMesh(R"(..\Resources\Meshes\Castle.obj)");
-    AddMesh(R"(..\Resources\Meshes\Mario.obj)");
-    AddMesh(R"(..\Resources\Meshes\Link.obj)");
-    AddMesh(R"(..\Resources\Meshes\DK.obj)");
-    /*AddMesh(R"(..\Resources\Meshes\plane2.obj)");
-    AddMesh(R"(..\Resources\Meshes\plane.fbx)");
+   /* AddMesh(R"(..\Resources\Meshes\plane.fbx)");
     AddMesh(R"(..\Resources\Meshes\torus.fbx)");
     AddMesh(R"(..\Resources\Meshes\gear.fbx)");
     AddMesh(R"(..\Resources\Meshes\boby.fbx)");*/
