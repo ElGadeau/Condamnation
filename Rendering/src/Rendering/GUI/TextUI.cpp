@@ -4,30 +4,32 @@
 
 GUI::TextUI::TextUI()
 {
+    m_projection = glm::ortho(0.0f, static_cast<GLfloat>(1920), 0.0f,
+                              static_cast<GLfloat>(1080));
     LoadFont();
 }
 
 void GUI::TextUI::LoadFont()
 {
+    glEnable(GL_BLEND);
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
     FT_Library ft;
     if (FT_Init_FreeType(&ft))
         std::cout << "ERROR::FREETYPE: could not init freetype library\n";
 
-    // FT_Face face;
-    if (FT_New_Face(ft, R"(..\Resources\Font\Doom.ttf)", 0, &m_face))
+    FT_Face face;
+    if (FT_New_Face(ft, R"(..\Resources\Font\Doom.ttf)", 0, &face))
         std::cout << "ERROR::FREETYPRE: failed to load font\n";
 
-    FT_Set_Pixel_Sizes(m_face, 0, 48);
-
-    // if (FT_Load_Char(face, 'X', FT_LOAD_RENDER))
-    //     std::cout << "ERROR::FREETYPE: failed to load Glyph\n";
+    FT_Set_Pixel_Sizes(face, 0, 48);
 
     glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
 
     for (GLubyte c = 0; c < 128; c++)
     {
         //load character Glyph
-        if (FT_Load_Char(m_face, c, FT_LOAD_RENDER))
+        if (FT_Load_Char(face, c, FT_LOAD_RENDER))
         {
             std::cout << "ERROR::FREETYPE: failed to load Glyph\n";
             continue;
@@ -41,33 +43,56 @@ void GUI::TextUI::LoadFont()
                      GL_TEXTURE_2D,
                      0,
                      GL_RED,
-                     m_face->glyph->bitmap.width,
-                     m_face->glyph->bitmap.rows,
+                     face->glyph->bitmap.width,
+                     face->glyph->bitmap.rows,
                      0,
                      GL_RED,
                      GL_UNSIGNED_BYTE,
-                     m_face->glyph->bitmap.buffer
+                     face->glyph->bitmap.buffer
                     );
 
         //set texture options
+        // glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+        // glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+        // glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+        // glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 
         //now store the texture for later use
+        // Character character = {
+        // texture,
+        // glm::ivec2(m_face->glyph->bitmap.width, m_face->glyph->bitmap.rows),
+        // glm::ivec2(m_face->glyph->bitmap_left, m_face->glyph->bitmap_top),
+        // m_face->glyph->advance.x
+        // };
+        //
+        // Characters.insert(std::pair<GLchar, Character>(c, character));
+
         Character character = {
         texture,
-        glm::ivec2(m_face->glyph->bitmap.width, m_face->glyph->bitmap.rows),
-        glm::ivec2(m_face->glyph->bitmap_left, m_face->glyph->bitmap_top),
-        m_face->glyph->advance.x
+        glm::ivec2(face->glyph->bitmap.width, face->glyph->bitmap.rows),
+        glm::ivec2(face->glyph->bitmap_left, face->glyph->bitmap_top),
+        face->glyph->advance.x
         };
-
         Characters.insert(std::pair<GLchar, Character>(c, character));
     }
 
-    FT_Done_Face(m_face);
+    FT_Done_Face(face);
     FT_Done_FreeType(ft);
+
+    // glGenVertexArrays(1, &m_VAO);
+    // glGenBuffers(1, &m_VBO);
+    // glBindVertexArray(m_VAO);
+    // glBindBuffer(GL_ARRAY_BUFFER, m_VBO);
+    // glBufferData(GL_ARRAY_BUFFER, sizeof(GLfloat) * 6 * 4, NULL, GL_DYNAMIC_DRAW);
+    // glEnableVertexAttribArray(0);
+    // glVertexAttribPointer(0, 4, GL_FLOAT, GL_FALSE, 4 * sizeof(GLfloat), 0);
+    // glBindBuffer(GL_ARRAY_BUFFER, 0);
+    // glBindVertexArray(0);
 
     glGenVertexArrays(1, &m_VAO);
     glGenBuffers(1, &m_VBO);
@@ -87,6 +112,8 @@ void GUI::TextUI::RenderText(Rendering::Shaders::Shader& p_shader,
                              glm::vec3                   p_color)
 {
     p_shader.ApplyShader();
+    glUniformMatrix4fv(glGetUniformLocation(p_shader.shaderProgram, "projection"), 1,
+                       GL_FALSE, glm::value_ptr(m_projection));
     glUniform3f(glGetUniformLocation(p_shader.shaderProgram, "textColor"), p_color.x,
                 p_color.y, p_color.z);
     glActiveTexture(GL_TEXTURE0);
