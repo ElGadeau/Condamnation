@@ -22,6 +22,6 @@ namespace Rendering::Resources
     private:
 	    unsigned int m_texture;
 	    unsigned char* m_data;
-	    int m_Width, m_Height, m_BPP, m_texId;;
+	    int m_Width, m_Height, m_BPP, m_texId;
     };
 }

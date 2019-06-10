@@ -72,6 +72,9 @@ Core::GameObjectManager::GameObjectManager(MeshManager& p_modelManager)
     //end lights
 
     Castle->GetComponent<Components::MaterialComp>()->GetMaterial()->LoadTexture("../Resources/Textures/youngLink.png");
+    
+    Castle->AddComponent<Components::BoxColliderComp>()->SetCollider(Castle->GetComponent<Components::ModelComp>()->GetModel()->GetMesh()->m_positions);
+
     Gun->GetComponent<Components::MaterialComp>()->GetMaterial()->LoadTexture("../Resources/Textures/huntinggun.png");
     Gun->GetComponent<Components::TransformComp>()->GetTransform()->Scale({10, 10, 10});
 

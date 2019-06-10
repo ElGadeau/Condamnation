@@ -33,11 +33,6 @@ Core::GameObject::GameObject(const std::shared_ptr<Rendering::Resources::Mesh>& 
 	GetComponent<Components::ModelComp>()->GetModel()->SetShader(p_shader);
 
 	AddComponent<Components::MaterialComp>();
-
-	AddComponent<Components::BoxColliderComp>();
-
-	GetComponent<Components::BoxColliderComp>()->SetCollider(GetComponent<Components::ModelComp>()->GetModel()->GetMesh()->m_positions);
-	GetComponent<Components::BoxColliderComp>()->GetCollider()->SetBoundingBox();
 }
 
 void Core::GameObject::SetGameObjectMesh(std::shared_ptr<Rendering::Resources::Mesh>& p_mesh)
@@ -93,10 +88,12 @@ void Core::GameObject::ReloadShader()
 bool Core::GameObject::CollidesWith(const std::shared_ptr<Core::GameObject>& p_gameObject)
 {
     if (GetComponent<Components::BoxColliderComp>() == nullptr || p_gameObject->GetComponent<Components::BoxColliderComp>() == nullptr)
+    {
+        puts("Collider not found on one of the GameObjects !");
         return false;
+    }
 
     GetComponent<Components::BoxColliderComp>()->GetCollider()->UpdateBoundingBox();
-    //GetComponent<Components::BoxColliderComp>()->GetCollider()->PrintBoundingBox();
     p_gameObject->GetComponent<Components::BoxColliderComp>()->GetCollider()->UpdateBoundingBox();
 
     Physics::Collider& colliderOne = *GetComponent<Components::BoxColliderComp>()->GetCollider();
