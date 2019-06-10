@@ -13,6 +13,7 @@ void Components::LightComp::Serialize(XMLElement* p_compSegment, XMLDocument& p_
         newVariable->SetAttribute("z", m_light->GetPos().z);
         p_compSegment->InsertEndChild(newVariable);
     }
+
     if (m_light->GetColor() != glm::vec3(1))
     {
         newVariable = p_xmlDoc.NewElement("color");

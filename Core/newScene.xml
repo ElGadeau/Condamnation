@@ -165,7 +165,10 @@
                     <position x="0" y="5" z="10"/>
                 </Component>
                 <Component type="ModelComp"/>
-                <Component type="MaterialComp"/>
+                <Component type="MaterialComp">
+                    <color r="0" g="1" b="1"/>
+                    <shininess>1</shininess>
+                </Component>
                 <Component type="BoxColliderComp"/>
             </ComponentList>
         </GameObject>
@@ -175,7 +178,10 @@
                     <position x="0" y="5" z="0"/>
                 </Component>
                 <Component type="ModelComp"/>
-                <Component type="MaterialComp"/>
+                <Component type="MaterialComp">
+                    <color r="0.40000001" g="0.40000001" b="0.40000001"/>
+                    <shininess>1</shininess>
+                </Component>
                 <Component type="BoxColliderComp"/>
             </ComponentList>
         </GameObject>
