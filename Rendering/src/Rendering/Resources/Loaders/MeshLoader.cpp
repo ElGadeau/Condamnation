@@ -24,7 +24,8 @@ std::shared_ptr<Rendering::Resources::Mesh> Rendering::Resources::Loaders::MeshL
 		| aiProcess_Triangulate
 		| aiProcess_SortByPType
 		| aiProcess_GenNormals
-		| aiProcess_FixInfacingNormals
+		| aiProcess_FixInfacingNormals 
+		| aiProcess_GenUVCoords
         | aiProcess_FlipUVs
 		);
 
@@ -45,9 +46,13 @@ std::shared_ptr<Rendering::Resources::Mesh> Rendering::Resources::Loaders::MeshL
 
 			aiVector3D vert = t_mesh->mVertices[vertIdx];
 			aiVector3D norm = t_mesh->mNormals[vertIdx];
-            aiVector3D UV = t_mesh->mTextureCoords[0][vertIdx];
 
-            vertex.m_textCoords = glm::vec2(UV.x, UV.y);
+			if (t_mesh->HasTextureCoords(0))
+			{
+				aiVector3D UV = t_mesh->mTextureCoords[0][vertIdx];
+				vertex.m_textCoords = glm::vec2(UV.x, UV.y);
+			}
+
             vertex.m_position = glm::vec3(vert.x, vert.y , vert.z);
 			vertex.m_normal = glm::vec3(norm.x, norm.y , norm.z );
 
