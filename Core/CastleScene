@@ -109,7 +109,9 @@
                     <scale x="0.050000001" y="0.050000001" z="0.050000001"/>
                 </Component>
                 <Component type="ModelComp"/>
-                <Component type="MaterialComp"/>
+                <Component type="MaterialComp">
+                    <texture>../Resources/Textures/youngLink.png</texture>
+                </Component>
                 <Component type="BoxColliderComp"/>
                 <Component type="BoxColliderComp"/>
             </ComponentList>
@@ -132,7 +134,9 @@
                     <scale x="10" y="10" z="10"/>
                 </Component>
                 <Component type="ModelComp"/>
-                <Component type="MaterialComp"/>
+                <Component type="MaterialComp">
+                    <texture>../Resources/Textures/huntinggun.png</texture>
+                </Component>
                 <Component type="BoxColliderComp"/>
             </ComponentList>
         </GameObject>
