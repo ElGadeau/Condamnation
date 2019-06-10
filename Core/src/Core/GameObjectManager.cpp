@@ -78,7 +78,7 @@ Core::GameObjectManager::GameObjectManager(MeshManager& p_modelManager)
     Mario->GetComponent<Components::MaterialComp>()->GetMaterial()->LoadTexture("../Resources/Textures/mario_main.png");
 
     Castle->GetComponent<Components::MaterialComp>()->GetMaterial()->LoadTexture("../Resources/Textures/Castle.png");
-
+    
     Donkey->GetComponent<Components::MaterialComp>()->GetMaterial()->LoadTexture("../Resources/Textures/DK.png");
     Donkey->GetComponent<Components::TransformComp>()->GetTransform()->Translate({ -5, 5, 0 });
     Donkey->GetComponent<Components::TransformComp>()->GetTransform()->Rotate({ 0, 90, 0 });
