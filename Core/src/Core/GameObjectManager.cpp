@@ -131,7 +131,7 @@ int Core::GameObjectManager::SaveScene(const MeshManager& p_modelManager, const 
 #endif
 
 	XMLDocument xmlDoc;
-	XMLNode* root = xmlDoc.NewElement(p_scenename.c_str());
+	XMLNode* root = xmlDoc.NewElement("scene");
 	xmlDoc.InsertFirstChild(root);
 
 	XMLElement* GOList = xmlDoc.NewElement("GameObjectList");
@@ -169,7 +169,7 @@ int Core::GameObjectManager::SaveScene(const MeshManager& p_modelManager, const 
         GOList->InsertEndChild(GOelement);
     }
 
-	XMLError eResult = xmlDoc.SaveFile("newScene.xml");
+	XMLError eResult = xmlDoc.SaveFile(p_scenename.c_str());
 	XMLCheckResult(eResult);
 	return eResult;
 }

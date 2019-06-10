@@ -1,0 +1,113 @@
+<scene>
+    <GameObjectList count="8">
+        <GameObject name="Torch1" mesh="1" shader="1">
+            <ComponentList count="5">
+                <Component type="TransformComp">
+                    <position x="60" y="25" z="60"/>
+                </Component>
+                <Component type="ModelComp"/>
+                <Component type="MaterialComp"/>
+                <Component type="BoxColliderComp"/>
+                <Component type="LightComp">
+                    <position x="60" y="25" z="60"/>
+                    <color r="1" g="0" b="0"/>
+                    <intensity>400</intensity>
+                </Component>
+            </ComponentList>
+        </GameObject>
+        <GameObject name="Torch2" mesh="1" shader="1">
+            <ComponentList count="5">
+                <Component type="TransformComp">
+                    <position x="-60" y="25" z="-60"/>
+                </Component>
+                <Component type="ModelComp"/>
+                <Component type="MaterialComp"/>
+                <Component type="BoxColliderComp"/>
+                <Component type="LightComp">
+                    <position x="-60" y="25" z="-60"/>
+                    <color r="0" g="1" b="0"/>
+                    <intensity>400</intensity>
+                </Component>
+            </ComponentList>
+        </GameObject>
+        <GameObject name="Torch3" mesh="1" shader="1">
+            <ComponentList count="5">
+                <Component type="TransformComp">
+                    <position x="60" y="25" z="-60"/>
+                </Component>
+                <Component type="ModelComp"/>
+                <Component type="MaterialComp"/>
+                <Component type="BoxColliderComp"/>
+                <Component type="LightComp">
+                    <position x="60" y="25" z="-60"/>
+                    <color r="0" g="0" b="1"/>
+                    <intensity>400</intensity>
+                </Component>
+            </ComponentList>
+        </GameObject>
+        <GameObject name="Torch4" mesh="1" shader="1">
+            <ComponentList count="5">
+                <Component type="TransformComp">
+                    <position x="-60" y="25" z="60"/>
+                </Component>
+                <Component type="ModelComp"/>
+                <Component type="MaterialComp"/>
+                <Component type="BoxColliderComp"/>
+                <Component type="LightComp">
+                    <position x="-60" y="25" z="60"/>
+                    <color r="1" g="0" b="1"/>
+                    <intensity>400</intensity>
+                </Component>
+            </ComponentList>
+        </GameObject>
+        <GameObject name="Directionnal" mesh="1" shader="1">
+            <ComponentList count="5">
+                <Component type="TransformComp">
+                    <position x="0" y="25" z="0"/>
+                </Component>
+                <Component type="ModelComp"/>
+                <Component type="MaterialComp"/>
+                <Component type="BoxColliderComp"/>
+                <Component type="LightComp">
+                    <position x="0" y="25" z="0"/>
+                    <color r="0" g="0" b="0"/>
+                </Component>
+            </ComponentList>
+        </GameObject>
+        <GameObject name="OrangeLight" mesh="1" shader="1">
+            <ComponentList count="5">
+                <Component type="TransformComp"/>
+                <Component type="ModelComp"/>
+                <Component type="MaterialComp"/>
+                <Component type="BoxColliderComp"/>
+                <Component type="LightComp">
+                    <color r="0" g="1" b="1"/>
+                    <intensity>10</intensity>
+                </Component>
+            </ComponentList>
+        </GameObject>
+        <GameObject name="BlueLight" mesh="1" shader="1">
+            <ComponentList count="5">
+                <Component type="TransformComp">
+                    <position x="0" y="40" z="0"/>
+                </Component>
+                <Component type="ModelComp"/>
+                <Component type="MaterialComp"/>
+                <Component type="BoxColliderComp"/>
+                <Component type="LightComp">
+                    <position x="0" y="40" z="0"/>
+                    <color r="1" g="1" b="0"/>
+                    <intensity>400</intensity>
+                </Component>
+            </ComponentList>
+        </GameObject>
+        <GameObject name="Castle" mesh="0" shader="0">
+            <ComponentList count="4">
+                <Component type="TransformComp"/>
+                <Component type="ModelComp"/>
+                <Component type="MaterialComp"/>
+                <Component type="BoxColliderComp"/>
+            </ComponentList>
+        </GameObject>
+    </GameObjectList>
+</scene>
