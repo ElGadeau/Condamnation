@@ -11,10 +11,13 @@ namespace Physics
     class API_PHYSICS RigidBody
     {
     public:
-        RigidBody() = default;
+		RigidBody() = default;
+		RigidBody(glm::vec3& p_pos);
         ~RigidBody() = default;
 
-        glm::vec3& GetPosition() { return m_position; }
+		[[nodiscard]] glm::vec3& GetPosition();
+
+		void SetPosition(const glm::vec3& p_pos);
 
     private:
         glm::vec3 m_position;

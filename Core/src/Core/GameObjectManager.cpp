@@ -13,7 +13,20 @@
 Core::GameObjectManager::GameObjectManager(MeshManager& p_modelManager)
 {
 	// start make map
-    std::shared_ptr<GameObject> Castle = std::make_shared<Core::GameObject>(p_modelManager.GetMesh(0), p_modelManager.GetShader(0), "Castle");
+    std::shared_ptr<GameObject> Link = std::make_shared<Core::GameObject>(p_modelManager.GetMesh(0), p_modelManager.GetShader(0), "Link");
+    std::shared_ptr<GameObject> floor = std::make_shared<Core::GameObject>(p_modelManager.GetMesh(2), p_modelManager.GetShader(0), "Floor");
+
+	floor->AddComponent<Components::BoxColliderComp>();
+	floor->AddComponent<Components::RigidBodyComp>(this);
+	floor->GetComponent<Components::TransformComp>()->GetTransform()->Scale(glm::vec3( 20, 1, 20));
+	floor->GetComponent<Components::TransformComp>()->GetTransform()->Rotate(glm::vec3( 90, 0, 0));
+	floor->GetComponent<Components::RigidBodyComp>()->SetKinematic(true);
+
+	Link->GetComponent<Components::TransformComp>()->GetTransform()->Scale(glm::vec3(0.05, 0.05, 0.05));
+	Link->GetComponent<Components::TransformComp>()->GetTransform()->Translate(glm::vec3(10.0, 100, 0.0));
+	Link->GetComponent<Components::TransformComp>()->GetTransform()->Rotate(glm::vec3(90, 0, 0));
+	Link->AddComponent<Components::BoxColliderComp>();
+	Link->AddComponent<Components::RigidBodyComp>(this);
     //std::shared_ptr<GameObject> RigidBody = std::make_shared<Core::GameObject>("RigidBody");
 	
     //Find("RigidBody")->AddComponent<Components::RigidBodyComp>();
@@ -72,7 +85,7 @@ Core::GameObjectManager::GameObjectManager(MeshManager& p_modelManager)
     
 
 
-    Castle->GetComponent<Components::MaterialComp>()->GetMaterial()->LoadTexture("../Resources/Textures/youngLink.png");
+    Link->GetComponent<Components::MaterialComp>()->GetMaterial()->LoadTexture("../Resources/Textures/youngLink.png");
 
     m_gameObjects.push_back(Torch1);
     m_gameObjects.push_back(Torch2);
@@ -83,7 +96,8 @@ Core::GameObjectManager::GameObjectManager(MeshManager& p_modelManager)
     m_gameObjects.push_back(OrangeLight);
     m_gameObjects.push_back(BlueLight);
 
-    m_gameObjects.push_back(Castle);
+    m_gameObjects.push_back(Link);
+    m_gameObjects.push_back(floor);
 	//LoadScene(p_modelManager);
 	SaveScene(p_modelManager);
 }

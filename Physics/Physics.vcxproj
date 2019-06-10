@@ -26,6 +26,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Physics\BoxCollider.cpp" />
+    <ClCompile Include="src\Physics\RigidBody.cpp" />
     <ClCompile Include="src\stdafx.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
