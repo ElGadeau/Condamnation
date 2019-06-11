@@ -12,13 +12,72 @@
 
 Core::GameObjectManager::GameObjectManager(MeshManager& p_modelManager)
 {
-    // start make map
     std::shared_ptr<GameObject> Castle = std::make_shared<Core::GameObject>(p_modelManager.GetMesh(0), p_modelManager.GetShader(0), "Castle");
     std::shared_ptr<GameObject> Gun = std::make_shared<Core::GameObject>(p_modelManager.GetMesh(2), p_modelManager.GetShader(0), "Gun");
-    //std::shared_ptr<GameObject> RigidBody = std::make_shared<Core::GameObject>("RigidBody");
+    std::shared_ptr<GameObject> Floor = std::make_shared<Core::GameObject>(p_modelManager.GetMesh(3), p_modelManager.GetShader(0), "Floor");
+    std::shared_ptr<GameObject> Wall1 = std::make_shared<Core::GameObject>(p_modelManager.GetMesh(3), p_modelManager.GetShader(0), "Wall1");
+    std::shared_ptr<GameObject> Wall2 = std::make_shared<Core::GameObject>(p_modelManager.GetMesh(3), p_modelManager.GetShader(0), "Wall2");
+    std::shared_ptr<GameObject> Wall3 = std::make_shared<Core::GameObject>(p_modelManager.GetMesh(3), p_modelManager.GetShader(0), "Wall3");
+    std::shared_ptr<GameObject> Wall4 = std::make_shared<Core::GameObject>(p_modelManager.GetMesh(3), p_modelManager.GetShader(0), "Wall4");
+    std::shared_ptr<GameObject> Wall5 = std::make_shared<Core::GameObject>(p_modelManager.GetMesh(3), p_modelManager.GetShader(0), "Wall5");
+    std::shared_ptr<GameObject> Ramp = std::make_shared<Core::GameObject>(p_modelManager.GetMesh(3), p_modelManager.GetShader(0), "Ramp");
+    std::shared_ptr<GameObject> Ceiling = std::make_shared<Core::GameObject>(p_modelManager.GetMesh(3), p_modelManager.GetShader(0), "Ceiling");
 
-    //Find("RigidBody")->AddComponent<Components::RigidBodyComp>();
-    // make map
+    // start make map
+	Floor->GetComponent<Components::TransformComp>()->GetTransform()->Scale({ 5, 1, 5 });
+	Floor->AddComponent<Components::BoxColliderComp>()->SetCollider(Floor->GetComponent<Components::ModelComp>()->GetModel()->GetMesh()->m_positions);
+	Floor->AddComponent<Components::RigidBodyComp>(this)->SetKinematic(true);
+	Floor->GetComponent<Components::MaterialComp>()->GetMaterial()->LoadTexture("../Resources/Textures/bricks.jpg");
+
+	Wall1->GetComponent<Components::TransformComp>()->GetTransform()->Translate({ 0, 5, 99 });
+	Wall1->AddComponent<Components::RigidBodyComp>(this)->SetKinematic(true);
+	Wall1->GetComponent<Components::MaterialComp>()->GetMaterial()->LoadTexture("../Resources/Textures/bricks.jpg");
+	Wall1->GetComponent<Components::TransformComp>()->GetTransform()->Rotate({ 90, 0, 0 });
+	Wall1->AddComponent<Components::BoxColliderComp>()->SetCollider(Floor->GetComponent<Components::ModelComp>()->GetModel()->GetMesh()->m_positions);
+	Wall1->GetComponent<Components::TransformComp>()->GetTransform()->Scale({ 5, 0.5, 1 });
+
+	Wall2->GetComponent<Components::TransformComp>()->GetTransform()->Translate({ 0, 5, -99 });
+	Wall2->AddComponent<Components::RigidBodyComp>(this)->SetKinematic(true);
+	Wall2->GetComponent<Components::MaterialComp>()->GetMaterial()->LoadTexture("../Resources/Textures/bricks.jpg");
+	Wall2->GetComponent<Components::TransformComp>()->GetTransform()->Rotate({ 90, 0, 0 });
+	Wall2->AddComponent<Components::BoxColliderComp>()->SetCollider(Floor->GetComponent<Components::ModelComp>()->GetModel()->GetMesh()->m_positions);
+	Wall2->GetComponent<Components::TransformComp>()->GetTransform()->Scale({ 5, 0.5, 1 });
+
+	Wall3->GetComponent<Components::TransformComp>()->GetTransform()->Translate({ 99, 5, 0 });
+	Wall3->AddComponent<Components::RigidBodyComp>(this)->SetKinematic(true);
+	Wall3->GetComponent<Components::MaterialComp>()->GetMaterial()->LoadTexture("../Resources/Textures/bricks.jpg");
+	Wall3->GetComponent<Components::TransformComp>()->GetTransform()->Rotate({ 90, 0, 90 });
+	Wall3->AddComponent<Components::BoxColliderComp>()->SetCollider(Floor->GetComponent<Components::ModelComp>()->GetModel()->GetMesh()->m_positions);
+	Wall3->GetComponent<Components::TransformComp>()->GetTransform()->Scale({ 5, 0.5, 1 });
+
+	Wall4->GetComponent<Components::TransformComp>()->GetTransform()->Translate({ -99, 5, 0 });
+	Wall4->AddComponent<Components::RigidBodyComp>(this)->SetKinematic(true);
+	Wall4->GetComponent<Components::MaterialComp>()->GetMaterial()->LoadTexture("../Resources/Textures/bricks.jpg");
+	Wall4->GetComponent<Components::TransformComp>()->GetTransform()->Rotate({ 90, 0, 90 });
+	Wall4->AddComponent<Components::BoxColliderComp>()->SetCollider(Floor->GetComponent<Components::ModelComp>()->GetModel()->GetMesh()->m_positions);
+	Wall4->GetComponent<Components::TransformComp>()->GetTransform()->Scale({ 5, 0.5, 1 });
+
+	Wall5->GetComponent<Components::TransformComp>()->GetTransform()->Translate({ 0, 5, 0 });
+	Wall5->AddComponent<Components::RigidBodyComp>(this)->SetKinematic(true);
+	Wall5->GetComponent<Components::MaterialComp>()->GetMaterial()->LoadTexture("../Resources/Textures/bricks.jpg");
+	Wall5->GetComponent<Components::TransformComp>()->GetTransform()->Rotate({ 90, 0, 0 });
+	Wall5->AddComponent<Components::BoxColliderComp>()->SetCollider(Floor->GetComponent<Components::ModelComp>()->GetModel()->GetMesh()->m_positions);
+	Wall5->GetComponent<Components::TransformComp>()->GetTransform()->Scale({ 3, 0.2, 1 });
+
+	Ramp->GetComponent<Components::TransformComp>()->GetTransform()->Translate({ -80, 8, -90 });
+	Ramp->AddComponent<Components::RigidBodyComp>(this)->SetKinematic(true);
+	Ramp->GetComponent<Components::MaterialComp>()->GetMaterial()->LoadTexture("../Resources/Textures/bricks.jpg");
+	Ramp->GetComponent<Components::TransformComp>()->GetTransform()->Rotate({ 0, 90, 0 });
+	Ramp->GetComponent<Components::TransformComp>()->GetTransform()->Rotate({ 22, 90, 0 });
+	Ramp->AddComponent<Components::BoxColliderComp>()->SetCollider(Floor->GetComponent<Components::ModelComp>()->GetModel()->GetMesh()->m_positions);
+	Ramp->GetComponent<Components::TransformComp>()->GetTransform()->Scale({ 1.2, 0.2, 0.56 });
+
+	Ceiling->GetComponent<Components::TransformComp>()->GetTransform()->Translate({0, 13, 20});
+	Ceiling->AddComponent<Components::RigidBodyComp>(this)->SetKinematic(true);
+	Ceiling->GetComponent<Components::MaterialComp>()->GetMaterial()->LoadTexture("../Resources/Textures/bricks.jpg");
+	Ceiling->GetComponent<Components::TransformComp>()->GetTransform()->Scale({ 5, 1, 5 });
+	Ceiling->AddComponent<Components::BoxColliderComp>()->SetCollider(Floor->GetComponent<Components::ModelComp>()->GetModel()->GetMesh()->m_positions);
+    // end make map
 
     std::shared_ptr<GameObject> DirLight = std::make_shared<Core::GameObject>(p_modelManager.GetMesh(1), p_modelManager.GetShader(1), "Directionnal");
     std::shared_ptr<GameObject> OrangeLight = std::make_shared<Core::GameObject>(p_modelManager.GetMesh(1), p_modelManager.GetShader(1), "OrangeLight");
@@ -72,11 +131,22 @@ Core::GameObjectManager::GameObjectManager(MeshManager& p_modelManager)
     //end lights
 
     Castle->GetComponent<Components::MaterialComp>()->GetMaterial()->LoadTexture("../Resources/Textures/youngLink.png");
-    
+    Castle->GetComponent<Components::TransformComp>()->GetTransform()->Scale({0.05, 0.05, 0.05});
+    Castle->GetComponent<Components::TransformComp>()->GetTransform()->Translate({0.0, 80, 0.05});
     Castle->AddComponent<Components::BoxColliderComp>()->SetCollider(Castle->GetComponent<Components::ModelComp>()->GetModel()->GetMesh()->m_positions);
+	Castle->AddComponent<Components::RigidBodyComp>(this)->AddForce({ 0.2, -0.5, 0.3 });
 
     Gun->GetComponent<Components::MaterialComp>()->GetMaterial()->LoadTexture("../Resources/Textures/huntinggun.png");
     Gun->GetComponent<Components::TransformComp>()->GetTransform()->Scale({10, 10, 10});
+
+    m_gameObjects.push_back(Floor);
+    m_gameObjects.push_back(Wall1);
+    m_gameObjects.push_back(Wall2);
+    m_gameObjects.push_back(Wall3);
+    m_gameObjects.push_back(Wall4);
+    m_gameObjects.push_back(Wall5);
+    m_gameObjects.push_back(Ramp);
+    m_gameObjects.push_back(Ceiling);
 
     m_gameObjects.push_back(Torch1);
     m_gameObjects.push_back(Torch2);
