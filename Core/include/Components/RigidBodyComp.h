@@ -18,9 +18,6 @@ namespace Components
 
 		virtual ~RigidBodyComp() = default;
 
-		void SetKinematic(bool p_kin) { m_isKinematic = p_kin; }
-        void AddForce(const glm::vec3& p_force) { m_force += p_force * 0.001f; };
-        void ResetVelocity() { m_velocity = glm::vec3(0, 0, 0); }
 
 
         void Update() override
@@ -61,11 +58,24 @@ namespace Components
 
 		void Serialize(XMLElement* p_compSegment, XMLDocument& p_xmlDoc) const noexcept override {}
 		void Deserialize(XMLElement* p_compSegment) const noexcept override {}
+        
+        const glm::vec3& GetVelocity() { return m_velocity; }
+        const glm::vec3& GetForce() { return m_force; }
+       
+        void SetVelocity(const glm::vec3& p_velocity) { m_velocity = p_velocity; }
+        void SetForce(const glm::vec3& p_force) { m_force = p_force; }
 
-    public:
+
+		void SetKinematic(bool p_kin) { m_isKinematic = p_kin; }
+        void AddForce(const glm::vec3& p_force) { m_force += p_force * 0.001f; };
+        void ResetVelocity() { m_velocity = glm::vec3(0, 0, 0); }
+
+        std::unique_ptr<Physics::RigidBody>& GetRigidBody() { return m_rigidbody; }
+
+    private:
 		bool m_isKinematic = false;
 		bool m_isColliding = false;
-		//glm::vec3 m_deltaPos;
+
         glm::vec3 m_velocity{};
 		glm::vec3 m_force{};
 
