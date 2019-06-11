@@ -82,14 +82,15 @@ void Rendering::Managers::CameraManager::ProcessMouseInput()
     const float yaw = m_camera->GetYaw();
     const float pitch = m_camera->GetPitch();
 
-    m_camera->SetYaw(yaw + xOffset) ;
-    m_camera->SetPitch(pitch + yOffset) ;
-
-    if (pitch > 89.0f)
-        m_camera->SetPitch(89.0f);
-    if (pitch < -89.0f)
-        m_camera->SetPitch(-89.0f);
-
+    if (pitch + yOffset > 75.0f)
+        m_camera->SetPitch(74.0f);
+    else if (pitch + yOffset < -75.0f)
+        m_camera->SetPitch(-74.0f);
+    else
+    {
+        m_camera->SetPitch(pitch + yOffset);
+    }
+        m_camera->SetYaw(yaw + xOffset);
     // Update Front, Right and Up Vectors using the updated Euler angles
     m_camera->UpdateCameraVectors();
 }

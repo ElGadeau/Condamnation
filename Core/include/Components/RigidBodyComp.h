@@ -1,9 +1,11 @@
 #pragma once
 
+#include <Physics/RigidBody.h>
+
 #include <Components/Component.h>
 #include <Components/TransformComp.h>
-#include <Physics/RigidBody.h>
 #include <Core/GameObject.h>
+#include <Core/GameObjectManager.h>
 
 namespace Components
 {
@@ -13,7 +15,7 @@ namespace Components
 		RigidBodyComp(Core::GameObject& p_gameObject, Core::GameObjectManager* p_gameObjectManager) : m_gameObject{ p_gameObject },
 			m_gameObjectManager{ p_gameObjectManager }, m_rigidbody{ std::make_unique<Physics::RigidBody>() } 
         {
-            m_rigidbody->SetPosition(m_gameObject.GetComponent<Components::TransformComp>()->GetTransform()->GetPosition());
+            m_rigidbody->SetPosition(m_gameObject.GetComponent<TransformComp>()->GetTransform()->GetPosition());
         }
 
 		virtual ~RigidBodyComp() = default;
@@ -56,8 +58,8 @@ namespace Components
             }
         }
 
-		void Serialize(XMLElement* p_compSegment, XMLDocument& p_xmlDoc) const noexcept override {}
-		void Deserialize(XMLElement* p_compSegment) const noexcept override {}
+        void Serialize(XMLElement* p_compSegment, XMLDocument& p_xmlDoc) const noexcept override;
+        void Deserialize(XMLElement* p_compSegment) const noexcept override;
         
         const glm::vec3& GetVelocity() { return m_velocity; }
         const glm::vec3& GetForce() { return m_force; }

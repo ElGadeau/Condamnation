@@ -20,7 +20,7 @@ namespace Components
         
         void Serialize(XMLElement* p_compSegment, XMLDocument& p_xmlDoc) const noexcept override;
         void Deserialize(XMLElement* p_compSegment) const noexcept override;
-        private:
+    private:
         std::shared_ptr<Rendering::LowRenderer::Material> m_material;
 		Core::GameObject& m_gameObject;
     };
