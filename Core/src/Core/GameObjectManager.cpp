@@ -12,7 +12,7 @@
 
 Core::GameObjectManager::GameObjectManager(MeshManager& p_modelManager)
 {
-    std::shared_ptr<GameObject> Castle = std::make_shared<Core::GameObject>(p_modelManager.GetMesh(0), p_modelManager.GetShader(0), "Castle");
+    //std::shared_ptr<GameObject> Castle = std::make_shared<Core::GameObject>(p_modelManager.GetMesh(0), p_modelManager.GetShader(0), "Castle");
     std::shared_ptr<GameObject> Gun = std::make_shared<Core::GameObject>(p_modelManager.GetMesh(2), p_modelManager.GetShader(0), "Gun");
     std::shared_ptr<GameObject> Floor = std::make_shared<Core::GameObject>(p_modelManager.GetMesh(3), p_modelManager.GetShader(0), "Floor");
     std::shared_ptr<GameObject> Wall1 = std::make_shared<Core::GameObject>(p_modelManager.GetMesh(3), p_modelManager.GetShader(0), "Wall1");
@@ -130,11 +130,11 @@ Core::GameObjectManager::GameObjectManager(MeshManager& p_modelManager)
     DirLight->GetComponent<Components::LightComp>()->GetLight()->SetIntensity(0.0);
     //end lights
 
-    Castle->GetComponent<Components::MaterialComp>()->GetMaterial()->LoadTexture("../Resources/Textures/youngLink.png");
+   /* Castle->GetComponent<Components::MaterialComp>()->GetMaterial()->LoadTexture("../Resources/Textures/youngLink.png");
     Castle->GetComponent<Components::TransformComp>()->GetTransform()->Scale({0.05, 0.05, 0.05});
     Castle->GetComponent<Components::TransformComp>()->GetTransform()->Translate({0.0, 80, 0.05});
     Castle->AddComponent<Components::BoxColliderComp>()->SetCollider(Castle->GetComponent<Components::ModelComp>()->GetModel()->GetMesh()->m_positions);
-	Castle->AddComponent<Components::RigidBodyComp>(this)->AddForce({ 0.2, -0.5, 0.3 });
+	Castle->AddComponent<Components::RigidBodyComp>(this)->AddForce({ 0.2, -0.5, 0.3 });*/
 
     Gun->GetComponent<Components::MaterialComp>()->GetMaterial()->LoadTexture("../Resources/Textures/huntinggun.png");
     Gun->GetComponent<Components::TransformComp>()->GetTransform()->Scale({10, 10, 10});
@@ -157,7 +157,7 @@ Core::GameObjectManager::GameObjectManager(MeshManager& p_modelManager)
     m_gameObjects.push_back(OrangeLight);
     m_gameObjects.push_back(BlueLight);
 
-    m_gameObjects.push_back(Castle);
+   // m_gameObjects.push_back(Castle);
     m_gameObjects.push_back(Gun);
 	//LoadScene(p_modelManager);
 	SaveScene(p_modelManager, "CastleScene");
