@@ -170,7 +170,7 @@ Core::GameObjectManager::GameObjectManager(MeshManager& p_modelManager)
     m_gameObjects.push_back(Castle);
     m_gameObjects.push_back(Gun);
 	//LoadScene(p_modelManager);
-	SaveScene(p_modelManager, "CastleScene");
+	//SaveScene(p_modelManager, "CastleScene");
 }
 
 void Core::GameObjectManager::Update(const float& p_deltaTime)
