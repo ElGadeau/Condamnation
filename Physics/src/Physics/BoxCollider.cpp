@@ -2,7 +2,7 @@
 
 #include <Physics/BoxCollider.h>
 
-Physics::Collider::Collider(std::vector<glm::vec3>& p_vec) : m_points{ p_vec }
+Physics::Collider::Collider(std::vector<glm::vec3>& p_vec) : m_points( p_vec )
 {
     m_modelMat = glm::mat4(1.0f);
     m_pos = glm::vec3(0, 0, 0);

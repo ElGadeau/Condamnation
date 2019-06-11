@@ -109,7 +109,6 @@ bool Core::GameObject::CollidesWith(const std::shared_ptr<Core::GameObject>& p_g
 
     if(isOverlapping)
     {
-        std::cout << m_name << "Collided with " << p_gameObject->m_name << "\n";
         return true;
     }
 

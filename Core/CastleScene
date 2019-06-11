@@ -1,5 +1,5 @@
 <scene>
-    <GameObjectList count="16">
+    <GameObjectList count="17">
         <GameObject name="Floor" mesh="3" shader="0">
             <ComponentList count="5">
                 <Component type="TransformComp">
@@ -209,6 +209,20 @@
                     <color r="1" g="1" b="0"/>
                     <intensity>400</intensity>
                 </Component>
+            </ComponentList>
+        </GameObject>
+        <GameObject name="Castle" mesh="0" shader="0">
+            <ComponentList count="5">
+                <Component type="TransformComp">
+                    <position x="10" y="5" z="10"/>
+                    <scale x="0.050000001" y="0.050000001" z="0.050000001"/>
+                </Component>
+                <Component type="ModelComp"/>
+                <Component type="MaterialComp">
+                    <texture>../Resources/Textures/youngLink.png</texture>
+                </Component>
+                <Component type="BoxColliderComp"/>
+                <Component type="RigidBodyComp"/>
             </ComponentList>
         </GameObject>
         <GameObject name="Gun" mesh="2" shader="0">

@@ -9,10 +9,12 @@
 #include <Components/ModelComp.h>
 
 #include <unordered_map>
+#include "Components/PlayerComp.h"
 
 Core::GameObjectManager::GameObjectManager(MeshManager& p_modelManager)
 {
     std::shared_ptr<GameObject> Castle = std::make_shared<Core::GameObject>(p_modelManager.GetMesh(0), p_modelManager.GetShader(0), "Castle");
+    std::shared_ptr<GameObject> Player = std::make_shared<Core::GameObject>(p_modelManager.GetMesh(0), p_modelManager.GetShader(0), "Player");
     std::shared_ptr<GameObject> Gun = std::make_shared<Core::GameObject>(p_modelManager.GetMesh(2), p_modelManager.GetShader(0), "Gun");
     std::shared_ptr<GameObject> Floor = std::make_shared<Core::GameObject>(p_modelManager.GetMesh(3), p_modelManager.GetShader(0), "Floor");
     std::shared_ptr<GameObject> Wall1 = std::make_shared<Core::GameObject>(p_modelManager.GetMesh(3), p_modelManager.GetShader(0), "Wall1");
@@ -28,6 +30,7 @@ Core::GameObjectManager::GameObjectManager(MeshManager& p_modelManager)
 	Floor->AddComponent<Components::BoxColliderComp>()->SetCollider(Floor->GetComponent<Components::ModelComp>()->GetModel()->GetMesh()->m_positions);
 	Floor->AddComponent<Components::RigidBodyComp>(this)->SetKinematic(true);
 	Floor->GetComponent<Components::MaterialComp>()->GetMaterial()->LoadTexture("../Resources/Textures/bricks.jpg");
+	Floor->SetTag("NonDestructable");
 
 	Wall1->GetComponent<Components::TransformComp>()->GetTransform()->Translate({ 0, 5, 99 });
 	Wall1->AddComponent<Components::RigidBodyComp>(this)->SetKinematic(true);
@@ -35,6 +38,7 @@ Core::GameObjectManager::GameObjectManager(MeshManager& p_modelManager)
 	Wall1->GetComponent<Components::TransformComp>()->GetTransform()->Rotate({ 90, 0, 0 });
 	Wall1->AddComponent<Components::BoxColliderComp>()->SetCollider(Wall1->GetComponent<Components::ModelComp>()->GetModel()->GetMesh()->m_positions);
 	Wall1->GetComponent<Components::TransformComp>()->GetTransform()->Scale({ 5, 0.5, 1 });
+	Wall1->SetTag("NonDestructable");
 
 	Wall2->GetComponent<Components::TransformComp>()->GetTransform()->Translate({ 0, 5, -99 });
 	Wall2->AddComponent<Components::RigidBodyComp>(this)->SetKinematic(true);
@@ -42,6 +46,7 @@ Core::GameObjectManager::GameObjectManager(MeshManager& p_modelManager)
 	Wall2->GetComponent<Components::TransformComp>()->GetTransform()->Rotate({ 90, 0, 0 });
 	Wall2->AddComponent<Components::BoxColliderComp>()->SetCollider(Wall2->GetComponent<Components::ModelComp>()->GetModel()->GetMesh()->m_positions);
 	Wall2->GetComponent<Components::TransformComp>()->GetTransform()->Scale({ 5, 0.5, 1 });
+	Wall2->SetTag("NonDestructable");
 
 	Wall3->GetComponent<Components::TransformComp>()->GetTransform()->Translate({ 99, 5, 0 });
 	Wall3->AddComponent<Components::RigidBodyComp>(this)->SetKinematic(true);
@@ -49,6 +54,7 @@ Core::GameObjectManager::GameObjectManager(MeshManager& p_modelManager)
 	Wall3->GetComponent<Components::TransformComp>()->GetTransform()->Rotate({ 90, 0, 90 });
 	Wall3->AddComponent<Components::BoxColliderComp>()->SetCollider(Wall3->GetComponent<Components::ModelComp>()->GetModel()->GetMesh()->m_positions);
 	Wall3->GetComponent<Components::TransformComp>()->GetTransform()->Scale({ 5, 0.5, 1 });
+	Wall3->SetTag("NonDestructable");
 
 	Wall4->GetComponent<Components::TransformComp>()->GetTransform()->Translate({ -99, 5, 0 });
 	Wall4->AddComponent<Components::RigidBodyComp>(this)->SetKinematic(true);
@@ -56,6 +62,7 @@ Core::GameObjectManager::GameObjectManager(MeshManager& p_modelManager)
 	Wall4->GetComponent<Components::TransformComp>()->GetTransform()->Rotate({ 90, 0, 90 });
 	Wall4->AddComponent<Components::BoxColliderComp>()->SetCollider(Wall4->GetComponent<Components::ModelComp>()->GetModel()->GetMesh()->m_positions);
 	Wall4->GetComponent<Components::TransformComp>()->GetTransform()->Scale({ 5, 0.5, 1 });
+	Wall4->SetTag("NonDestructable");
 
 	Wall5->GetComponent<Components::TransformComp>()->GetTransform()->Translate({ 0, 5, 0 });
 	Wall5->AddComponent<Components::RigidBodyComp>(this)->SetKinematic(true);
@@ -63,6 +70,7 @@ Core::GameObjectManager::GameObjectManager(MeshManager& p_modelManager)
 	Wall5->GetComponent<Components::TransformComp>()->GetTransform()->Rotate({ 90, 0, 0 });
 	Wall5->AddComponent<Components::BoxColliderComp>()->SetCollider(Wall5->GetComponent<Components::ModelComp>()->GetModel()->GetMesh()->m_positions);
 	Wall5->GetComponent<Components::TransformComp>()->GetTransform()->Scale({ 3, 0.2, 1 });
+	Wall5->SetTag("NonDestructable");
 
 	Ramp->GetComponent<Components::TransformComp>()->GetTransform()->Translate({ -80, 8, -90 });
 	Ramp->AddComponent<Components::RigidBodyComp>(this)->SetKinematic(true);
@@ -71,12 +79,14 @@ Core::GameObjectManager::GameObjectManager(MeshManager& p_modelManager)
 	Ramp->GetComponent<Components::TransformComp>()->GetTransform()->Rotate({ 22, 90, 0 });
 	Ramp->AddComponent<Components::BoxColliderComp>()->SetCollider(Ramp->GetComponent<Components::ModelComp>()->GetModel()->GetMesh()->m_positions);
 	Ramp->GetComponent<Components::TransformComp>()->GetTransform()->Scale({ 1.2, 0.2, 0.56 });
+	Ramp->SetTag("NonDestructable");
 
 	Ceiling->GetComponent<Components::TransformComp>()->GetTransform()->Translate({0, 13, 20});
 	Ceiling->AddComponent<Components::RigidBodyComp>(this)->SetKinematic(true);
 	Ceiling->GetComponent<Components::MaterialComp>()->GetMaterial()->LoadTexture("../Resources/Textures/bricks.jpg");
 	Ceiling->GetComponent<Components::TransformComp>()->GetTransform()->Scale({ 5, 1, 5 });
 	Ceiling->AddComponent<Components::BoxColliderComp>()->SetCollider(Ceiling->GetComponent<Components::ModelComp>()->GetModel()->GetMesh()->m_positions);
+	Ceiling->SetTag("NonDestructable");
     // end make map
 
     std::shared_ptr<GameObject> DirLight = std::make_shared<Core::GameObject>(p_modelManager.GetMesh(1), p_modelManager.GetShader(1), "Directionnal");

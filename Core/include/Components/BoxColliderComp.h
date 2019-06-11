@@ -20,6 +20,7 @@ namespace Components
             m_collider = std::make_shared<Physics::Collider>(p_vec); 
             m_collider->SetBoundingBox();
         }
+
 		[[nodiscard]] std::shared_ptr<Physics::Collider> GetCollider() const noexcept { return m_collider; }
 
 		void Update() override {}
