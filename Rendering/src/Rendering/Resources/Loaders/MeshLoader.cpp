@@ -29,6 +29,8 @@ std::shared_ptr<Rendering::Resources::Mesh> Rendering::Resources::Loaders::MeshL
         | aiProcess_FlipUVs
 		);
 
+    assert(m_scene != nullptr);
+
     if (m_scene == nullptr)
     {
         puts("Mesh Path error");

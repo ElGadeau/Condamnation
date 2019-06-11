@@ -8,7 +8,7 @@ GLFWWindow* GLFWWindow::m_instance;
 
 GLFWWindow::GLFWWindow()
 {
-    m_glfwWindow = glfwCreateWindow(1920, 1080, "Hello World", glfwGetPrimaryMonitor(), nullptr);
+    m_glfwWindow = glfwCreateWindow(1920, 1080, "Hello World", nullptr, nullptr);
 
     assert(m_instance == nullptr);
     m_instance = this;

@@ -18,9 +18,7 @@ namespace Components
             m_rigidbody->SetPosition(m_gameObject.GetComponent<TransformComp>()->GetTransform()->GetPosition());
         }
 
-		virtual ~RigidBodyComp() = default;
-
-
+		~RigidBodyComp() = default;
 
         void Update() override
         {
@@ -68,17 +66,16 @@ namespace Components
        
         void SetVelocity(const glm::vec3& p_velocity) { m_velocity = p_velocity; }
         void SetForce(const glm::vec3& p_force) { m_force = p_force; }
-
-
 		void SetKinematic(bool p_kin) { m_isKinematic = p_kin; }
+
         void AddForce(const glm::vec3& p_force) { m_force += p_force * 0.001f; };
         void ResetVelocity() { m_velocity = glm::vec3(0, 0, 0); }
 
         std::unique_ptr<Physics::RigidBody>& GetRigidBody() { return m_rigidbody; }
 
     private:
-		bool m_isKinematic = false;
-		bool m_isColliding = false;
+        bool m_isKinematic{ false };
+        bool m_isColliding{ false };
 
         glm::vec3 m_velocity{};
 		glm::vec3 m_force{};

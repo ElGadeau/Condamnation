@@ -198,7 +198,7 @@ void Core::GameObjectManager::Update(const float& p_deltaTime)
     }
 }
 
-int Core::GameObjectManager::SaveScene(const MeshManager& p_modelManager, const std::string& p_scenename)
+int Core::GameObjectManager::SaveScene(const MeshManager& p_modelManager, const std::string& p_sceneName)
 {
     using namespace tinyxml2;
 
@@ -254,7 +254,7 @@ int Core::GameObjectManager::SaveScene(const MeshManager& p_modelManager, const 
         GOList->InsertEndChild(GOelement);
     }
 
-	XMLError eResult = xmlDoc.SaveFile(p_scenename.c_str());
+	XMLError eResult = xmlDoc.SaveFile((p_sceneName + ".xml").c_str());
 	XMLCheckResult(eResult);
 	return eResult;
 }
@@ -277,7 +277,7 @@ int Core::GameObjectManager::LoadScene(const MeshManager& p_modelManager, const 
 #endif
 
     XMLDocument xmlDoc;
-    XMLError    eResult = xmlDoc.LoadFile(p_sceneName.c_str());
+    XMLError    eResult = xmlDoc.LoadFile((p_sceneName + ".xml").c_str());
     XMLCheckResult(eResult);
 
     XMLNode* root = xmlDoc.FirstChild();
@@ -339,6 +339,8 @@ int Core::GameObjectManager::LoadScene(const MeshManager& p_modelManager, const 
                 case 0: //boxColliderComp
                     if (newGo->GetComponent<Components::BoxColliderComp>() == nullptr)
                         newGo->AddComponent<Components::BoxColliderComp>();
+
+                    newGo->GetComponent<Components::BoxColliderComp>()->Deserialize(CompElement);
                     break;
                 case 1: //LightComp
                     if (newGo->GetComponent<Components::LightComp>() == nullptr)
