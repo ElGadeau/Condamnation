@@ -29,10 +29,12 @@ namespace Components
             {
 				if (glm::distance(gameObject->GetComponent<TransformComp>()->GetTransform()->GetPosition(),
 					m_gameObject.GetComponent<TransformComp>()->GetTransform()->GetPosition()) > 100
-					//|| gameObject->GetComponent<RigidBodyComp>() == nullptr
+					|| gameObject->GetComponent<RigidBodyComp>() == nullptr
 					|| m_gameObject == *gameObject
 					|| m_isKinematic == true)
 					continue;
+
+				gameObject->GetComponent<RigidBodyComp>()->AddForce({ 0, -4, 0 });
 
                 if (m_gameObject.CollidesWith(gameObject))
                 {

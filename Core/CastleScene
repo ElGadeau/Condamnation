@@ -227,10 +227,12 @@
         </GameObject>
         <GameObject name="Gun" mesh="2" shader="0">
             <ComponentList count="3">
-                <Component type="TransformComp"/>
+                <Component type="TransformComp">
+                    <scale x="10" y="10" z="10"/>
+                </Component>
                 <Component type="ModelComp"/>
                 <Component type="MaterialComp">
-                    <texture>../Resources/Textures/pistol.jpg</texture>
+                    <texture>../Resources/Textures/huntinggun.png</texture>
                 </Component>
             </ComponentList>
         </GameObject>

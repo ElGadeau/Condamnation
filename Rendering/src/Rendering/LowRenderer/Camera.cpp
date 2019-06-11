@@ -32,10 +32,15 @@ void Rendering::LowRenderer::Camera::UpdateCameraVectors()
                                         -m_right.z, m_up.z, m_front.z, m_position.z,
                                          0, 0, 0, 1));
 
-    glm::mat4 tmp = transpose(glm::mat4(1, 0, 0, -0.1f,
-        0, 1, 0, -0.2f,
-        0, 0, 1, 0,
+    glm::mat4 tmp = transpose(glm::mat4(
+        1, 0, 0, -1.0f,
+        0, 1, 0, -2.0f,
+        0, 0, 1, 5,
         0, 0, 0, 1));
+
+    tmp = scale(tmp, glm::vec3(0.1, 0.1, 0.1));
+    tmp = rotate(tmp, glm::radians(-90.0f), glm::vec3( 1, 0, 0 ));
+    tmp = rotate(tmp, glm::radians(-90.0f), glm::vec3( 0, 0, 1 ));
 
     m_matrix *= tmp;
 

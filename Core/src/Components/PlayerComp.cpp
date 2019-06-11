@@ -4,12 +4,35 @@
 #include <Components/BoxColliderComp.h>
 #include <Components/TransformComp.h>
 #include <Utils/Ray.h>
+#include <Components/RigidBodyComp.h>
 
 void Components::PlayerComp::ProcessKeyInput(Core::GameObjectManager& p_gameManager, const double & p_deltaTime)
 {
+    Rendering::Managers::InputManager* inputManager = &*Rendering::Managers::InputManager::GetInstance();
+
+	if (inputManager->GetKey(Rendering::Managers::InputManager::KeyCode::W)) //move forward
+	{
+		MovePlayer(m_camera->GetFront() * static_cast<float>(p_deltaTime));
+	}
+	if (inputManager->GetKey(Rendering::Managers::InputManager::KeyCode::S)) //move backward
+	{
+		MovePlayer(-m_camera->GetFront() * static_cast<float>(p_deltaTime));
+	}
+	if (inputManager->GetKey(Rendering::Managers::InputManager::KeyCode::A)) //move left
+	{
+		MovePlayer(-m_camera->GetRight() * static_cast<float>(p_deltaTime));
+	}
+	if (inputManager->GetKey(Rendering::Managers::InputManager::KeyCode::D)) //move right
+	{
+		MovePlayer(m_camera->GetRight() * static_cast<float>(p_deltaTime));
+	}
 	if (Rendering::Managers::InputManager::GetInstance()->GetKey(Rendering::Managers::InputManager::KeyCode::Space))
 	{
-		std::shared_ptr<Core::GameObject> collision = Utils::RayCast(m_gameObject, m_camera->GetFront(), p_gameManager);
+        if (m_gameObject.GetComponent<RigidBodyComp>() != nullptr)
+        {
+			m_gameObject.GetComponent<RigidBodyComp>()->AddForce({ 0, 15, 0 });
+        }
+		std::shared_ptr<Core::GameObject> collision = Utils::RayCast(m_gameObject, m_camera->GetFront(), p_gameManager, 1000);
 		if (collision != nullptr)
 		{
 			p_gameManager.RemoveGameObject(collision);
@@ -19,10 +42,11 @@ void Components::PlayerComp::ProcessKeyInput(Core::GameObjectManager& p_gameMana
 
 void Components::PlayerComp::Update()
 {
-	m_gameObject.GetComponent<TransformComp>()->GetTransform()->SetPosition(m_camera->GetPosition());
+	m_camera->SetPosition(m_gameObject.GetComponent<TransformComp>()->GetTransform()->GetPosition());
+	//m_gameObject.GetComponent<TransformComp>()->GetTransform()->SetPosition(m_camera->GetPosition());
 }
 
-std::shared_ptr<Core::GameObject> Components::PlayerComp::RayCast(Core::GameObjectManager& p_gameManager) const
+std::shared_ptr<Core::GameObject> Components::PlayerComp::RayCast(Core::GameObjectManager& p_gameManager, int p_maxDistance = 100) const
 {
 	glm::vec3 currPos = m_gameObject.GetComponent<TransformComp>()->GetTransform()->GetPosition() + m_camera->GetFront();
 	glm::vec3 cameraFront = glm::normalize(m_camera->GetFront());
@@ -30,18 +54,17 @@ std::shared_ptr<Core::GameObject> Components::PlayerComp::RayCast(Core::GameObje
 	cameraFront.y /= 10.0f;
 	cameraFront.z /= 10.0f;
 
-	//std::cout << "camera front: " << m_camera->GetFront().x << ", " << m_camera->GetFront().y << ", " << m_camera->GetFront().z << '\n';
-
-	for (int i = 0; i < 100; ++i)
+	for (int i = 0; i < p_maxDistance; ++i)
 	{
 		for (auto& gameObject : p_gameManager.GetGameObjects())
 		{
 			if (&*gameObject == &m_gameObject ||
 				 glm::distance(gameObject->GetComponent<TransformComp>()->GetTransform()->GetPosition(), 
-					 m_gameObject.GetComponent<TransformComp>()->GetTransform()->GetPosition()) > 100 ||
+					 m_gameObject.GetComponent<TransformComp>()->GetTransform()->GetPosition()) > p_maxDistance ||
 				gameObject->GetComponent<TransformComp>() == nullptr ||
 				gameObject->GetComponent<ModelComp>() == nullptr ||
-				gameObject->GetComponent<BoxColliderComp>() == nullptr)
+				gameObject->GetComponent<BoxColliderComp>() == nullptr ||
+				gameObject->GetTag() == "NonDestructable")
 				continue;
 
 			currPos = currPos + cameraFront;
@@ -60,6 +83,11 @@ std::shared_ptr<Core::GameObject> Components::PlayerComp::RayCast(Core::GameObje
 		}
 	}
 		return {};
+}
+
+void Components::PlayerComp::MovePlayer(const glm::vec3& p_direction) const
+{
+	m_gameObject.GetComponent<Components::TransformComp>()->GetTransform()->SetPosition(m_camera->GetPosition() + p_direction * m_camera->GetMovementSpeed());
 }
 
 void Components::PlayerComp::Serialize(XMLElement* p_compSegment, XMLDocument& p_xmlDoc) const noexcept
