@@ -17,7 +17,7 @@ void Components::TransformComp::Update()
 
 void Components::TransformComp::Serialize(XMLElement* p_compSegment, XMLDocument& p_xmlDoc) const noexcept
 {
-        XMLElement* newVariable;
+    XMLElement* newVariable;
     if (m_transform->GetPosition() != glm::vec3(0))
     {
         newVariable = p_xmlDoc.NewElement("position");

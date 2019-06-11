@@ -77,6 +77,7 @@ int main()
 
     while (!device->ShouldClose())
     {
+        renderer->Clear();  
         device->CalculateDeltaTime();
         device->RefreshEvents();
 		//Utils::RayCast(gameobjects.Find("Player"), m_camera.GetCamera()->GetFront(), gameobjects);
@@ -92,7 +93,6 @@ int main()
         m_camera.ProcessMouseInput();
         gameobjects.Find("Gun")->GetComponent<Components::TransformComp>()->GetTransform()->SetTransMat(m_camera.GetCamera()->GetMatrix());
 		player.GetComponent<Components::PlayerComp>()->ProcessKeyInput(gameobjects, device->GetDeltaTime());
-        renderer->Clear();  
         gameobjects.Update(device->GetDeltaTime());
                 
         m_renderEngine.DrawElements(gameobjects.GetGameObjects(), lights, *m_camera.GetCamera(), *renderer);

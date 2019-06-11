@@ -1,10 +1,10 @@
 #include <Components/PlayerComp.h>
-#include <Components/BulletComp.h>
 #include <Core/GameObjectManager.h>
-#include "Components/ModelComp.h"
+#include <Components/ModelComp.h>
 #include <Components/BoxColliderComp.h>
-#include "Utils/Ray.h"
-#include "Components/RigidBodyComp.h"
+#include <Components/TransformComp.h>
+#include <Utils/Ray.h>
+#include <Components/RigidBodyComp.h>
 
 void Components::PlayerComp::ProcessKeyInput(Core::GameObjectManager& p_gameManager, const double & p_deltaTime)
 {
