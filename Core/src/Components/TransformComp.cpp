@@ -1,5 +1,3 @@
-#include <iostream>
-
 #include <Components/TransformComp.h>
 
 void Components::TransformComp::Update()

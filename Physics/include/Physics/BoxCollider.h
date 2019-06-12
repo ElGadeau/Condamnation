@@ -25,21 +25,19 @@ namespace Physics
         [[nodiscard]] glm::vec4& GetMinVec() noexcept { return m_minVec; }
         [[nodiscard]] glm::vec3& GetPosVec() noexcept { return m_pos; }
         [[nodiscard]] std::vector<glm::vec3>& GetPoints() const noexcept { return m_points; }
-
-        void SetCollisionVector(const glm::vec3& p_vec) { m_collisionVector = p_vec; }
         glm::vec3& GetCollisionVector() { return m_collisionVector; }
 
-		void SetPoints(std::vector<glm::vec3>& p_points) { m_points = p_points; }
+        void SetCollisionVector(const glm::vec3& p_vec) { m_collisionVector = p_vec; }
+		void SetPoints(std::vector<glm::vec3>& p_points) const { m_points = p_points; }
 
     private:
+        glm::vec3 m_collisionVector{0, 0, 0};
+        glm::vec3 m_pos;
+
         glm::vec4 m_maxVectmp;
         glm::vec4 m_minVectmp;
         glm::vec4 m_maxVec;
         glm::vec4 m_minVec;
-
-        glm::vec3 m_collisionVector{0, 0, 0};
-
-        glm::vec3 m_pos;
 
         glm::mat4 m_modelMat;
 

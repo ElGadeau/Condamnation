@@ -1,7 +1,6 @@
 #pragma once
 #include <Core/GameObject.h>
 #include <Core/GameObjectManager.h>
-#include <Rendering/Managers/InputManager.h>
 
 namespace Components
 {
@@ -15,7 +14,6 @@ namespace Components
 		void ProcessKeyInput(Core::GameObjectManager& p_gameManager, const double & p_deltaTime);
 		void Update() override;
 		std::shared_ptr<Core::GameObject> RayCast(Core::GameObjectManager& p_gameManager, int p_maxDistance) const;
-
 		void MovePlayer(const glm::vec3 & p_direction) const;
 
         void Serialize(XMLElement* p_compSegment, XMLDocument& p_xmlDoc) const noexcept override;

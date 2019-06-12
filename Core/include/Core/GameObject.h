@@ -20,18 +20,17 @@ namespace Core
 
         void SetGameObjectMesh(std::shared_ptr<Rendering::Resources::Mesh>& p_mesh);
         void SetModelShader(std::shared_ptr<Rendering::Shaders::Shader>& p_shader);
+		void SetTag(const std::string& p_tag) { m_tag = p_tag; }
 
-        void Update(Rendering::LowRenderer::Camera& cam, std::vector<GameObject>& p_lights);
-        void ReloadShader();
-
-        bool CollidesWith(const std::shared_ptr<GameObject>& p_gameObjects);
-        void ResolveCollisions(std::vector<std::shared_ptr<GameObject>>& p_gameObjects);
 		const std::string& GetName() const noexcept { return m_name; }
 		std::shared_ptr<GameObject> GetParent() const noexcept { return m_parent; }
 		std::shared_ptr<GameObject> GetChild() const noexcept { return m_child; }
 		const std::string& GetTag() const noexcept { return m_tag; }
 
-		void SetTag(const std::string& p_tag) { m_tag = p_tag; }
+        void Update(Rendering::LowRenderer::Camera& cam, std::vector<GameObject>& p_lights);
+        void ReloadShader();
+        bool CollidesWith(const std::shared_ptr<GameObject>& p_gameObjects);
+
         template<class ComponentType, typename ... args>
         ComponentType* AddComponent(args ... p_args)
         {

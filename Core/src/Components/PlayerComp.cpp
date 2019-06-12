@@ -43,7 +43,6 @@ void Components::PlayerComp::ProcessKeyInput(Core::GameObjectManager& p_gameMana
 void Components::PlayerComp::Update()
 {
 	m_camera->SetPosition(m_gameObject.GetComponent<TransformComp>()->GetTransform()->GetPosition());
-	//m_gameObject.GetComponent<TransformComp>()->GetTransform()->SetPosition(m_camera->GetPosition());
 }
 
 std::shared_ptr<Core::GameObject> Components::PlayerComp::RayCast(Core::GameObjectManager& p_gameManager, int p_maxDistance = 100) const
@@ -70,7 +69,6 @@ std::shared_ptr<Core::GameObject> Components::PlayerComp::RayCast(Core::GameObje
 			currPos = currPos + cameraFront;
 			glm::vec4 minVec = gameObject->GetComponent<BoxColliderComp>()->GetCollider()->GetMinVec();
 			glm::vec4 maxVec = gameObject->GetComponent<BoxColliderComp>()->GetCollider()->GetMaxVec();
-			//gameObject->GetComponent<BoxColliderComp>()->GetCollider()->PrintBoundingBox();
 
 			if (maxVec.x > currPos.x && minVec.x < currPos.x &&
 				maxVec.y > currPos.y && minVec.y < currPos.y &&

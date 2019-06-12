@@ -1,7 +1,5 @@
 #pragma once
 
-#include <glm/ext.hpp>
-
 #include <Physics/BoxCollider.h>
 
 #include <Components/Component.h>
@@ -15,8 +13,8 @@ namespace Components
 		BoxColliderComp(Core::GameObject& p_gameObject) : m_gameObject{ p_gameObject } {}
 		~BoxColliderComp() = default;
 
-
 		[[nodiscard]] std::shared_ptr<Physics::Collider> GetCollider() const noexcept { return m_collider; }
+
 		void SetCollider(std::vector<glm::vec3>& p_vec) 
         { 
             m_collider = std::make_shared<Physics::Collider>(p_vec); 

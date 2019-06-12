@@ -17,7 +17,7 @@ namespace Components
 			m_localTransform{ std::make_shared<Rendering::LowRenderer::Transform>() } {}
 		~TransformComp() = default;
 
-		void SetLocalTransformPos(const glm::vec3& p_pos) { m_localTransform->SetPosition(p_pos); }
+		void SetLocalTransformPos(const glm::vec3& p_pos) const { m_localTransform->SetPosition(p_pos); }
 		void SetChild()
 		{
 			m_child->SetParent();

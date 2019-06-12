@@ -22,18 +22,6 @@ namespace Components
 
         void Update() override
         {
-            /*for (auto& gameObject: m_gameObjectManager->GetGameObjects())
-            {
-				if (glm::distance(gameObject->GetComponent<TransformComp>()->GetTransform()->GetPosition(),
-					m_gameObject.GetComponent<TransformComp>()->GetTransform()->GetPosition()) > 100
-                    m_gameObject.GetComponent<Components::RigidBodyComp>() == nullptr
-					|| m_gameObject == *gameObject
-					|| m_isKinematic == true)
-					continue;
-
-            }*/
-
-           // m_gameObject.CollidesWith(m_gameObjectManager->Find("Ceiling"));
             if (!m_isKinematic)
             {
                 AddForce({0, -0.01f, 0});

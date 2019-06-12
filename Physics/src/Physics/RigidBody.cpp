@@ -3,10 +3,7 @@
 #include <Physics/RigidBody.h>
 
 
-Physics::RigidBody::RigidBody(glm::vec3& p_pos)
-{
-	m_position = p_pos;
-}
+Physics::RigidBody::RigidBody(glm::vec3& p_pos) : m_position{ p_pos } {}
 
 glm::vec3& Physics::RigidBody::GetPosition()
 {

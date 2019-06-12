@@ -13,8 +13,8 @@
 
 Core::GameObjectManager::GameObjectManager(MeshManager& p_modelManager, Rendering::Managers::CameraManager& p_camera)
 {
-    std::shared_ptr<GameObject> Castle = std::make_shared<Core::GameObject>(p_modelManager.GetMesh(0), p_modelManager.GetShader(0), "Castle");
-    std::shared_ptr<GameObject> Castle2 = std::make_shared<Core::GameObject>(p_modelManager.GetMesh(0), p_modelManager.GetShader(0), "Castle2");
+    std::shared_ptr<GameObject> Link = std::make_shared<Core::GameObject>(p_modelManager.GetMesh(0), p_modelManager.GetShader(0), "Link");
+    std::shared_ptr<GameObject> Link2 = std::make_shared<Core::GameObject>(p_modelManager.GetMesh(0), p_modelManager.GetShader(0), "Link2");
     std::shared_ptr<GameObject> Player = std::make_shared<Core::GameObject>(p_modelManager.GetMesh(0), p_modelManager.GetShader(0), "Player");
     std::shared_ptr<GameObject> Gun = std::make_shared<Core::GameObject>(p_modelManager.GetMesh(2), p_modelManager.GetShader(0), "Gun");
     std::shared_ptr<GameObject> Floor = std::make_shared<Core::GameObject>(p_modelManager.GetMesh(3), p_modelManager.GetShader(0), "Ceiling");
@@ -28,8 +28,6 @@ Core::GameObjectManager::GameObjectManager(MeshManager& p_modelManager, Renderin
     std::shared_ptr<GameObject> player = std::make_shared<Core::GameObject>(p_modelManager.GetMesh(1), p_modelManager.GetShader(0), "Player");
 
     player->GetComponent<Components::TransformComp>()->GetTransform()->Translate({ -70, 120, 0 });
-    //player->AddComponent<Components::BoxColliderComp>()->SetCollider(player->GetComponent<Components::ModelComp>()->GetModel()->GetMesh()->m_positions);
-    //player->AddComponent<Components::RigidBodyComp>(this);
     player->AddComponent<Components::PlayerComp>(p_camera.GetCamera(), 100);
 
 
@@ -148,17 +146,17 @@ Core::GameObjectManager::GameObjectManager(MeshManager& p_modelManager, Renderin
     DirLight->GetComponent<Components::LightComp>()->GetLight()->SetIntensity(0.0);
     //end lights
 
-    Castle->GetComponent<Components::TransformComp>()->GetTransform()->SetPosition({10, 60, 10});
-    Castle->GetComponent<Components::MaterialComp>()->GetMaterial()->LoadTexture("../Resources/Textures/youngLink.png");
-    Castle->GetComponent<Components::TransformComp>()->GetTransform()->Scale({0.05, 0.05, 0.05});
-    Castle->AddComponent<Components::BoxColliderComp>()->SetCollider(Castle->GetComponent<Components::ModelComp>()->GetModel()->GetMesh()->m_positions);
-	Castle->AddComponent<Components::RigidBodyComp>(this);
+    Link->GetComponent<Components::TransformComp>()->GetTransform()->SetPosition({10, 60, 10});
+    Link->GetComponent<Components::MaterialComp>()->GetMaterial()->LoadTexture("../Resources/Textures/youngLink.png");
+    Link->GetComponent<Components::TransformComp>()->GetTransform()->Scale({0.05, 0.05, 0.05});
+    Link->AddComponent<Components::BoxColliderComp>()->SetCollider(Link->GetComponent<Components::ModelComp>()->GetModel()->GetMesh()->m_positions);
+	Link->AddComponent<Components::RigidBodyComp>(this);
 
-    Castle2->GetComponent<Components::TransformComp>()->GetTransform()->SetPosition({ 0, 80, 10 });
-    Castle2->GetComponent<Components::MaterialComp>()->GetMaterial()->LoadTexture("../Resources/Textures/youngLink.png");
-    Castle2->GetComponent<Components::TransformComp>()->GetTransform()->Scale({ 0.05, 0.05, 0.05 });
-    Castle2->AddComponent<Components::BoxColliderComp>()->SetCollider(Castle->GetComponent<Components::ModelComp>()->GetModel()->GetMesh()->m_positions);
-    Castle2->AddComponent<Components::RigidBodyComp>(this);
+    Link2->GetComponent<Components::TransformComp>()->GetTransform()->SetPosition({ 0, 80, 10 });
+    Link2->GetComponent<Components::MaterialComp>()->GetMaterial()->LoadTexture("../Resources/Textures/youngLink.png");
+    Link2->GetComponent<Components::TransformComp>()->GetTransform()->Scale({ 0.05, 0.05, 0.05 });
+    Link2->AddComponent<Components::BoxColliderComp>()->SetCollider(Link2->GetComponent<Components::ModelComp>()->GetModel()->GetMesh()->m_positions);
+    Link2->AddComponent<Components::RigidBodyComp>(this);
 
 
     Gun->GetComponent<Components::MaterialComp>()->GetMaterial()->LoadTexture("../Resources/Textures/huntinggun.png");
@@ -182,18 +180,19 @@ Core::GameObjectManager::GameObjectManager(MeshManager& p_modelManager, Renderin
     m_gameObjects.push_back(OrangeLight);
     m_gameObjects.push_back(BlueLight);
 
-    m_gameObjects.push_back(Castle);
-    m_gameObjects.push_back(Castle2);
+    m_gameObjects.push_back(Link);
+    m_gameObjects.push_back(Link2);
     m_gameObjects.push_back(Gun);
     m_gameObjects.push_back(player);
-	//LoadScene(p_modelManager);
-	//SaveScene(p_modelManager, "CastleScene");
 }
 
 void Core::GameObjectManager::Update(const float& p_deltaTime)
 {
-    Find("Player")->GetComponent<Components::PlayerComp>()->ProcessKeyInput(*this, p_deltaTime);
+    if (Find("Player") != nullptr)
+        Find("Player")->GetComponent<Components::PlayerComp>()->ProcessKeyInput(*this, p_deltaTime);
+
     m_angle += 0.005f * p_deltaTime;
+
     if (Find("BlueLight") != nullptr)
     {
         Find("BlueLight")->GetComponent<Components::TransformComp>()->GetTransform()->Rotate(glm::vec3(0, 1, 0) * p_deltaTime);

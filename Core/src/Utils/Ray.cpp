@@ -27,7 +27,6 @@ std::shared_ptr<Core::GameObject> Utils::RayCast(std::shared_ptr<Core::GameObjec
 			currPos = currPos + direction;
 			glm::vec4 minVec = gameObject->GetComponent<Components::BoxColliderComp>()->GetCollider()->GetMinVec();
 			glm::vec4 maxVec = gameObject->GetComponent<Components::BoxColliderComp>()->GetCollider()->GetMaxVec();
-			//gameObject->GetComponent<BoxColliderComp>()->GetCollider()->PrintBoundingBox();
 
 			if (maxVec.x > currPos.x && minVec.x < currPos.x &&
 				maxVec.y > currPos.y && minVec.y < currPos.y &&
@@ -65,13 +64,11 @@ std::shared_ptr<Core::GameObject> Utils::RayCast(Core::GameObject& p_origin, con
 			currPos = currPos + direction;
 			glm::vec4 minVec = gameObject->GetComponent<Components::BoxColliderComp>()->GetCollider()->GetMinVec();
 			glm::vec4 maxVec = gameObject->GetComponent<Components::BoxColliderComp>()->GetCollider()->GetMaxVec();
-			//gameObject->GetComponent<BoxColliderComp>()->GetCollider()->PrintBoundingBox();
 
 			if (maxVec.x > currPos.x && minVec.x < currPos.x &&
 				maxVec.y > currPos.y && minVec.y < currPos.y &&
 				maxVec.z > currPos.z && minVec.z < currPos.z)
 			{
-				std::cout << p_origin.GetName() << " raycast collision with " << gameObject->GetName() << '\n';
 				return gameObject;
 			}
 
