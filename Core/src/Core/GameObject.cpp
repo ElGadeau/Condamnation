@@ -11,6 +11,7 @@
 #include <Components/LightComp.h>
 #include <Components/MaterialComp.h>
 #include <Components/BoxColliderComp.h>
+#include <Components/RigidBodyComp.h>
 
 
 Core::GameObject::GameObject()
@@ -89,7 +90,7 @@ bool Core::GameObject::CollidesWith(const std::shared_ptr<Core::GameObject>& p_g
 {
     if (GetComponent<Components::BoxColliderComp>() == nullptr || p_gameObject->GetComponent<Components::BoxColliderComp>() == nullptr)
     {
-        puts("Collider not found on one of the GameObjects !");
+        //puts("Collider not found on one of the GameObjects !");
         return false;
     }
 
@@ -100,57 +101,55 @@ bool Core::GameObject::CollidesWith(const std::shared_ptr<Core::GameObject>& p_g
     Physics::Collider& colliderTwo = *p_gameObject->GetComponent<Components::BoxColliderComp>()->GetCollider();
 
     bool isOverlapping = true;
-    if (colliderOne.GetMaxVec().x < colliderTwo.GetMinVec().x || colliderOne.GetMinVec().x > colliderTwo.GetMaxVec().x)
+    if (colliderOne.GetMaxVec().x < colliderTwo.GetMinVec().x)
+    {
         isOverlapping = false;
-    if (colliderOne.GetMaxVec().y < colliderTwo.GetMinVec().y || colliderOne.GetMinVec().y > colliderTwo.GetMaxVec().y)
+    }
+
+    if (colliderOne.GetMinVec().x > colliderTwo.GetMaxVec().x)
+    {
         isOverlapping = false;
-    if (colliderOne.GetMaxVec().z < colliderTwo.GetMinVec().z || colliderOne.GetMinVec().z > colliderTwo.GetMaxVec().z)
+    }
+
+    if (colliderOne.GetMaxVec().y < colliderTwo.GetMinVec().y) 
+    {
         isOverlapping = false;
+    }
+
+    if (colliderOne.GetMinVec().y > colliderTwo.GetMaxVec().y)
+    {
+        isOverlapping = false;
+    }
+
+    if (colliderOne.GetMaxVec().z < colliderTwo.GetMinVec().z)
+    {
+        isOverlapping = false;
+    }
+
+    if (colliderOne.GetMinVec().z > colliderTwo.GetMaxVec().z)
+    {
+        isOverlapping = false;
+    }
 
     if(isOverlapping)
     {
-        std::cout << m_name << "Collided with " << p_gameObject->m_name << "\n";
-        return true;
-    }
-
-    return false;
-}
-
-void Core::GameObject::ResolveCollisions(std::vector<std::shared_ptr<Core::GameObject>>& p_gameObjects)
-{
-    //TODO : resolve collisions for physics simulation
-
-    /*for (unsigned int k = 0; k < p_gameObjects.size(); ++k)
-    {
-        p_gameObjects[k]->GetComponent<Components::BoxColliderComp>()->GetCollider()->UpdateBoundingBox();
-       // p_gameObjects[k]->GetComponent<Components::BoxColliderComp>()->m_collider->PrintBoundingBox();
-    }
-
-    for (unsigned int i = 0; i < p_gameObjects.size(); ++i)
-    {
-        for (unsigned int j = 0; j < p_gameObjects.size(); ++j)
-        {
-            if (p_gameObjects[i]->m_name != p_gameObjects[j]->m_name)
+            if (p_gameObject->GetName() == "Floor")
             {
-                Physics::Collider& colliderOne = *p_gameObjects[i]->GetComponent<Components::BoxColliderComp>()->GetCollider();
-                Physics::Collider& colliderTwo = *p_gameObjects[j]->GetComponent<Components::BoxColliderComp>()->GetCollider();
-
-                bool isOverlapping = true;
-                if (colliderOne.maxVec.x < colliderTwo.minVec.x || colliderOne.minVec.x > colliderTwo.maxVec.x)
-                    isOverlapping = false;
-                if (colliderOne.maxVec.y < colliderTwo.minVec.y || colliderOne.minVec.y > colliderTwo.maxVec.y)
-                    isOverlapping = false;
-                if (colliderOne.maxVec.z < colliderTwo.minVec.z || colliderOne.minVec.z > colliderTwo.maxVec.z)
-                    isOverlapping = false;
-
-                if (isOverlapping)
+                if (GetComponent<Components::RigidBodyComp>() != nullptr)
                 {
-                    std::cout << p_gameObjects[i]->m_name << " Collided with " << p_gameObjects[j]->m_name << std::endl;
-                    puts(" ");
+                    GetComponent<Components::RigidBodyComp>()->SetMinY(p_gameObject->GetComponent<Components::TransformComp>()->GetTransform()->GetPosition().y + 2);
                 }
             }
-        }
-    }*/
+
+        std::cout << m_name << "Collided with " << p_gameObject->m_name << " || "<< colliderOne.GetCollisionVector().x << " / " << colliderOne.GetCollisionVector().y << " / " << colliderOne.GetCollisionVector().z <<"\n";
+        return true;
+    }
+    else
+    {
+        if(GetComponent<Components::RigidBodyComp>() != nullptr)
+            GetComponent<Components::RigidBodyComp>()->SetMinY(-100.0f);
+    }
+    return false;
 }
 
 bool Core::operator==(GameObject& p_1, GameObject& p_2)
