@@ -182,6 +182,7 @@ copy "$(SolutionDir)Dependencies\freetype\bin\$(Platform)\freetype.dll" "$(OutDi
     <ClCompile Include="src\AI\Grid.cpp" />
     <ClCompile Include="src\AI\PathFinding.cpp" />
     <ClCompile Include="src\Components\BoxColliderComp.cpp" />
+    <ClCompile Include="src\Components\EnemyComp.cpp" />
     <ClCompile Include="src\Components\LightComp.cpp" />
     <ClCompile Include="src\Components\MaterialComp.cpp" />
     <ClCompile Include="src\Components\ModelComp.cpp" />
@@ -208,6 +209,7 @@ copy "$(SolutionDir)Dependencies\freetype\bin\$(Platform)\freetype.dll" "$(OutDi
     <ClInclude Include="include\AI\Grid.h" />
     <ClInclude Include="include\AI\PathFinding.h" />
     <ClInclude Include="include\Components\BoxColliderComp.h" />
+    <ClInclude Include="include\Components\EnemyComp.h" />
     <ClInclude Include="include\Components\PlayerComp.h" />
     <ClInclude Include="include\Components\RigidBodyComp.h" />
     <ClInclude Include="include\Core\GameObjectManager.h" />

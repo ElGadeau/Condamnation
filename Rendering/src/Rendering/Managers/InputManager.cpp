@@ -78,12 +78,12 @@ void Rendering::Managers::InputManager::OnKeyReleased(int p_key)
 
 void Rendering::Managers::InputManager::OnMouseButtonPressed(int p_button)
 {
-    m_keyInputList.emplace_back(p_button);
+    m_inputBuffer.insert_or_assign(p_button, KeyState::KeyDown);
 }
 
 void Rendering::Managers::InputManager::OnMouseButtonReleased(int p_button)
 {
-    m_keyInputList.remove(p_button);
+    m_inputBuffer.insert_or_assign(p_button, KeyState::KeyUp);
 }
 
 void Rendering::Managers::InputManager::UpdateCursorPos()

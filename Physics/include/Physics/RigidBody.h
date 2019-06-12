@@ -37,12 +37,12 @@ namespace Physics
 
     private:
         glm::vec3 m_position;
-        float maxX{10};
-        float minX{-10};
-        float maxY{10};
-        float minY{-10};
-        float maxZ{10};
-        float minZ{-10};
+        float maxX{97};
+        float minX{-97};
+        float maxY{40};
+        float minY{0.5f};
+        float maxZ{97};
+        float minZ{-97};
 
     };
 }

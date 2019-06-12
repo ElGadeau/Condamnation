@@ -160,7 +160,8 @@ void GUI::TextUI::RenderText(const std::string&          p_text, GLfloat p_x,
 void GUI::TextUI::RenderUI()
 {
     // RenderText(std::to_string(angle), 25.0f, 25.0f, 1.0f, glm::vec3(0.5, 0.8f, 0.2f));
-    RenderText("THIS IS DOOM", 0.0f, 0.0f, 1.0f, glm::vec3(0.5, 0.8f, 0.2f));
+    RenderText("LIFE : 100", 25.0f, 25.0f, 1.0f, glm::vec3(1.0, 0.2, 0.2));
+    RenderText("AMMO : UNLIMITED", 1175.0f, 25.0f, 1.0f, glm::vec3(1.0, 0.2, 0.2));
     // RenderText(std::to_string(fps), 25.0f, 980.0f, 1.0f, glm::vec3(0.8, 0.1, 0.1));
 
     //crosshair

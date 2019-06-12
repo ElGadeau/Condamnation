@@ -22,7 +22,7 @@
 #include "Components/RigidBodyComp.h"
 #include "Components/ModelComp.h"
 #include "Components/MaterialComp.h"
-
+#include "Rendering/GUI/TextUI.h"
 
 std::vector<Core::GameObject> GenerateLights(std::vector<std::shared_ptr<Core::GameObject>>& m_gameObjectVector)
 {
@@ -48,7 +48,7 @@ int main()
     renderer->SetupCulling();
 
 	Rendering::Managers::InputManager::Init(device->GetWindow());
-    Rendering::Managers::CameraManager m_camera(glm::vec3(20.0f, 10, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f), 0, 0, true);
+    Rendering::Managers::CameraManager m_camera(glm::vec3(20.0f, 0, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f), 0, 0, false);
 
     Core::RenderEngine m_renderEngine;
     Core::MeshManager modelManager;
@@ -56,7 +56,9 @@ int main()
     modelManager.LoadShaders();
         
     Core::GameObjectManager gameobjects(modelManager, m_camera);
-    
+
+    GUI::TextUI GUI(*modelManager.GetShader(2));
+
     std::vector<Core::GameObject> lights;
     lights = GenerateLights(gameobjects.GetGameObjects());
 
@@ -81,8 +83,11 @@ int main()
         m_camera.ProcessMouseInput();
         gameobjects.Find("Gun")->GetComponent<Components::TransformComp>()->GetTransform()->SetTransMat(m_camera.GetCamera()->GetMatrix());
         gameobjects.Update(device->GetDeltaTime());
-                
+
         m_renderEngine.DrawElements(gameobjects.GetGameObjects(), lights, *m_camera.GetCamera(), *renderer);
+
+        GUI.RenderUI();
+
         device->Render();
     }
 

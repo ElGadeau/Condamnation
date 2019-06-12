@@ -5,15 +5,15 @@
 
 namespace Components
 {
-    class EnnemieComp : public Component
+    class EnemyComp : public Component
     {
     public:
-        EnnemieComp(Core::GameObject& p_gameObject, float p_speed = 0,
+        EnemyComp(Core::GameObject& p_gameObject, float p_speed = 0,
                     Core::GameObject* p_target = nullptr) 
         : m_gameObject{ p_gameObject }
         , m_speed{p_speed}, m_target{p_target} {}
 
-        ~EnnemieComp() = default;
+        ~EnemyComp() = default;
 
         void  SetSpeed(float p_speed) { m_speed = p_speed; }
         float GetSpeed() const { return m_speed; }

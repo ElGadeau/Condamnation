@@ -26,7 +26,7 @@ void Components::PlayerComp::ProcessKeyInput(Core::GameObjectManager& p_gameMana
 	{
 		MovePlayer(m_camera->GetRight() * static_cast<float>(p_deltaTime));
 	}
-	if (Rendering::Managers::InputManager::GetInstance()->GetKey(Rendering::Managers::InputManager::KeyCode::Space))
+	if (Rendering::Managers::InputManager::GetInstance()->GetKey(Rendering::Managers::InputManager::KeyCode::Mouse0))
 	{
         if (m_gameObject.GetComponent<RigidBodyComp>() != nullptr)
         {

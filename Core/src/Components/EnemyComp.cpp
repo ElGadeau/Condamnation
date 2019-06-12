@@ -1,7 +1,7 @@
-#include <Components/EnnemieComp.h>
+#include <Components/EnemyComp.h>
 #include "Components/TransformComp.h"
 
-void Components::EnnemieComp::Update()
+void Components::EnemyComp::Update()
 {
     if (m_target != nullptr)
     {
@@ -9,7 +9,7 @@ void Components::EnnemieComp::Update()
     }
 }
 
-void Components::EnnemieComp::MoveToTarget() const
+void Components::EnemyComp::MoveToTarget() const
 {
     glm::vec3 newPos = m_target->GetComponent<TransformComp>()->GetTransform()->
                                  GetPosition();

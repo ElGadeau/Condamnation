@@ -35,7 +35,7 @@ void Core::MeshManager::LoadMeshes()
     AddMesh(R"(..\Resources\Meshes\YoungLink.obj)");
     AddMesh(R"(..\Resources\Meshes\sphere.fbx)");
     AddMesh(R"(..\Resources\Meshes\pistol.obj)");
-    AddMesh(R"(..\Resources\Meshes\plane2.obj)");
+    AddMesh(R"(..\Resources\Meshes\newCube.obj)");
 }
 
 void Core::MeshManager::LoadShaders()
