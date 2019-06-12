@@ -87,7 +87,11 @@ std::shared_ptr<Core::GameObject> Components::PlayerComp::RayCast(Core::GameObje
 
 void Components::PlayerComp::MovePlayer(const glm::vec3& p_direction) const
 {
-	m_gameObject.GetComponent<Components::TransformComp>()->GetTransform()->SetPosition(m_camera->GetPosition() + p_direction * m_camera->GetMovementSpeed());
+    if (m_gameObject.GetComponent<Components::RigidBodyComp>() != nullptr)
+	    m_gameObject.GetComponent<Components::RigidBodyComp>()->GetRigidBody()->SetPosition(m_camera->GetPosition() + p_direction * m_camera->GetMovementSpeed());
+
+	else
+		m_gameObject.GetComponent<Components::TransformComp>()->GetTransform()->SetPosition(m_camera->GetPosition() + p_direction * m_camera->GetMovementSpeed());
 }
 
 void Components::PlayerComp::Serialize(XMLElement* p_compSegment, XMLDocument& p_xmlDoc) const noexcept
