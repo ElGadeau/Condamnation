@@ -2,7 +2,7 @@
 #include <Rendering/GUI/TextUI.h>
 #include <iostream>
 
-GUI::TextUI::TextUI()
+GUI::TextUI::TextUI(Rendering::Shaders::Shader& p_shader) : m_shader(p_shader)
 {
     m_projection = glm::ortho(0.0f, static_cast<GLfloat>(1920), 0.0f,
                               static_cast<GLfloat>(1080));
@@ -105,16 +105,15 @@ void GUI::TextUI::LoadFont()
     glBindVertexArray(0);
 }
 
-void GUI::TextUI::RenderText(Rendering::Shaders::Shader& p_shader,
-                             const std::string&          p_text, GLfloat p_x,
+void GUI::TextUI::RenderText(const std::string&          p_text, GLfloat p_x,
                              GLfloat                     p_y,
                              GLfloat                     p_scale,
                              glm::vec3                   p_color)
 {
-    p_shader.ApplyShader();
-    glUniformMatrix4fv(glGetUniformLocation(p_shader.shaderProgram, "projection"), 1,
+    m_shader.ApplyShader();
+    glUniformMatrix4fv(glGetUniformLocation(m_shader.shaderProgram, "projection"), 1,
                        GL_FALSE, glm::value_ptr(m_projection));
-    glUniform3f(glGetUniformLocation(p_shader.shaderProgram, "textColor"), p_color.x,
+    glUniform3f(glGetUniformLocation(m_shader.shaderProgram, "textColor"), p_color.x,
                 p_color.y, p_color.z);
     glActiveTexture(GL_TEXTURE0);
     glBindVertexArray(m_VAO);
@@ -156,4 +155,14 @@ void GUI::TextUI::RenderText(Rendering::Shaders::Shader& p_shader,
     }
     glBindVertexArray(0);
     glBindTexture(GL_TEXTURE_2D, 0);
+}
+
+void GUI::TextUI::RenderUI()
+{
+    // RenderText(std::to_string(angle), 25.0f, 25.0f, 1.0f, glm::vec3(0.5, 0.8f, 0.2f));
+    RenderText("THIS IS DOOM", 0.0f, 0.0f, 1.0f, glm::vec3(0.5, 0.8f, 0.2f));
+    // RenderText(std::to_string(fps), 25.0f, 980.0f, 1.0f, glm::vec3(0.8, 0.1, 0.1));
+
+    //crosshair
+    RenderText(".", 960.0f, 500.0f, 1.0f, glm::vec3(1.0, 1., 1.0));
 }

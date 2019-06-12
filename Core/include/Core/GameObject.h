@@ -29,7 +29,9 @@ namespace Core
 		const std::string& GetName() const noexcept { return m_name; }
 		std::shared_ptr<GameObject> GetParent() const noexcept { return m_parent; }
 		std::shared_ptr<GameObject> GetChild() const noexcept { return m_child; }
+		const std::string& GetTag() const noexcept { return m_tag; }
 
+		void SetTag(const std::string& p_tag) { m_tag = p_tag; }
         template<class ComponentType, typename ... args>
         ComponentType* AddComponent(args ... p_args)
         {
@@ -78,6 +80,7 @@ namespace Core
     private:
         float degree{0.0f};
         std::string m_name{};
+		std::string m_tag{};
 		std::shared_ptr<GameObject> m_parent = nullptr;
 		std::shared_ptr<GameObject> m_child = nullptr;
         std::vector<std::shared_ptr<Components::Component>> m_components{};

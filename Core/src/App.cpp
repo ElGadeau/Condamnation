@@ -19,6 +19,9 @@
 #include <Utils/Ray.h>
 #include <Components/TransformComp.h>
 #include <Rendering/Resources/Texture.h>
+#include "Components/RigidBodyComp.h"
+#include "Components/ModelComp.h"
+#include "Components/MaterialComp.h"
 
 
 std::vector<Core::GameObject> GenerateLights(std::vector<std::shared_ptr<Core::GameObject>>& m_gameObjectVector)
@@ -58,13 +61,23 @@ int main()
     lights = GenerateLights(gameobjects.GetGameObjects());
 
 	Core::GameObject player("Player");
+	Core::GameObject tmp(modelManager.GetMesh(1), modelManager.GetShader(0), "tmp");
+	tmp.GetComponent<Components::TransformComp>()->GetTransform()->Translate({ -70, 5, 0 });
+	tmp.GetComponent<Components::TransformComp>()->GetTransform()->Scale({ 2, 5, 2 });
+
+	player.GetComponent<Components::TransformComp>()->GetTransform()->Translate({ -70, 5, 0 });
+	player.AddComponent<Components::RigidBodyComp>(&gameobjects);
+	player.AddComponent<Components::BoxColliderComp>()->SetCollider(tmp.GetComponent<Components::ModelComp>()->GetModel()->GetMesh()->m_positions);
 	player.AddComponent<Components::PlayerComp>(m_camera.GetCamera(), 100);
+
 	gameobjects.AddGameObject(player);
 
     float angle = 0;
 	Rendering::Managers::InputManager* inputManager = &*Rendering::Managers::InputManager::GetInstance();
+
     while (!device->ShouldClose())
     {
+        renderer->Clear();  
         device->CalculateDeltaTime();
         device->RefreshEvents();
 		//Utils::RayCast(gameobjects.Find("Player"), m_camera.GetCamera()->GetFront(), gameobjects);
@@ -80,7 +93,6 @@ int main()
         m_camera.ProcessMouseInput();
         gameobjects.Find("Gun")->GetComponent<Components::TransformComp>()->GetTransform()->SetTransMat(m_camera.GetCamera()->GetMatrix());
 		player.GetComponent<Components::PlayerComp>()->ProcessKeyInput(gameobjects, device->GetDeltaTime());
-        renderer->Clear();  
         gameobjects.Update(device->GetDeltaTime());
                 
         m_renderEngine.DrawElements(gameobjects.GetGameObjects(), lights, *m_camera.GetCamera(), *renderer);
