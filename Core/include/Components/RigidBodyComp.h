@@ -22,36 +22,61 @@ namespace Components
 
         void Update() override
         {
-            for (auto& gameObject: m_gameObjectManager->GetGameObjects())
+            /*for (auto& gameObject: m_gameObjectManager->GetGameObjects())
             {
 				if (glm::distance(gameObject->GetComponent<TransformComp>()->GetTransform()->GetPosition(),
 					m_gameObject.GetComponent<TransformComp>()->GetTransform()->GetPosition()) > 100
+                    m_gameObject.GetComponent<Components::RigidBodyComp>() == nullptr
 					|| m_gameObject == *gameObject
 					|| m_isKinematic == true)
 					continue;
 
-                m_gameObject.CollidesWith(gameObject);
-            }
-
-           /* if (m_isColliding)
-            {
-                m_rigidbody->SetPosition(m_rigidbody->GetPosition() - m_velocity * 0.01f);
             }*/
+
+           // m_gameObject.CollidesWith(m_gameObjectManager->Find("Ceiling"));
             if (!m_isKinematic)
             {
                 AddForce({0, -0.01f, 0});
                 m_velocity += m_force;
-                //std::cout << minY << " / " << m_rigidbody->GetPosition().y << "\n";
-                if (m_rigidbody->GetPosition().y < minY)
+
+                if (m_rigidbody->GetPosition().x < m_rigidbody->GetMinX())
+                {
+                    m_velocity.x = 0;
+                    m_rigidbody->SetPosition({ m_rigidbody->GetMinX(),  m_rigidbody->GetPosition().y, m_rigidbody->GetPosition().z });
+                }
+                if (m_rigidbody->GetPosition().x > m_rigidbody->GetMaxX())
+                {
+                    m_velocity.x = 0;
+                    m_rigidbody->SetPosition({ m_rigidbody->GetMaxX(),  m_rigidbody->GetPosition().y, m_rigidbody->GetPosition().z });
+                }
+
+                if (m_rigidbody->GetPosition().y < m_rigidbody->GetMinY())
                 {
                     m_velocity.y = 0;
-                    m_rigidbody->SetPosition({ m_rigidbody->GetPosition().x, m_rigidbody->GetPosition().y, m_rigidbody->GetPosition().z });
+                    m_rigidbody->SetPosition({ m_rigidbody->GetPosition().x, m_rigidbody->GetMinY(), m_rigidbody->GetPosition().z });
+                }
+                if (m_rigidbody->GetPosition().y > m_rigidbody->GetMaxY())
+                {
+                    m_velocity.y = 0;
+                    m_rigidbody->SetPosition({ m_rigidbody->GetPosition().x, m_rigidbody->GetMaxY(), m_rigidbody->GetPosition().z });
+                }
+
+                if (m_rigidbody->GetPosition().z < m_rigidbody->GetMinZ())
+                {
+                    m_velocity.z = 0;
+                    m_rigidbody->SetPosition({ m_rigidbody->GetPosition().x, m_rigidbody->GetPosition().y, m_rigidbody->GetMinZ() });
+                }
+                if (m_rigidbody->GetPosition().z > m_rigidbody->GetMaxZ())
+                {
+                    m_velocity.z = 0;
+                    m_rigidbody->SetPosition({ m_rigidbody->GetPosition().x, m_rigidbody->GetPosition().y, m_rigidbody->GetMaxZ() });
                 }
 
                 m_rigidbody->SetPosition(m_rigidbody->GetPosition() + m_velocity);
             }
             m_gameObject.GetComponent<Components::TransformComp>()->GetTransform()->SetPosition(m_rigidbody->GetPosition());
         }
+
 
         void Serialize(XMLElement* p_compSegment, XMLDocument& p_xmlDoc) const noexcept override;
         void Deserialize(XMLElement* p_compSegment) const noexcept override;
@@ -67,17 +92,12 @@ namespace Components
         void ResetVelocity() { m_velocity = glm::vec3(0, 0, 0); }
 
         std::unique_ptr<Physics::RigidBody>& GetRigidBody() { return m_rigidbody; }
-
-        void SetMinY(const float& value) { minY = value; }
-
     private:
         bool m_isKinematic{ false };
         bool m_isColliding{ false };
 
         glm::vec3 m_velocity{};
 		glm::vec3 m_force{};
-
-        float minY{ 0 };
 
         Core::GameObject& m_gameObject;
         Core::GameObjectManager* m_gameObjectManager;

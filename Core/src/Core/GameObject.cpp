@@ -133,21 +133,20 @@ bool Core::GameObject::CollidesWith(const std::shared_ptr<Core::GameObject>& p_g
 
     if(isOverlapping)
     {
-            if (p_gameObject->GetName() == "Floor")
+            /*if (p_gameObject->GetName() == "CeiLing")
             {
                 if (GetComponent<Components::RigidBodyComp>() != nullptr)
                 {
-                    GetComponent<Components::RigidBodyComp>()->SetMinY(p_gameObject->GetComponent<Components::TransformComp>()->GetTransform()->GetPosition().y + 2);
+                    GetComponent<Components::RigidBodyComp>()->GetRigidBody()->SetMinY(p_gameObject->GetComponent<Components::TransformComp>()->GetTransform()->GetPosition().y + 2);
                 }
-            }
-
+            }*/
         std::cout << m_name <<  " Collided with " << p_gameObject->m_name << "\n";
         return true;
     }
     else
     {
-        if(GetComponent<Components::RigidBodyComp>() != nullptr)
-            GetComponent<Components::RigidBodyComp>()->SetMinY(-100.0f);
+        /*if (GetComponent<Components::RigidBodyComp>() != nullptr)
+            GetComponent<Components::RigidBodyComp>()->GetRigidBody()->SetMinY(-100.0f);*/
         return false;
     }
 }

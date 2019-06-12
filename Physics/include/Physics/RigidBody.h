@@ -19,8 +19,30 @@ namespace Physics
 
 		void SetPosition(const glm::vec3& p_pos);
 
+        void SetMaxX(const float value) { maxX = value; }
+        void SetMaxY(const float value) { maxY = value; }
+        void SetMaxZ(const float value) { maxZ = value; }
+
+        void SetMinX(const float value) { minX = value; }
+        void SetMinY(const float value) { minY = value; }
+        void SetMinZ(const float value) { minZ = value; }
+
+        float& GetMaxX() { return maxX; }
+        float& GetMaxY() { return maxY; }
+        float& GetMaxZ() { return maxZ; }
+
+        float& GetMinX() { return minX; }
+        float& GetMinY() { return minY; }
+        float& GetMinZ() { return minZ; }
+
     private:
         glm::vec3 m_position;
+        float maxX{10};
+        float minX{-10};
+        float maxY{10};
+        float minY{-10};
+        float maxZ{10};
+        float minZ{-10};
 
     };
 }
