@@ -22,8 +22,6 @@ namespace Components
 
         void Update() override
         {
-            m_isColliding = false;
-
             for (auto& gameObject: m_gameObjectManager->GetGameObjects())
             {
 				if (glm::distance(gameObject->GetComponent<TransformComp>()->GetTransform()->GetPosition(),
@@ -32,12 +30,7 @@ namespace Components
 					|| m_isKinematic == true)
 					continue;
 
-				gameObject->GetComponent<RigidBodyComp>()->AddForce({ 0, -4, 0 });
-
-                if (m_gameObject.CollidesWith(gameObject))
-                {
-                    m_isColliding = true;
-                }
+                m_gameObject.CollidesWith(gameObject);
             }
 
            /* if (m_isColliding)
@@ -46,9 +39,14 @@ namespace Components
             }*/
             if (!m_isKinematic)
             {
+                AddForce({0, -0.01f, 0});
                 m_velocity += m_force;
+                //std::cout << minY << " / " << m_rigidbody->GetPosition().y << "\n";
                 if (m_rigidbody->GetPosition().y < minY)
+                {
                     m_velocity.y = 0;
+                    m_rigidbody->SetPosition({ m_rigidbody->GetPosition().x, m_rigidbody->GetPosition().y, m_rigidbody->GetPosition().z });
+                }
 
                 m_rigidbody->SetPosition(m_rigidbody->GetPosition() + m_velocity);
             }

@@ -141,15 +141,15 @@ bool Core::GameObject::CollidesWith(const std::shared_ptr<Core::GameObject>& p_g
                 }
             }
 
-        std::cout << m_name << "Collided with " << p_gameObject->m_name << " || "<< colliderOne.GetCollisionVector().x << " / " << colliderOne.GetCollisionVector().y << " / " << colliderOne.GetCollisionVector().z <<"\n";
+        std::cout << m_name <<  " Collided with " << p_gameObject->m_name << "\n";
         return true;
     }
     else
     {
         if(GetComponent<Components::RigidBodyComp>() != nullptr)
             GetComponent<Components::RigidBodyComp>()->SetMinY(-100.0f);
+        return false;
     }
-    return false;
 }
 
 bool Core::operator==(GameObject& p_1, GameObject& p_2)

@@ -2,14 +2,14 @@
 
 #include <Core/GameObject.h>
 #include <Core/MeshManager.h>
-
+#include <Rendering/Managers/CameraManager.h>
 namespace Core
 {
     class GameObjectManager
     {
     public:
         GameObjectManager() = default;
-        GameObjectManager(MeshManager& p_modelManager);
+        GameObjectManager(MeshManager& p_modelManager, Rendering::Managers::CameraManager& p_camera);
         ~GameObjectManager() = default;
 
         void Update(const float& p_deltaTime);
