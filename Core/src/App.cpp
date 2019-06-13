@@ -1,28 +1,24 @@
 #include <memory>
+#include <time.h>
 
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
-#include <time.h>
 #include <Rendering/Context/OpenGL/GLFWDevice.h>
 #include <Rendering/Context/OpenGL/GLEWDriver.h>
 #include <Rendering/Managers/Renderer.h>
 #include <Rendering/Managers/InputManager.h>
 #include <Rendering/Managers/CameraManager.h>
+#include <Rendering/GUI/TextUI.h>
 
 #include <Core/GameObject.h>
 #include <Core/GameObjectManager.h>
 #include <Core/MeshManager.h>
 #include <Core/RenderEngine.h>
+
 #include <Components/LightComp.h>
-#include <Components/BoxColliderComp.h>
-#include "Components/PlayerComp.h"
-#include <Utils/Ray.h>
 #include <Components/TransformComp.h>
-#include <Rendering/Resources/Texture.h>
-#include "Components/RigidBodyComp.h"
-#include "Components/ModelComp.h"
-#include "Components/MaterialComp.h"
-#include "Rendering/GUI/TextUI.h"
+#include <Components/RigidBodyComp.h>
+#include <Components/ModelComp.h>
 
 std::vector<Core::GameObject> GenerateLights(std::vector<std::shared_ptr<Core::GameObject>>& m_gameObjectVector)
 {
@@ -82,7 +78,7 @@ int main()
         m_camera.ProcessKeyInput(device->GetDeltaTime());
         m_camera.ProcessMouseInput();
         gameobjects.Find("Gun")->GetComponent<Components::TransformComp>()->GetTransform()->SetTransMat(m_camera.GetCamera()->GetMatrix());
-        gameobjects.Update(device->GetDeltaTime());
+        gameobjects.Update(device->GetDeltaTime(), m_camera);
 
         m_renderEngine.DrawElements(gameobjects.GetGameObjects(), lights, *m_camera.GetCamera(), *renderer);
 

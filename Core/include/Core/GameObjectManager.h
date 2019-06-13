@@ -12,7 +12,7 @@ namespace Core
         GameObjectManager(MeshManager& p_modelManager, Rendering::Managers::CameraManager& p_camera);
         ~GameObjectManager() = default;
 
-        void Update(const float& p_deltaTime);
+        void Update(const float& p_deltaTime, Rendering::Managers::CameraManager& p_camera);
 
         template<typename T>
         static unsigned int FindInstanceIteratorInVector(const T& p_object, const std::vector<T>& p_vector)

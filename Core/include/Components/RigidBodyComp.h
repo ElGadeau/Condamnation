@@ -24,7 +24,7 @@ namespace Components
         {
             if (!m_isKinematic)
             {
-                AddForce({0, -0.01f, 0});
+                AddForce({0, -10.0f, 0});
                 m_velocity += m_force;
 
                 if (m_rigidbody->GetPosition().x < m_rigidbody->GetMinX())
@@ -63,6 +63,7 @@ namespace Components
                 m_rigidbody->SetPosition(m_rigidbody->GetPosition() + m_velocity);
             }
             m_gameObject.GetComponent<Components::TransformComp>()->GetTransform()->SetPosition(m_rigidbody->GetPosition());
+            m_force = { 0, 0, 0 };
         }
 
 

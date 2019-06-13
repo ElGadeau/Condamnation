@@ -7,19 +7,38 @@
 #include <Components/BoxColliderComp.h>
 #include <Components/RigidBodyComp.h>
 #include <Components/ModelComp.h>
+#include <Rendering/Managers/InputManager.h>
 
 #include <unordered_map>
 #include "Components/PlayerComp.h"
+
+static int phase = 0;
 
 Core::GameObjectManager::GameObjectManager(MeshManager& p_modelManager, Rendering::Managers::CameraManager& p_camera)
 {
     LoadScene(p_modelManager, "DOOM");
 
     Find("Player")->AddComponent<Components::PlayerComp>(p_camera.GetCamera(), 100);
+
 }
 
-void Core::GameObjectManager::Update(const float& p_deltaTime)
+void Core::GameObjectManager::Update(const float& p_deltaTime, Rendering::Managers::CameraManager& p_camera)
 {
+    phase += 1;
+    float frequency = 0.02f;
+    if (Rendering::Managers::InputManager::GetInstance()->GetKeyDown(Rendering::Managers::InputManager::KeyCode::Mouse1))
+    {
+        if(Find("Link") != nullptr )
+        Find("Link")->GetComponent<Components::RigidBodyComp>()->AddForce({ p_camera.GetCamera()->GetFront().x * 100, p_camera.GetCamera()->GetFront().y * 100 , p_camera.GetCamera()->GetFront().z * 100 });
+        if(Find("Link2") != nullptr)
+        Find("Link2")->GetComponent<Components::RigidBodyComp>()->AddForce({ p_camera.GetCamera()->GetFront().x * 100, p_camera.GetCamera()->GetFront().y * 100 , p_camera.GetCamera()->GetFront().z * 100 });
+    }
+
+    Find("Torch1")->GetComponent<Components::LightComp>()->GetLight()->SetColor(sin(frequency * phase), sin(frequency * phase + 2), sin(frequency * phase + 4));
+    Find("Torch2")->GetComponent<Components::LightComp>()->GetLight()->SetColor(sin(frequency * phase + 2), sin(frequency * phase + 4), sin(frequency * phase + 6));
+    Find("Torch3")->GetComponent<Components::LightComp>()->GetLight()->SetColor(sin(frequency * phase + 4), sin(frequency * phase + 6), sin(frequency * phase + 8));
+    Find("Torch4")->GetComponent<Components::LightComp>()->GetLight()->SetColor(sin(frequency * phase + 6), sin(frequency * phase + 8), sin(frequency * phase + 10));
+    
     if (Find("Player") != nullptr)
         Find("Player")->GetComponent<Components::PlayerComp>()->ProcessKeyInput(*this, p_deltaTime);
 
