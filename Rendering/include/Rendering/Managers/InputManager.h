@@ -24,8 +24,6 @@ namespace Rendering::Managers
         bool GetKeyUp(const KeyCode& p_keyCode);
         bool GetKey(const KeyCode& p_keyCode);
 
-        // bool GetMouseButtonDown(const K)
-
         void UpdateCursorPos();
 
 		const std::tuple<double, double>& GetMouseCursorPos() const noexcept { return m_mouseCursorPos; }

@@ -30,7 +30,6 @@ void Rendering::Managers::Renderer::Draw(const Resources::Mesh& m_mesh) const no
 
     if (m_mesh.GetIndicesCount() > 0)
     {
-        //std::cout << p_mesh.GetIndicesCount() << std::endl;
         glDrawElements(GL_TRIANGLES, m_mesh.GetIndicesCount(), GL_UNSIGNED_INT, nullptr);
     }
     else

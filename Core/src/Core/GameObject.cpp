@@ -90,7 +90,6 @@ bool Core::GameObject::CollidesWith(const std::shared_ptr<Core::GameObject>& p_g
 {
     if (GetComponent<Components::BoxColliderComp>() == nullptr || p_gameObject->GetComponent<Components::BoxColliderComp>() == nullptr)
     {
-        //puts("Collider not found on one of the GameObjects !");
         return false;
     }
 
@@ -133,20 +132,11 @@ bool Core::GameObject::CollidesWith(const std::shared_ptr<Core::GameObject>& p_g
 
     if(isOverlapping)
     {
-            /*if (p_gameObject->GetName() == "CeiLing")
-            {
-                if (GetComponent<Components::RigidBodyComp>() != nullptr)
-                {
-                    GetComponent<Components::RigidBodyComp>()->GetRigidBody()->SetMinY(p_gameObject->GetComponent<Components::TransformComp>()->GetTransform()->GetPosition().y + 2);
-                }
-            }*/
         std::cout << m_name <<  " Collided with " << p_gameObject->m_name << "\n";
         return true;
     }
     else
     {
-        /*if (GetComponent<Components::RigidBodyComp>() != nullptr)
-            GetComponent<Components::RigidBodyComp>()->GetRigidBody()->SetMinY(-100.0f);*/
         return false;
     }
 }

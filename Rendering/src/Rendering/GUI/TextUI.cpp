@@ -51,27 +51,10 @@ void GUI::TextUI::LoadFont()
                      face->glyph->bitmap.buffer
                     );
 
-        //set texture options
-        // glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
-        // glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
-        // glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-        // glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-
-        //now store the texture for later use
-        // Character character = {
-        // texture,
-        // glm::ivec2(m_face->glyph->bitmap.width, m_face->glyph->bitmap.rows),
-        // glm::ivec2(m_face->glyph->bitmap_left, m_face->glyph->bitmap_top),
-        // m_face->glyph->advance.x
-        // };
-        //
-        // Characters.insert(std::pair<GLchar, Character>(c, character));
-
         Character character = {
         texture,
         glm::ivec2(face->glyph->bitmap.width, face->glyph->bitmap.rows),
@@ -83,16 +66,6 @@ void GUI::TextUI::LoadFont()
 
     FT_Done_Face(face);
     FT_Done_FreeType(ft);
-
-    // glGenVertexArrays(1, &m_VAO);
-    // glGenBuffers(1, &m_VBO);
-    // glBindVertexArray(m_VAO);
-    // glBindBuffer(GL_ARRAY_BUFFER, m_VBO);
-    // glBufferData(GL_ARRAY_BUFFER, sizeof(GLfloat) * 6 * 4, NULL, GL_DYNAMIC_DRAW);
-    // glEnableVertexAttribArray(0);
-    // glVertexAttribPointer(0, 4, GL_FLOAT, GL_FALSE, 4 * sizeof(GLfloat), 0);
-    // glBindBuffer(GL_ARRAY_BUFFER, 0);
-    // glBindVertexArray(0);
 
     glGenVertexArrays(1, &m_VAO);
     glGenBuffers(1, &m_VBO);
@@ -159,10 +132,8 @@ void GUI::TextUI::RenderText(const std::string&          p_text, GLfloat p_x,
 
 void GUI::TextUI::RenderUI()
 {
-    // RenderText(std::to_string(angle), 25.0f, 25.0f, 1.0f, glm::vec3(0.5, 0.8f, 0.2f));
     RenderText("LIFE : 100", 25.0f, 25.0f, 1.0f, glm::vec3(1.0, 0.2, 0.2));
     RenderText("AMMO : UNLIMITED", 1175.0f, 25.0f, 1.0f, glm::vec3(1.0, 0.2, 0.2));
-    // RenderText(std::to_string(fps), 25.0f, 980.0f, 1.0f, glm::vec3(0.8, 0.1, 0.1));
 
     //crosshair
     RenderText(".", 960.0f, 500.0f, 1.0f, glm::vec3(1.0, 1., 1.0));

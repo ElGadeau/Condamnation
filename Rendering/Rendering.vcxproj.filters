@@ -17,7 +17,6 @@
     <ClCompile Include="src\Rendering\Resources\Loaders\MeshLoader.cpp" />
     <ClCompile Include="src\Rendering\Resources\Mesh.cpp" />
     <ClCompile Include="src\stdafx.cpp" />
-    <ClCompile Include="src\Rendering\Test.cpp" />
     <ClCompile Include="src\Rendering\Managers\CameraManager.cpp" />
     <ClCompile Include="src\Rendering\LowRenderer\Light.cpp" />
     <ClCompile Include="src\Rendering\GUI\TextUI.cpp" />

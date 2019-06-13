@@ -66,7 +66,6 @@ int main()
         renderer->Clear();  
         device->CalculateDeltaTime();
         device->RefreshEvents();
-		//Utils::RayCast(gameobjects.Find("Player"), m_camera.GetCamera()->GetFront(), gameobjects);
         angle += 0.005f;
         if (inputManager->GetKeyDown(Rendering::Managers::InputManager::KeyCode::R))
             modelManager.ReloadShader(gameobjects.GetGameObjects());

@@ -178,9 +178,6 @@ copy "$(SolutionDir)Dependencies\freetype\bin\$(Platform)\freetype.dll" "$(OutDi
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="src\AI\Dots.cpp" />
-    <ClCompile Include="src\AI\Grid.cpp" />
-    <ClCompile Include="src\AI\PathFinding.cpp" />
     <ClCompile Include="src\Components\BoxColliderComp.cpp" />
     <ClCompile Include="src\Components\EnemyComp.cpp" />
     <ClCompile Include="src\Components\LightComp.cpp" />
@@ -205,9 +202,6 @@ copy "$(SolutionDir)Dependencies\freetype\bin\$(Platform)\freetype.dll" "$(OutDi
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="include\AI\Dots.h" />
-    <ClInclude Include="include\AI\Grid.h" />
-    <ClInclude Include="include\AI\PathFinding.h" />
     <ClInclude Include="include\Components\BoxColliderComp.h" />
     <ClInclude Include="include\Components\EnemyComp.h" />
     <ClInclude Include="include\Components\PlayerComp.h" />

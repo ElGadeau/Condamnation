@@ -16,8 +16,6 @@ std::shared_ptr<Core::GameObject> Utils::RayCast(std::shared_ptr<Core::GameObjec
 		for (auto& gameObject : p_gameManager.GetGameObjects())
 		{
 			if (gameObject == p_origin ||
-				//glm::distance(gameObject->GetComponent<Components::TransformComp>()->GetTransform()->GetPosition(),
-				//p_origin->GetComponent<Components::TransformComp>()->GetTransform()->GetPosition()) > p_maxDistance ||
 				gameObject->GetComponent<Components::TransformComp>() == nullptr ||
 				gameObject->GetComponent<Components::ModelComp>() == nullptr ||
 				gameObject->GetComponent<Components::BoxColliderComp>() == nullptr ||
